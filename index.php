@@ -26,7 +26,7 @@ $lastUpdate = "22-03-17-1607"; // when changing this, you should also update sw.
 <div class="page" id="pageCamera">
     <canvas id="cameraSensor"></canvas>
     <video id="cameraViewfinder" autoplay playsinline></video>
-    <img src="//:0" alt="" id="cameraOutput">
+    <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
     <button id="cameraTrigger">Take a picture</button>
 </div>
 <div class="page" style="background: lightskyblue;">
