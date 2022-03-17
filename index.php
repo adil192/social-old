@@ -23,8 +23,11 @@ $lastUpdate = "22-03-17-1543"; // when changing this, you should also update sw.
 <div class="page" style="background: red;">
 
 </div>
-<div class="page" style="background: green;">
-
+<div class="page" id="pageCamera">
+    <canvas id="cameraSensor"></canvas>
+    <video id="cameraViewfinder" autoplay playsinline></video>
+    <img src="//:0" alt="" id="cameraOutput">
+    <button id="cameraTrigger">Take a picture</button>
 </div>
 <div class="page" style="background: lightskyblue;">
 
@@ -32,6 +35,7 @@ $lastUpdate = "22-03-17-1543"; // when changing this, you should also update sw.
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="assets/scripts/main.js?lastUpdate=<?=$lastUpdate?>"></script>
 
 </body>
 </html>
