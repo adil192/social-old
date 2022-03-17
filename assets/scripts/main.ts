@@ -15,5 +15,15 @@ window.addEventListener("load", function() {
 
 	if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
 		console.log("Let's get this party started")
+		startCamera();
+	} else {
+		return; // todo: show camera error message
 	}
 });
+
+async function startCamera() {
+	let mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+	//let track = mediaStream.getTracks()[0];
+	cameraViewfinder.srcObject = mediaStream;
+}
