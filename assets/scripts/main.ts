@@ -19,6 +19,8 @@ window.addEventListener("load", function() {
 	} else {
 		return; // todo: show camera error message
 	}
+
+	cameraTrigger.onclick = takePicture;
 });
 
 async function startCamera() {
@@ -27,3 +29,12 @@ async function startCamera() {
 	//let track = mediaStream.getTracks()[0];
 	cameraViewfinder.srcObject = mediaStream;
 }
+
+function takePicture() {
+	cameraSensor.width = cameraViewfinder.videoWidth;
+	cameraSensor.height = cameraViewfinder.videoHeight;
+	cameraSensor.getContext("2d").drawImage(cameraViewfinder, 0, 0);
+	cameraOutput.src = cameraSensor.toDataURL("image/webp");
+	cameraOutput.classList.add("show");
+}
+

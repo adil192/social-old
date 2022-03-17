@@ -26,6 +26,13 @@ body {
 		top: 0;
 		left: 0;
 		object-fit: cover;
+		opacity: 0;
+	}
+	#cameraViewfinder {
+		opacity: 1;
+	}
+	#cameraOutput.show {
+		opacity: 1;
 	}
 	#cameraTrigger {
 		position: absolute;
