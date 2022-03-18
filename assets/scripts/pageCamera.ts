@@ -1,15 +1,5 @@
 let constraints: MediaStreamConstraints = {
 	video: {
-		width: {
-			min: 500,
-			ideal: 1080,
-			max: 2000
-		},
-		height: {
-			min: 500,
-			ideal: 2400,
-			max: 4000
-		},
 		facingMode: "user"
 	},
 	audio: false
