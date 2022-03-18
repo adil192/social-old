@@ -43,10 +43,6 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 		bodyScrolledTimeout = setTimeout(function () {
 			currentPageId = entry.target.id;
 			if (currentPageId == pageCamera.id) {
-				while (!isOnCameraPage()) {
-					// remove previous page from history so the back button stays on camera next time
-					history.back();
-				}
 				location.replace("#" + currentPageId);
 			} else {
 				if (isOnCameraPage()) {
