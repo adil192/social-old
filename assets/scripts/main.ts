@@ -20,8 +20,9 @@ let cameraViewfinder: HTMLVideoElement,
 	cameraOutput: HTMLImageElement,
 	cameraSensor: HTMLCanvasElement,
 	cameraTrigger: HTMLButtonElement;
+let stream: MediaStream;
 
-window.addEventListener("load", function() {
+window.addEventListener("load", async function() {
 	pageCamera = document.querySelector("#pageCamera");
 	cameraViewfinder = pageCamera.querySelector("#cameraViewfinder");
 	cameraOutput = pageCamera.querySelector("#cameraOutput");
@@ -30,7 +31,7 @@ window.addEventListener("load", function() {
 
 	if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
 		console.log("Let's get this party started")
-		startCamera();
+		await setCameraPaused(false);
 	} else {
 		return; // todo: show camera error message
 	}
@@ -38,18 +39,23 @@ window.addEventListener("load", function() {
 	cameraTrigger.onclick = takePicture;
 });
 
-async function startCamera() {
-	let mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
-
-	//let track = mediaStream.getTracks()[0];
-	cameraViewfinder.srcObject = mediaStream;
+async function setCameraPaused(pause: boolean) {
+	if (pause) {
+		stream.getTracks().forEach(function(track) {
+			track.stop();
+		});
+	} else {
+		stream = await navigator.mediaDevices.getUserMedia(constraints);
+		cameraViewfinder.srcObject = stream;
+	}
 }
 
-function takePicture() {
+async function takePicture() {
 	cameraSensor.width = cameraViewfinder.videoWidth;
 	cameraSensor.height = cameraViewfinder.videoHeight;
 	cameraSensor.getContext("2d").drawImage(cameraViewfinder, 0, 0);
 	cameraOutput.src = cameraSensor.toDataURL("image/webp");
 	cameraOutput.classList.add("show");
+	await setCameraPaused(true);
 }
 
