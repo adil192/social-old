@@ -49,6 +49,7 @@ async function setCameraPaused(pause: boolean) {
 		cameraViewfinder.srcObject = stream;
 	}
 }
+window.setCameraPaused = setCameraPaused;
 
 async function takePicture() {
 	cameraSensor.width = cameraViewfinder.videoWidth;

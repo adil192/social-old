@@ -44,12 +44,14 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 			currentPageId = entry.target.id;
 			if (currentPageId == pageCamera.id) {
 				location.replace("#" + currentPageId);
+				setCameraPaused(false);
 			} else {
 				if (isOnCameraPage()) {
 					location.hash = currentPageId; // add new hash to history
 				} else {
 					location.replace("#" + currentPageId); // don't add to history, just replace
 				}
+				setCameraPaused(true);
 			}
 		}, 100);
 	});
