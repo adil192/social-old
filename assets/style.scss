@@ -8,6 +8,7 @@ body {
 	display: flex;
 	flex-flow: row nowrap;
 	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
 }
 .page {
 	width: 100%;

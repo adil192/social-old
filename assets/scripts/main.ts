@@ -27,15 +27,35 @@ window.addEventListener("load", function() {
 });
 
 let bodyScrolledTimeout = null;
+let currentPageId: string = "pageCamera";
 let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThreshold) return;
 
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
-			if (location.hash != "#" + entry.target.id) {
-				location.hash = entry.target.id;
+			currentPageId = entry.target.id;
+			if (entry.target == pageCamera) {
+				window.location.replace("#");
+			} else {
+				if (location.hash.length <= 1) {
+					location.hash = currentPageId;
+				} else {
+					window.location.replace("#" + currentPageId);
+				}
 			}
 		}, 100);
 	});
 };
+
+window.onhashchange = function () {
+	let page: HTMLDivElement;
+	if (location.hash.length <= 1) {
+		page = pageCamera;
+	} else if (location.hash != "#" + currentPageId) {
+		page = document.querySelector(location.hash);
+	} else return;
+	page.scrollIntoView({
+		behavior: "smooth"
+	});
+}
