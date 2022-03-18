@@ -5,7 +5,7 @@ const assets = [
 	'/SocialMediaDemo/',
 	'/SocialMediaDemo/index.php',
 	'/SocialMediaDemo/manifest.webmanifest',
-	'/SocialMediaDemo/assets/style.scss',
+	'/SocialMediaDemo/assets/css/style.css',
 	'/SocialMediaDemo/assets/scripts/main.js',
 	'/SocialMediaDemo/assets/scripts/pageCamera.js',
 	'/SocialMediaDemo/assets/images/transparent.webp',
