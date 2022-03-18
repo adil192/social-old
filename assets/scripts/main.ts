@@ -11,6 +11,13 @@ let pageFeed: HTMLDivElement,
 
 
 window.addEventListener("load", function() {
+	// set up PWA service worker
+	if('serviceWorker' in navigator){
+		navigator.serviceWorker.register("sw.js")
+			.then(reg => console.log('service worker registered:', reg))
+			.catch(err => console.log('service worker not registered', err));
+	}
+
 	body = document.querySelector("body");
 
 	pageFeed = document.querySelector("#pageFeed");

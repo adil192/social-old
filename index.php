@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-18-1821"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-18-1848"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,6 +17,11 @@ $lastUpdate = "22-03-18-1821"; // when changing this, you should also update sw.
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="assets/style.css?lastUpdate=<?=$lastUpdate?>" rel="stylesheet">
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/maskable_icon_x192.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#557788">
+    <meta name="theme-color" content="#557788">
 </head>
 <body>
 

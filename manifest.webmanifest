@@ -1,0 +1,37 @@
+{
+  "name": "SocialMediaDemo - Adil Hanney",
+  "short_name": "SocialMediaDemo",
+  "description": "A demo layout for a hypothetical social media, made to try out recreating a native-like app on the web.",
+  "theme_color": "#557788",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "https://adil.hanney.org/SocialMediaDemo/",
+  "start_url": "https://adil.hanney.org/SocialMediaDemo/",
+  "icons": [
+    {
+      "src": "/maskable_icon_x128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/maskable_icon_x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/maskable_icon_x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon_maskable.svg",
+      "type": "image/svg+xml",
+      "sizes": "513x513",
+      "purpose": "any maskable"
+    }
+  ]
+}
