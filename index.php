@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-18-0910"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-18-1821"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,9 +36,10 @@ messages
 
 <script>
     // set default page
-    if (location.hash.length <= 1) {
-        document.getElementById("pageCamera").scrollIntoView();
+    if (location.hash.length > 1) {
+        location.replace("#"); // we need to have pageCamera in the history so we can go back to it later, remove existing
     }
+    document.getElementById("pageCamera").scrollIntoView();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="assets/scripts/main.js?lastUpdate=<?=$lastUpdate?>" type="module"></script>

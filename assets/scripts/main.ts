@@ -35,18 +35,26 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
 			currentPageId = entry.target.id;
-			if (entry.target == pageCamera) {
-				window.location.replace("#");
+			if (currentPageId == pageCamera.id) {
+				while (!isOnCameraPage()) {
+					// remove previous page from history so the back button stays on camera next time
+					history.back();
+				}
+				location.replace("#" + currentPageId);
 			} else {
-				if (location.hash.length <= 1) {
-					location.hash = currentPageId;
+				if (isOnCameraPage()) {
+					location.hash = currentPageId; // add new hash to history
 				} else {
-					window.location.replace("#" + currentPageId);
+					location.replace("#" + currentPageId); // don't add to history, just replace
 				}
 			}
 		}, 100);
 	});
 };
+
+function isOnCameraPage(): boolean {
+	return location.hash.length <= 1 || location.hash == "#" + pageCamera.id;
+}
 
 window.onhashchange = function () {
 	let page: HTMLDivElement;
