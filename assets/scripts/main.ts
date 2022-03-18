@@ -37,7 +37,12 @@ let bodyScrolledTimeout = null;
 let currentPageId: string = "pageCamera";
 let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 	entries.forEach(entry => {
-		if (entry.intersectionRatio < intersectionThreshold) return;
+		if (entry.intersectionRatio < intersectionThreshold) {
+			if (entry.target.id == pageCamera.id) {
+				setCameraPaused(true);
+			}
+			return;
+		}
 
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
@@ -51,7 +56,6 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 				} else {
 					location.replace("#" + currentPageId); // don't add to history, just replace
 				}
-				setCameraPaused(true);
 			}
 		}, 100);
 	});
