@@ -6,7 +6,7 @@ let constraints: MediaStreamConstraints = {
 			max: 2000
 		},
 		height: {
-			min: 1000,
+			min: 500,
 			ideal: 2400,
 			max: 4000
 		},
