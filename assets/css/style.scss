@@ -17,6 +17,24 @@ body {
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
 	position: relative;
+
+	.page-header {
+		padding: 1rem;
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 1rem;
+
+		> * {
+			font-size: calc(1.375rem + 1.5vw);
+			margin-bottom: 0;
+			line-height: 100%;
+		}
+
+		> .page-header-backBtn {
+			background: none;
+			border: none;
+		}
+	}
 }
 
 @import "pageCamera";

@@ -7,7 +7,7 @@ const intersectionThreshold: number = 0.9;
 
 // eventually move these into their own scripts
 let pageFeed: HTMLDivElement,
-	pageMessages: HTMLDivElement;
+	pageChat: HTMLDivElement;
 
 
 window.addEventListener("load", function() {
@@ -21,7 +21,13 @@ window.addEventListener("load", function() {
 	body = document.querySelector("body");
 
 	pageFeed = document.querySelector("#pageFeed");
-	pageMessages = document.querySelector("#pageMessages");
+	pageChat = document.querySelector("#pageChat");
+
+	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
+		backBtn.addEventListener("click", function () {
+			history.back();
+		});
+	});
 
 	observer = new IntersectionObserver(bodyScrolled, {
 		root: body,
@@ -30,7 +36,7 @@ window.addEventListener("load", function() {
 	});
 	observer.observe(pageFeed);
 	observer.observe(pageCamera);
-	observer.observe(pageMessages);
+	observer.observe(pageChat);
 });
 
 let bodyScrolledTimeout = null;

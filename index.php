@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-18-2149"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-18-2227"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,8 +25,11 @@ $lastUpdate = "22-03-18-2149"; // when changing this, you should also update sw.
 </head>
 <body>
 
-<div class="page" id="pageFeed" style="background: red;">
-feed
+<div class="page" id="pageFeed">
+    <div class="page-header">
+        <button class="page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <h1>Feed</h1>
+    </div>
 </div>
 <div class="page" id="pageCamera">
     <canvas id="cameraSensor"></canvas>
@@ -34,8 +37,11 @@ feed
     <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
     <button id="cameraTrigger" aria-label="Take a picture"></button>
 </div>
-<div class="page" id="pageMessages" style="background: red;">
-messages
+<div class="page" id="pageChat">
+    <div class="page-header">
+        <button class="page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <h1>Chat</h1>
+    </div>
 </div>
 
 
