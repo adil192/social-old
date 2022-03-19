@@ -11,6 +11,7 @@ let cameraViewfinder: HTMLVideoElement,
 	cameraSensor: HTMLCanvasElement,
 	cameraTrigger: HTMLButtonElement;
 let stream: MediaStream;
+let isCameraPaused: boolean = true;
 
 window.addEventListener("load", async function() {
 	pageCamera = document.querySelector("#pageCamera");
@@ -29,14 +30,21 @@ window.addEventListener("load", async function() {
 	cameraTrigger.onclick = takePicture;
 });
 
+let stopCameraTimeout: number = null;
 async function setCameraPaused(pause: boolean) {
+	if (isCameraPaused == pause) return;
 	if (pause) {
-		stream.getTracks().forEach(function(track) {
-			track.stop();
-		});
+		clearTimeout(stopCameraTimeout);
+		stopCameraTimeout = setTimeout(function () {
+			stream.getTracks().forEach(function(track) {
+				track.stop();
+			});
+			isCameraPaused = true;
+		}, 3000);
 	} else {
 		stream = await navigator.mediaDevices.getUserMedia(constraints);
 		cameraViewfinder.srcObject = stream;
+		isCameraPaused = false;
 	}
 }
 window.setCameraPaused = setCameraPaused;
