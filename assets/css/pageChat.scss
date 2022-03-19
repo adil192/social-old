@@ -9,6 +9,8 @@
 		display: flex;
 		flex-flow: row nowrap;
 		gap: 1rem;
+		margin-bottom: 1rem;
+		align-items: center;
 
 		.pageChat-option-pfp,
 		.pageChat-option-quickAction {
@@ -20,9 +22,23 @@
 			border: none;
 			padding: 0.3rem;
 		}
+
 		.pageChat-option-main {
 			flex: 1;
 			padding: 0.3rem;
+			display: grid;
+		}
+		.pageChat-option-name {
+			font-size: 1rem;
+			margin-bottom: 0;
+			font-weight: initial;
+		}
+		.pageChat-option-lastMsg {
+			opacity: 0.7;
+			margin-bottom: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 }
