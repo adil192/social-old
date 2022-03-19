@@ -73,7 +73,10 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
 <script>
     // set default page
     if (location.hash.length > 1) {
-        location.replace("#"); // we need to have pageCamera in the history so we can go back to it later, remove existing
+        // we need to have pageCamera in the history so we can go back to it later
+        let previousHash = location.hash.substring(1);
+        location.replace("#"); // replace first history item with pageCamera
+        location.hash = previousHash; // now re-add previousHash as the second history item
     }
     document.getElementById("pageCamera").scrollIntoView();
 </script>
