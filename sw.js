@@ -9,8 +9,8 @@ const assets = [
 	'/SocialMediaDemo/assets/scripts/main.js',
 	'/SocialMediaDemo/assets/scripts/pageCamera.js',
 	'/SocialMediaDemo/assets/images/transparent.webp',
-	'/SocialMediaDemo/assets/images/icons/larr.webp',
-	'/SocialMediaDemo/assets/images/icons/uparr.webp',
+	'/SocialMediaDemo/assets/images/icons/larr.svg',
+	'/SocialMediaDemo/assets/images/icons/uparr.svg',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
 ];
 
