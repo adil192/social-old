@@ -32,5 +32,17 @@
       "sizes": "513x513",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open camera",
+      "short_name": "Camera",
+      "url": "/SocialMediaDemo/#pageCamera"
+    },
+    {
+      "name": "Open chats",
+      "short_name": "Chats",
+      "url": "/SocialMediaDemo/#pageChat"
+    }
   ]
 }
