@@ -2,7 +2,6 @@
   "name": "SocialMediaDemo - Adil Hanney",
   "short_name": "SocialMediaDemo",
   "description": "A demo layout for a hypothetical social media, made to try out recreating a native-like app on the web.",
-  "theme_color": "#557788",
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",

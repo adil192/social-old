@@ -20,8 +20,6 @@ $lastUpdate = "22-03-19-2206"; // when changing this, you should also update sw.
 
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="apple-touch-icon" href="/maskable_icon_x192.png">
-    <meta name="apple-mobile-web-app-status-bar" content="#557788">
-    <meta name="theme-color" content="#557788">
 </head>
 <body>
 
