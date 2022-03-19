@@ -33,6 +33,7 @@ window.addEventListener("load", async function() {
 
 let stopCameraTimeout: number = null;
 async function setCameraPaused(pause: boolean) {
+	if (isPictureTaken) return;
 	if (pause) {
 		if (isCameraPaused) return;
 		if (stopCameraTimeout != null) return;
@@ -47,7 +48,7 @@ async function setCameraPaused(pause: boolean) {
 			isCameraPaused = true;
 		}, 3000);
 	} else {
-		if (isCameraPaused) {
+		if (isCameraPaused) { // then unpause
 			stream = await navigator.mediaDevices.getUserMedia(constraints);
 			cameraViewfinder.srcObject = stream;
 		} // otherwise still clear timeout
@@ -60,8 +61,8 @@ window.setCameraPaused = setCameraPaused;
 
 async function takePicture() {
 	if (isPictureTaken) {
-		await setCameraPaused(false);
 		isPictureTaken = false;
+		await setCameraPaused(false);
 		cameraOutput.classList.remove("show");
 		return;
 	}
@@ -69,7 +70,7 @@ async function takePicture() {
 	cameraSensor.height = cameraViewfinder.videoHeight;
 	cameraSensor.getContext("2d").drawImage(cameraViewfinder, 0, 0);
 	cameraOutput.src = cameraSensor.toDataURL("image/webp");
-	isPictureTaken = true;
 	cameraOutput.classList.add("show");
 	await setCameraPaused(true);
+	isPictureTaken = true;
 }
