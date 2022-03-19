@@ -71,12 +71,18 @@ function isOnCameraPage(): boolean {
 	return location.hash.length <= 1 || location.hash == "#" + pageCamera.id;
 }
 
+window.addEventListener("resize", function () {
+	document.getElementById(currentPageId).scrollIntoView();
+});
+
 window.onhashchange = function () {
 	let page: HTMLDivElement;
 	if (location.hash.length <= 1) {
 		page = pageCamera;
+		currentPageId = pageCamera.id;
 	} else if (location.hash != "#" + currentPageId) {
 		page = document.querySelector(location.hash);
+		currentPageId = location.hash.substring(1);
 	} else return;
 	page.scrollIntoView({
 		behavior: "smooth"
