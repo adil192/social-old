@@ -36,9 +36,13 @@ async function setCameraPaused(pause: boolean) {
 	if (pause) {
 		clearTimeout(stopCameraTimeout);
 		stopCameraTimeout = setTimeout(function () {
-			stream.getTracks().forEach(function(track) {
-				track.stop();
-			});
+			try {
+				stream.getTracks().forEach(function(track) {
+					track.stop();
+				});
+			} catch (e) { }
+			stream = null;
+			cameraViewfinder.srcObject = null;
 			isCameraPaused = true;
 		}, 3000);
 	} else {
