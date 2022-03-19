@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-19-1806"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-19-2206"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">

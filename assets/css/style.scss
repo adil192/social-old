@@ -54,6 +54,8 @@ body {
 	max-width: max(50vh, 700px);
 	height: 100%;
 	margin: auto;
+	overflow-y: auto;
+	padding-bottom: 2rem;
 }
 
 @import "pageCamera";

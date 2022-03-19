@@ -12,6 +12,14 @@ window.addEventListener("load", function() {
 	createChatOption("John Doe");
 	createChatOption("John Doe", "Sorted :)");
 	createChatOption("John Doe", "Hey!");
+	createChatOption("John Doe", "What are you up to tomorrow after uni?");
+	createChatOption("John Doe");
+	createChatOption("John Doe", "Sorted :)");
+	createChatOption("John Doe", "Hey!");
+	createChatOption("John Doe", "What are you up to tomorrow after uni?");
+	createChatOption("John Doe");
+	createChatOption("John Doe", "Sorted :)");
+	createChatOption("John Doe", "Hey!");
 });
 
 function createChatOption(name: string, lastMsg: string = "Say hi!", pfp: string = "assets/images/unknown.webp") {
