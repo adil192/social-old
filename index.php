@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-18-2227"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-19-1626"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,6 +41,19 @@ $lastUpdate = "22-03-18-2227"; // when changing this, you should also update sw.
     <div class="page-header">
         <button class="page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat</h1>
+    </div>
+    <div class="portraitArea">
+        <ul id="pageChatOptions">
+            <template id="pageChatOptionTemplate">
+                <li class="pageChat-option">
+                    <img class="pageChat-option-pfp" src="assets/images/unknown.webp" alt="Name's profile picture">
+                    <div class="pageChat-option-main">
+                        Name
+                    </div>
+                    <button class="pageChat-option-quickAction" aria-label="Send a picture to Name">&larr;</button>
+                </li>
+            </template>
+        </ul>
     </div>
 </div>
 

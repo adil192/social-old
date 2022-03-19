@@ -1,4 +1,5 @@
 import "./pageCamera.js";
+import "./pageChat.js";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
@@ -6,8 +7,7 @@ let observer: IntersectionObserver;
 const intersectionThreshold: number = 0.9;
 
 // eventually move these into their own scripts
-let pageFeed: HTMLDivElement,
-	pageChat: HTMLDivElement;
+let pageFeed: HTMLDivElement;
 
 
 window.addEventListener("load", function() {
@@ -21,7 +21,6 @@ window.addEventListener("load", function() {
 	body = document.querySelector("body");
 
 	pageFeed = document.querySelector("#pageFeed");
-	pageChat = document.querySelector("#pageChat");
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {

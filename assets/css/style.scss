@@ -37,4 +37,12 @@ body {
 	}
 }
 
+.portraitArea {
+	width: 100%;
+	max-width: 50vh;
+	height: 100%;
+	margin: auto;
+}
+
 @import "pageCamera";
+@import "pageChat";
