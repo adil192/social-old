@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-19-1734"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-19-1806"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,6 +43,9 @@ $lastUpdate = "22-03-19-1734"; // when changing this, you should also update sw.
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">
+        <div class="pageChat-search-parent">
+            <input id="pageChatSearch" aria-label="Search chats" placeholder="Search">
+        </div>
         <ul id="pageChatOptions">
             <template id="pageChatOptionTemplate">
                 <li class="pageChat-option">

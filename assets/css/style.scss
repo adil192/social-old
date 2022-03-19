@@ -51,7 +51,7 @@ body {
 
 .portraitArea {
 	width: 100%;
-	max-width: 50vh;
+	max-width: max(50vh, 700px);
 	height: 100%;
 	margin: auto;
 }
