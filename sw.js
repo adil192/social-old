@@ -1,5 +1,5 @@
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-cache-" + "22-03-19-1636";
+const staticCacheName = "SocialMediaDemo-cache-" + "22-03-19-1705";
 const assets = [
 	'/favicon.ico',
 	'/SocialMediaDemo/',
@@ -9,6 +9,8 @@ const assets = [
 	'/SocialMediaDemo/assets/scripts/main.js',
 	'/SocialMediaDemo/assets/scripts/pageCamera.js',
 	'/SocialMediaDemo/assets/images/transparent.webp',
+	'/SocialMediaDemo/assets/images/icons/larr.webp',
+	'/SocialMediaDemo/assets/images/icons/uparr.webp',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
 ];
 

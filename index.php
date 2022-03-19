@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-19-1705"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +27,7 @@ $lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.
 
 <div class="page" id="pageFeed">
     <div class="page-header">
-        <button class="icon-btn page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Feed</h1>
     </div>
 </div>
@@ -39,7 +39,7 @@ $lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.
 </div>
 <div class="page" id="pageChat">
     <div class="page-header">
-        <button class="icon-btn page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">

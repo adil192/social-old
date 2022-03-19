@@ -11,7 +11,21 @@ body {
 	scroll-behavior: smooth;
 }
 .icon-btn {
+	background: none;
+	border: none;
 	font-size: calc(1.375rem + 1.5vw);
+	opacity: 0.5;
+	transition: opacity 0.2s;
+	&:hover, &:focus {
+		opacity: 1;
+	}
+
+	&.icon-btn-back {
+		min-width: 1em;
+		background: url("/SocialMediaDemo/assets/images/icons/larr.svg") center center;
+		background-size: contain;
+		color: transparent;
+	}
 }
 .page {
 	width: 100%;
@@ -31,11 +45,6 @@ body {
 			font-size: calc(1.375rem + 1.5vw);
 			margin-bottom: 0;
 			line-height: 100%;
-		}
-
-		> .page-header-backBtn {
-			background: none;
-			border: none;
 		}
 	}
 }
