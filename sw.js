@@ -40,29 +40,12 @@ self.addEventListener('fetch', function(event) {
 			// try cache
 			let response = await caches.match(event.request.url, {
 				cacheName: staticCacheName,
-				ignoreSearch: false
+				ignoreSearch: true // ignore the "?lastUpdated=..." part
 			});
 			if (!!response) return response;
 
-			console.log(event.request.url, "not in cache");
-
-			// next try internet
-			try {
-				response = await fetch(event.request);
-			} catch (e) {
-				// if there's no internet, we'll try ignoring the query string
-				return await caches.match(event.request.url, {
-					cacheName: staticCacheName,
-					ignoreSearch: true
-				});
-			}
-
-			// add new file to cache (asynchronously)
-			if (!!response) {
-				caches.open(staticCacheName).then((cache) => cache.put(event.request, response));
-			}
-
-			return response;
+			// otherwise, try internet
+			return await fetch(event.request);
 		})()
 	);
 });
