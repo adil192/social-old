@@ -12,6 +12,7 @@ let cameraViewfinder: HTMLVideoElement,
 	cameraTrigger: HTMLButtonElement;
 let stream: MediaStream;
 let isCameraPaused: boolean = true;
+let isPictureTaken: boolean = false;
 
 window.addEventListener("load", async function() {
 	pageCamera = document.querySelector("#pageCamera");
@@ -56,10 +57,17 @@ async function setCameraPaused(pause: boolean) {
 window.setCameraPaused = setCameraPaused;
 
 async function takePicture() {
+	if (isPictureTaken) {
+		await setCameraPaused(false);
+		isPictureTaken = false;
+		cameraOutput.classList.remove("show");
+		return;
+	}
 	cameraSensor.width = cameraViewfinder.videoWidth;
 	cameraSensor.height = cameraViewfinder.videoHeight;
 	cameraSensor.getContext("2d").drawImage(cameraViewfinder, 0, 0);
 	cameraOutput.src = cameraSensor.toDataURL("image/webp");
+	isPictureTaken = true;
 	cameraOutput.classList.add("show");
 	await setCameraPaused(true);
 }
