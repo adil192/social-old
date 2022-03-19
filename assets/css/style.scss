@@ -10,6 +10,9 @@ body {
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 }
+.icon-btn {
+	font-size: calc(1.375rem + 1.5vw);
+}
 .page {
 	width: 100%;
 	height: 100%;

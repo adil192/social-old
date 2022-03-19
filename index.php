@@ -27,7 +27,7 @@ $lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.
 
 <div class="page" id="pageFeed">
     <div class="page-header">
-        <button class="page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Feed</h1>
     </div>
 </div>
@@ -39,7 +39,7 @@ $lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.
 </div>
 <div class="page" id="pageChat">
     <div class="page-header">
-        <button class="page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">
@@ -50,7 +50,7 @@ $lastUpdate = "22-03-19-1636"; // when changing this, you should also update sw.
                     <div class="pageChat-option-main">
                         Name
                     </div>
-                    <button class="pageChat-option-quickAction" aria-label="Send a picture to Name">&larr;</button>
+                    <button class="icon-btn pageChat-option-quickAction" aria-label="Send a picture to Name">&rarr;</button>
                 </li>
             </template>
         </ul>
