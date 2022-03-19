@@ -33,8 +33,8 @@ window.addEventListener("load", async function() {
 
 let stopCameraTimeout: number = null;
 async function setCameraPaused(pause: boolean) {
-	if (isCameraPaused == pause) return;
 	if (pause) {
+		if (isCameraPaused) return;
 		if (stopCameraTimeout != null) return;
 		stopCameraTimeout = setTimeout(function () {
 			try {
@@ -47,8 +47,10 @@ async function setCameraPaused(pause: boolean) {
 			isCameraPaused = true;
 		}, 3000);
 	} else {
-		stream = await navigator.mediaDevices.getUserMedia(constraints);
-		cameraViewfinder.srcObject = stream;
+		if (isCameraPaused) {
+			stream = await navigator.mediaDevices.getUserMedia(constraints);
+			cameraViewfinder.srcObject = stream;
+		} // otherwise still clear timeout
 		isCameraPaused = false;
 		clearTimeout(stopCameraTimeout);
 		stopCameraTimeout = null;
