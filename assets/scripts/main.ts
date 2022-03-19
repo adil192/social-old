@@ -6,9 +6,20 @@ let observer: IntersectionObserver;
 
 const intersectionThreshold: number = 0.9;
 
-// eventually move these into their own scripts
+// eventually move this into its own page script
 let pageFeed: HTMLDivElement;
 
+enum AllPages {
+	PageFeed = "pageFeed",
+	PageCamera = "pageCamera",
+	PageChat = "pageChat",
+
+	PageChatOpen = "pageChatOpen",
+}
+window["AllPages"] = AllPages;
+function isPageAnOverlay(pageId: string) {
+	return !(pageId == AllPages.PageFeed || pageId == AllPages.PageCamera || pageId == AllPages.PageChat);
+}
 
 window.addEventListener("load", function() {
 	// set up PWA service worker
@@ -36,6 +47,10 @@ window.addEventListener("load", function() {
 	observer.observe(pageFeed);
 	observer.observe(pageCamera);
 	observer.observe(pageChat);
+
+	// (todo: remove)
+	let pageChatOpen = document.querySelector("#pageChatOpen");
+
 });
 
 let bodyScrolledTimeout = null;
@@ -75,15 +90,29 @@ window.addEventListener("resize", function () {
 });
 
 window.onhashchange = function () {
+	if (location.hash == "#" + currentPageId) return;
+
 	let page: HTMLDivElement;
 	if (location.hash.length <= 1) {
 		page = pageCamera;
 		currentPageId = pageCamera.id;
-	} else if (location.hash != "#" + currentPageId) {
+	} else {
 		page = document.querySelector(location.hash);
 		currentPageId = location.hash.substring(1);
-	} else return;
-	page.scrollIntoView({
-		behavior: "smooth"
-	});
+	}
+
+	// hide all page overlays
+	for (let i in AllPages) {
+		let pageId = AllPages[i];
+		if (!isPageAnOverlay(pageId) || pageId == currentPageId) continue;
+		document.getElementById(pageId).classList.remove("page-overlay-show");
+	}
+
+	if (isPageAnOverlay(page.id)) {
+		page.classList.add("page-overlay-show");
+	} else {
+		page.scrollIntoView({
+			behavior: "smooth"
+		});
+	}
 }

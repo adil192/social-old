@@ -10,6 +10,9 @@ body {
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 }
+body, .page {
+	background: white;
+}
 .icon-btn {
 	background: none;
 	border: none;
@@ -34,6 +37,17 @@ body {
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
 	position: relative;
+
+	&.page-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translateX(100%);
+		transition: transform 1s;
+		&.page-overlay-show {
+			transform: translateX(0);
+		}
+	}
 
 	.page-header {
 		padding: 1rem;

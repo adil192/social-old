@@ -59,6 +59,16 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
     </div>
 </div>
 
+<div class="page page-overlay" id="pageChatOpen">
+    <div class="page-header">
+        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <h1>Chat with John Placeholder</h1>
+    </div>
+    <div class="portraitArea">
+        hi
+    </div>
+</div>
+
 
 <script>
     // set default page
