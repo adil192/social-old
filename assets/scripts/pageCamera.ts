@@ -34,7 +34,7 @@ let stopCameraTimeout: number = null;
 async function setCameraPaused(pause: boolean) {
 	if (isCameraPaused == pause) return;
 	if (pause) {
-		clearTimeout(stopCameraTimeout);
+		if (stopCameraTimeout != null) return;
 		stopCameraTimeout = setTimeout(function () {
 			try {
 				stream.getTracks().forEach(function(track) {
@@ -49,6 +49,8 @@ async function setCameraPaused(pause: boolean) {
 		stream = await navigator.mediaDevices.getUserMedia(constraints);
 		cameraViewfinder.srcObject = stream;
 		isCameraPaused = false;
+		clearTimeout(stopCameraTimeout);
+		stopCameraTimeout = null;
 	}
 }
 window.setCameraPaused = setCameraPaused;
