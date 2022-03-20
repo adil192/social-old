@@ -86,11 +86,11 @@ html, body, .page {
 
 @media screen and (prefers-color-scheme: dark) {
 	html, body, .page {
-		background: #1f1f1f;
+		background: black;
 		color: white;
 	}
 	.icon-btn {
-		filter: brightness(100);
+		filter: brightness(0) invert(1);
 	}
 	input {
 		color: white;

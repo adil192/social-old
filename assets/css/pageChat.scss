@@ -12,6 +12,10 @@
 		> * {
 			background: rgba(0,0,0,0.1);
 			padding: 0.4rem;
+			
+			@media screen and (prefers-color-scheme: dark) {
+				background: rgba(255,255,255,0.15);
+			}
 		}
 		> :nth-child(1) {
 			border-top-left-radius: 1rem;
