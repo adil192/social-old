@@ -1,6 +1,6 @@
 <?php
 include_once "../global_tools.php";
-$lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.js
+$lastUpdate = "22-03-20-1615"; // when changing this, you should also update sw.js
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,7 +25,7 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
 
 <div class="page" id="pageFeed">
     <div class="page-header">
-        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Feed</h1>
     </div>
 </div>
@@ -37,7 +37,7 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
 </div>
 <div class="page" id="pageChat">
     <div class="page-header">
-        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">
@@ -52,7 +52,7 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
                         <h2 class="pageChat-option-name">Name</h2>
                         <p class="pageChat-option-lastMsg">Say hi!</p>
                     </div>
-                    <button class="icon-btn pageChat-option-quickAction" aria-label="Send a picture to Name">&rarr;</button>
+                    <button class="icon-btn icon-btn-right pageChat-option-quickAction" aria-label="Send a picture to Name">&rarr;</button>
                 </li>
             </template>
         </ul>
@@ -61,7 +61,7 @@ $lastUpdate = "22-03-19-2225"; // when changing this, you should also update sw.
 
 <div class="page page-overlay" id="pageChatOpen">
     <div class="page-header">
-        <button class="icon-btn icon-btn-back page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat with John Placeholder</h1>
     </div>
     <div class="portraitArea">

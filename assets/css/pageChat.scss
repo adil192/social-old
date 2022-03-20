@@ -48,13 +48,16 @@
 
 		.pageChat-option-pfp,
 		.pageChat-option-quickAction {
-			width: 4rem;
+			width: 1em;
 			height: 100%;
 			aspect-ratio: 1;
 			border-radius: 50%;
-			background: none;
 			border: none;
 			padding: 0.3rem;
+		}
+		.pageChat-option-pfp {
+			width: 4rem;
+			background: none;
 		}
 
 		.pageChat-option-main {
