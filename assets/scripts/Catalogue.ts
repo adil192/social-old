@@ -1,7 +1,7 @@
 import {Page} from "./Page.js";
 import {PageFeed} from "./PageFeed.js";
-import {PageCamera} from "./pageCamera.js";
-import {PageChat} from "./pageChat.js";
+import {PageCamera} from "./PageCamera.js";
+import {PageChat} from "./PageChat.js";
 import {PageChatOpen} from "./PageChatOpen.js";
 
 class _Catalogue {
