@@ -10,7 +10,7 @@ body {
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 }
-body, .page {
+html, body, .page {
 	background: white;
 }
 .icon-btn {
@@ -83,3 +83,16 @@ body, .page {
 
 @import "pageCamera";
 @import "pageChat";
+
+@media screen and (prefers-color-scheme: dark) {
+	html, body, .page {
+		background: #1f1f1f;
+		color: white;
+	}
+	.icon-btn {
+		filter: brightness(100);
+	}
+	input {
+		color: white;
+	}
+}
