@@ -5,13 +5,22 @@ const assets = [
 	'/SocialMediaDemo/',
 	'/SocialMediaDemo/index.php',
 	'/SocialMediaDemo/manifest.webmanifest',
+
+	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+
 	'/SocialMediaDemo/assets/css/style.css',
+
+	'/SocialMediaDemo/assets/scripts/Catalogue.js',
 	'/SocialMediaDemo/assets/scripts/main.js',
-	'/SocialMediaDemo/assets/scripts/pageCamera.js',
+	'/SocialMediaDemo/assets/scripts/Page.js',
+	'/SocialMediaDemo/assets/scripts/PageCamera.js',
+	'/SocialMediaDemo/assets/scripts/PageChat.js',
+	'/SocialMediaDemo/assets/scripts/PageChatOpen.js',
+	'/SocialMediaDemo/assets/scripts/PageFeed.js',
+
 	'/SocialMediaDemo/assets/images/transparent.webp',
 	'/SocialMediaDemo/assets/images/icons/larr.svg',
 	'/SocialMediaDemo/assets/images/icons/uparr.svg',
-	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
 ];
 
 self.addEventListener('install', (evt) => {
