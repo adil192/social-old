@@ -41,6 +41,9 @@ body, .page {
 	scroll-snap-stop: always;
 	position: relative;
 
+	display: flex;
+	flex-flow: column nowrap;
+
 	&.page-overlay {
 		position: absolute;
 		top: 0;
@@ -52,7 +55,8 @@ body, .page {
 		}
 	}
 
-	.page-header {
+	> .page-header {
+		flex: 0;
 		padding: 1rem;
 		display: flex;
 		flex-flow: row nowrap;
@@ -64,6 +68,9 @@ body, .page {
 			line-height: 100%;
 		}
 	}
+	> .portraitArea {
+		flex: 1;
+	}
 }
 
 .portraitArea {
@@ -72,7 +79,6 @@ body, .page {
 	height: 100%;
 	margin: auto;
 	overflow-y: auto;
-	padding-bottom: 2rem;
 }
 
 @import "pageCamera";
