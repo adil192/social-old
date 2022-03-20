@@ -1,76 +1,83 @@
-let constraints: MediaStreamConstraints = {
-	video: {
-		facingMode: "user"
-	},
-	audio: false
-};
+import { Page } from "./Page.js";
 
-let pageCamera: HTMLDivElement;
-let cameraViewfinder: HTMLVideoElement,
-	cameraOutput: HTMLImageElement,
-	cameraSensor: HTMLCanvasElement,
+export class PageCamera extends Page {
+	readonly constraints: MediaStreamConstraints = {
+		video: {
+			facingMode: "user"
+		},
+		audio: false
+	};
+
+	cameraViewfinder: HTMLVideoElement;
+	cameraOutput: HTMLImageElement;
+	cameraSensor: HTMLCanvasElement;
 	cameraTrigger: HTMLButtonElement;
-let stream: MediaStream;
-let isCameraPaused: boolean = true;
-let isPictureTaken: boolean = false;
 
-window.addEventListener("load", async function() {
-	pageCamera = document.querySelector("#pageCamera");
-	cameraViewfinder = pageCamera.querySelector("#cameraViewfinder");
-	cameraOutput = pageCamera.querySelector("#cameraOutput");
-	cameraSensor = pageCamera.querySelector("#cameraSensor");
-	cameraTrigger = pageCamera.querySelector("#cameraTrigger");
+	stream: MediaStream = null;
+	isPictureTaken: boolean = false;
 
-	if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
-		console.log("Let's get this party started")
-		await setCameraPaused(false);
-	} else {
-		return; // todo: show camera error message
+	constructor() {
+		super("pageCamera");
+		this.cameraViewfinder = this.pageElem.querySelector("#cameraViewfinder");
+		this.cameraOutput = this.pageElem.querySelector("#cameraOutput");
+		this.cameraSensor = this.pageElem.querySelector("#cameraSensor");
+		this.cameraTrigger = this.pageElem.querySelector("#cameraTrigger");
+
+		if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)) return;
+
+		this.isCameraPaused = false;
+		this.cameraTrigger.onclick = this.takePicture;
 	}
 
-	cameraTrigger.onclick = takePicture;
-});
-
-let stopCameraTimeout: number = null;
-async function setCameraPaused(pause: boolean) {
-	if (isPictureTaken) return;
-	if (pause) {
-		if (isCameraPaused) return;
-		if (stopCameraTimeout != null) return;
-		stopCameraTimeout = setTimeout(function () {
-			try {
-				stream.getTracks().forEach(function(track) {
-					track.stop();
-				});
-			} catch (e) { }
-			stream = null;
-			cameraViewfinder.srcObject = null;
-			isCameraPaused = true;
-		}, 3000);
-	} else {
-		if (isCameraPaused) { // then unpause
-			stream = await navigator.mediaDevices.getUserMedia(constraints);
-			cameraViewfinder.srcObject = stream;
-		} // otherwise still clear timeout
-		isCameraPaused = false;
-		clearTimeout(stopCameraTimeout);
-		stopCameraTimeout = null;
+	private _isCameraPaused: boolean = true;
+	private stopCameraTimeout: number = null;
+	get isCameraPaused(): boolean {
+		return this._isCameraPaused;
 	}
-}
-window.setCameraPaused = setCameraPaused;
+	set isCameraPaused(pause: boolean) {
+		if (this.isPictureTaken) return;
+		if (pause) {
+			if (this._isCameraPaused) return;
+			if (this.stopCameraTimeout != null) return;
+			this.stopCameraTimeout = setTimeout(() => {
+				try {
+					this.stream.getTracks().forEach(function(track) {
+						track.stop();
+					});
+				} catch (e) { }
+				this.stream = null;
+				this.cameraViewfinder.srcObject = null;
+				this._isCameraPaused = pause;
+			}, 3000);
+		} else {
+			if (this._isCameraPaused) { // then unpause
+				navigator.mediaDevices.getUserMedia(this.constraints)
+					.then(stream => {
+						this.stream = stream;
+						this.cameraViewfinder.srcObject = this.stream;
+					});
+			} // otherwise still clear timeout
+			this._isCameraPaused = pause;
+			clearTimeout(this.stopCameraTimeout);
+			this.stopCameraTimeout = null;
+		}
 
-async function takePicture() {
-	if (isPictureTaken) {
-		isPictureTaken = false;
-		await setCameraPaused(false);
-		cameraOutput.classList.remove("show");
-		return;
 	}
-	cameraSensor.width = cameraViewfinder.videoWidth;
-	cameraSensor.height = cameraViewfinder.videoHeight;
-	cameraSensor.getContext("2d").drawImage(cameraViewfinder, 0, 0);
-	cameraOutput.src = cameraSensor.toDataURL("image/webp");
-	cameraOutput.classList.add("show");
-	await setCameraPaused(true);
-	isPictureTaken = true;
+
+	async takePicture() {
+		if (this.isPictureTaken) {
+			this.isPictureTaken = false;
+			this.isCameraPaused = false;
+			this.cameraOutput.classList.remove("show");
+			return;
+		}
+		if (this.stream == null) return;
+		this.cameraSensor.width = this.cameraViewfinder.videoWidth;
+		this.cameraSensor.height = this.cameraViewfinder.videoHeight;
+		this.cameraSensor.getContext("2d").drawImage(this.cameraViewfinder, 0, 0);
+		this.cameraOutput.src = this.cameraSensor.toDataURL("image/webp");
+		this.cameraOutput.classList.add("show");
+		this.isCameraPaused = true;
+		this.isPictureTaken = true;
+	}
 }

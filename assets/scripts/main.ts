@@ -1,24 +1,22 @@
-import "./pageCamera.js";
-import "./pageChat.js";
+import { Catalogue } from "./Catalogue.js";
+import { PageFeed } from "./PageFeed.js";
+import { PageCamera } from "./pageCamera.js";
+import { PageChat} from "./pageChat.js";
+import { PageChatOpen } from "./PageChatOpen.js";
+import { Page } from "./Page.js";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
 
 const intersectionThreshold: number = 0.9;
 
-// eventually move this into its own page script
-let pageFeed: HTMLDivElement;
-
-enum AllPages {
-	PageFeed = "pageFeed",
-	PageCamera = "pageCamera",
-	PageChat = "pageChat",
-
-	PageChatOpen = "pageChatOpen",
-}
-window["AllPages"] = AllPages;
 function isPageAnOverlay(pageId: string) {
-	return !(pageId == AllPages.PageFeed || pageId == AllPages.PageCamera || pageId == AllPages.PageChat);
+	let allOverlayPages = Catalogue.AllOverlayPages;
+	for (let i in allOverlayPages) {
+		let overlayPage: Page = allOverlayPages[i];
+		if (pageId == overlayPage.pageId) return true;
+	}
+	return false;
 }
 
 window.addEventListener("load", function() {
@@ -31,7 +29,10 @@ window.addEventListener("load", function() {
 
 	body = document.querySelector("body");
 
-	pageFeed = document.querySelector("#pageFeed");
+	Catalogue.PageFeed = new PageFeed();
+	Catalogue.PageCamera = new PageCamera();
+	Catalogue.PageChat = new PageChat();
+	Catalogue.PageChatOpen = new PageChatOpen(); // todo: create PageChatOpen class
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {
@@ -44,13 +45,9 @@ window.addEventListener("load", function() {
 		rootMargin: '0px',
 		threshold: intersectionThreshold
 	});
-	observer.observe(pageFeed);
-	observer.observe(pageCamera);
-	observer.observe(pageChat);
-
-	// (todo: remove)
-	let pageChatOpen = document.querySelector("#pageChatOpen");
-
+	observer.observe(Catalogue.PageFeed.pageElem);
+	observer.observe(Catalogue.PageCamera.pageElem);
+	observer.observe(Catalogue.PageChat.pageElem);
 });
 
 let bodyScrolledTimeout = null;
@@ -58,8 +55,8 @@ let currentPageId: string = "pageCamera";
 let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThreshold) {
-			if (entry.target.id == pageCamera.id) {
-				setCameraPaused(true);
+			if (entry.target.id == Catalogue.PageCamera.pageId) {
+				Catalogue.PageCamera.isCameraPaused = true;
 			}
 			return;
 		}
@@ -67,9 +64,9 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
 			currentPageId = entry.target.id;
-			if (currentPageId == pageCamera.id) {
+			if (currentPageId == Catalogue.PageCamera.pageId) {
 				location.replace("#" + currentPageId);
-				setCameraPaused(false);
+				Catalogue.PageCamera.isCameraPaused = false;
 			} else {
 				if (isOnCameraPage()) {
 					location.hash = currentPageId; // add new hash to history
@@ -82,7 +79,7 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 };
 
 function isOnCameraPage(): boolean {
-	return location.hash.length <= 1 || location.hash == "#" + pageCamera.id;
+	return location.hash.length <= 1 || location.hash == "#" + Catalogue.PageCamera.pageId;
 }
 
 window.addEventListener("resize", function () {
@@ -94,18 +91,18 @@ window.onhashchange = function () {
 
 	let page: HTMLDivElement;
 	if (location.hash.length <= 1) {
-		page = pageCamera;
-		currentPageId = pageCamera.id;
+		page = Catalogue.PageCamera.pageElem;
+		currentPageId = Catalogue.PageCamera.pageId;
 	} else {
 		page = document.querySelector(location.hash);
 		currentPageId = location.hash.substring(1);
 	}
 
-	// hide all page overlays
-	for (let i in AllPages) {
-		let pageId = AllPages[i];
-		if (!isPageAnOverlay(pageId) || pageId == currentPageId) continue;
-		document.getElementById(pageId).classList.remove("page-overlay-show");
+	// hide all other page overlays
+	for (let i in Catalogue.AllOverlayPages) {
+		let overlayPage: Page = Catalogue.AllOverlayPages[i];
+		if (overlayPage.pageId == currentPageId) continue;
+		overlayPage.pageElem.classList.remove("page-overlay-show");
 	}
 
 	if (isPageAnOverlay(page.id)) {
