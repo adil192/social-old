@@ -25,7 +25,6 @@ export class PageCamera extends Page {
 
 		if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)) return;
 
-		this.isCameraPaused = false;
 		this.cameraTrigger.onclick = this.takePicture;
 	}
 
