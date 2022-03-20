@@ -16,7 +16,7 @@ body, .page {
 .icon-btn {
 	background: none;
 	border: none;
-	font-size: calc(1.375rem + 1.5vw);
+	font-size: calc(1.375rem + 1vw);
 	opacity: 0.5;
 	transition: opacity 0.2s;
 	&:hover, &:focus {
@@ -56,7 +56,7 @@ body, .page {
 		gap: 1rem;
 
 		> * {
-			font-size: calc(1.375rem + 1.5vw);
+			font-size: calc(1.375rem + 1vw);
 			margin-bottom: 0;
 			line-height: 100%;
 		}
