@@ -29,14 +29,22 @@
 		width: 100%;
 		max-width: 100%;
 		list-style: none;
-		padding: 1rem;
+		padding: 0;
 	}
 	.pageChat-option {
 		display: flex;
 		flex-flow: row nowrap;
 		gap: 1rem;
-		margin-bottom: 1rem;
 		align-items: center;
+		cursor: pointer;
+		padding: 0.5rem 1rem;
+
+		&:hover {
+			background: rgba(0,0,0,0.02);
+		}
+		&:focus {
+			background: rgba(0,0,0,0.05);
+		}
 
 		.pageChat-option-pfp,
 		.pageChat-option-quickAction {
