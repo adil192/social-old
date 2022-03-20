@@ -77,8 +77,9 @@ $lastUpdate = "22-03-20-1615"; // when changing this, you should also update sw.
         let previousHash = location.hash.substring(1);
         location.replace("#"); // replace first history item with pageCamera
         location.hash = previousHash; // now re-add previousHash as the second history item
+    } else {
+        document.getElementById("pageCamera").scrollIntoView();
     }
-    document.getElementById("pageCamera").scrollIntoView();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="assets/scripts/main.js?lastUpdate=<?=$lastUpdate?>" type="module"></script>
