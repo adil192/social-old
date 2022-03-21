@@ -1,5 +1,7 @@
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-cache-" + "22-03-20-1913";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-21-0626";
+const apiCacheName = "SocialMediaDemo-api-cache";
+const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api"
 const assets = [
 	'/favicon.ico',
 	'/SocialMediaDemo/',
@@ -36,9 +38,14 @@ self.addEventListener('activate', event => {
 	event.waitUntil(
 		(async () => {
 			let cacheNames = await caches.keys();
-			await Promise.all(cacheNames.map((cacheName) => {
-				if (staticCacheName.indexOf(cacheName) === -1) return caches.delete(cacheName);
-			}));
+			await Promise.all(cacheNames
+				.filter((cacheName) => {
+					return staticCacheName.indexOf(cacheName) === -1 && apiCacheName.indexOf(cacheName) === -1;
+				})
+				.map((cacheName) => {
+					return caches.delete(cacheName);
+				})
+			);
 		})()
 	);
 });
@@ -46,15 +53,47 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', function(event) {
 	event.respondWith(
 		(async () => {
-			// try cache
-			let response = await caches.match(event.request.url, {
-				cacheName: staticCacheName,
-				ignoreSearch: true // ignore the "?lastUpdated=..." part
-			});
-			if (!!response) return response;
-
-			// otherwise, try internet
-			return await fetch(event.request);
+			if (event.request.url.startsWith(apiUrlPrefix)) {
+				return await fetchApi(event);
+			} else {
+				return await fetchStatic(event);
+			}
 		})()
 	);
 });
+
+async function fetchApi(event) {
+	console.log("fetchApi:", event.request.url)
+
+	// first try internet
+	let response = null;
+	try {
+		response = await fetch(event.request);
+	} catch (e) {
+		// if offline, used cached response
+		return await caches.match(event.request.url, {
+			cacheName: apiCacheName
+		});
+	}
+
+	// if internet fetch worked, cache the new response for later
+	caches.open(apiCacheName).then(cache => {
+		cache.put(event.request, response.clone());
+	});
+
+	return response;
+}
+
+async function fetchStatic(event) {
+	console.log("fetchStatic:", event.request.url)
+
+	// first try static cache
+	let response = await caches.match(event.request.url, {
+		cacheName: staticCacheName,
+		ignoreSearch: true // ignore the "?lastUpdated=..." part
+	});
+	if (!!response) return response;
+
+	// otherwise, try internet
+	return await fetch(event.request);
+}
