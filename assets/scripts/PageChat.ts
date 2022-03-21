@@ -1,4 +1,5 @@
 import {Page} from "./Page.js";
+import {Networker} from "./Networker.js";
 
 export class PageChat extends Page {
 	pageChatOptions: HTMLDivElement;
@@ -9,25 +10,22 @@ export class PageChat extends Page {
 		this.pageChatOptions = this.pageElem.querySelector("#pageChatOptions");
 		this.pageChatOptionTemplate = this.pageElem.querySelector("#pageChatOptionTemplate");
 
-		this.createChatOption("John Doe", "What are you up to tomorrow after uni?");
-		this.createChatOption("John Doe");
-		this.createChatOption("John Doe", "Sorted :)");
-		this.createChatOption("John Doe", "Hey!");
-		this.createChatOption("John Doe", "What are you up to tomorrow after uni?");
-		this.createChatOption("John Doe");
-		this.createChatOption("John Doe", "Sorted :)");
-		this.createChatOption("John Doe", "Hey!");
-		this.createChatOption("John Doe", "What are you up to tomorrow after uni?");
-		this.createChatOption("John Doe");
-		this.createChatOption("John Doe", "Sorted :)");
-		this.createChatOption("John Doe", "Hey!");
+		this.updateChatList().then();
 	}
 
-	createChatOption(name: string, lastMsg: string = "Say hi!", pfp: string = "assets/images/unknown.webp") {
+	async updateChatList() {
+		let chats = await Networker.postApi("Chat.List.php");
+		for (let i in chats) {
+			let chat = chats[i];
+			this.createChatOption(chat[0], chat[1], chat[2]);
+		}
+	}
+
+	createChatOption(id: number, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
 		let optionElem: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
-		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg;
+		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg ?? "Say hi!";
 		// todo: set alt text and aria-labels
 		this.pageChatOptions.append(optionElem);
 	}
