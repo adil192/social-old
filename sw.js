@@ -1,5 +1,5 @@
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-21-0626";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-21-0637";
 const apiCacheName = "SocialMediaDemo-api-cache";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api"
 const assets = [
