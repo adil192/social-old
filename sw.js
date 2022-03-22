@@ -2,34 +2,39 @@
 const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-21-0637";
 const apiCacheName = "SocialMediaDemo-api-cache";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api"
-const assets = [
-	'/favicon.ico',
-	'/SocialMediaDemo/',
-	'/SocialMediaDemo/index.php',
-	'/SocialMediaDemo/manifest.webmanifest',
-
-	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
-
-	'/SocialMediaDemo/assets/css/style.css',
-
-	'/SocialMediaDemo/assets/scripts/Catalogue.js',
-	'/SocialMediaDemo/assets/scripts/main.js',
-	'/SocialMediaDemo/assets/scripts/Page.js',
-	'/SocialMediaDemo/assets/scripts/PageCamera.js',
-	'/SocialMediaDemo/assets/scripts/PageChat.js',
-	'/SocialMediaDemo/assets/scripts/PageChatOpen.js',
-	'/SocialMediaDemo/assets/scripts/PageFeed.js',
-
-	'/SocialMediaDemo/assets/images/transparent.webp',
-	'/SocialMediaDemo/assets/images/icons/larr.svg',
-	'/SocialMediaDemo/assets/images/icons/uparr.svg',
-];
 
 self.addEventListener('install', (evt) => {
 	evt.waitUntil(
 		(async () => {
+			// non-essential cache items
+			caches.open(staticCacheName).then(cache => {
+				cache.addAll([
+					'/SocialMediaDemo/assets/images/transparent.webp',
+					'/SocialMediaDemo/assets/images/icons/larr.svg',
+					'/SocialMediaDemo/assets/images/icons/uparr.svg',
+				]);
+			})
+
+			// essential cache items
 			const cache = await caches.open(staticCacheName);
-			await cache.addAll(assets);
+			await cache.addAll([
+				'/favicon.ico',
+				'/SocialMediaDemo/',
+				'/SocialMediaDemo/index.php',
+				'/SocialMediaDemo/manifest.webmanifest',
+
+				'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+
+				'/SocialMediaDemo/assets/css/style.css',
+
+				'/SocialMediaDemo/assets/scripts/Catalogue.js',
+				'/SocialMediaDemo/assets/scripts/main.js',
+				'/SocialMediaDemo/assets/scripts/Page.js',
+				'/SocialMediaDemo/assets/scripts/PageCamera.js',
+				'/SocialMediaDemo/assets/scripts/PageChat.js',
+				'/SocialMediaDemo/assets/scripts/PageChatOpen.js',
+				'/SocialMediaDemo/assets/scripts/PageFeed.js',
+			]);
 		})()
 	);
 });
