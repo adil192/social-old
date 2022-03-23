@@ -1,5 +1,5 @@
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-21-0637";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-23-0308";
 const apiCacheName = "SocialMediaDemo-api-cache";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api"
 
@@ -21,6 +21,8 @@ self.addEventListener('install', (evt) => {
 				'/favicon.ico',
 				'/SocialMediaDemo/',
 				'/SocialMediaDemo/index.php',
+				'/SocialMediaDemo/login.php',
+
 				'/SocialMediaDemo/manifest.webmanifest',
 
 				'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
@@ -34,6 +36,8 @@ self.addEventListener('install', (evt) => {
 				'/SocialMediaDemo/assets/scripts/PageChat.js',
 				'/SocialMediaDemo/assets/scripts/PageChatOpen.js',
 				'/SocialMediaDemo/assets/scripts/PageFeed.js',
+
+				'/SocialMediaDemo/assets/scripts/login.js',
 			]);
 		})()
 	);
