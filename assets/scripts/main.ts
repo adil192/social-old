@@ -32,7 +32,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageFeed = new PageFeed();
 	Catalogue.PageCamera = new PageCamera();
 	Catalogue.PageChat = new PageChat();
-	Catalogue.PageChatOpen = new PageChatOpen(); // todo: create PageChatOpen class
+	Catalogue.PageChatOpen = new PageChatOpen();
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {
