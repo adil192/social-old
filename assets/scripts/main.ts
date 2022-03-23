@@ -4,6 +4,7 @@ import { PageCamera } from "./PageCamera.js";
 import { PageChat} from "./PageChat.js";
 import { PageChatOpen } from "./PageChatOpen.js";
 import { Page } from "./Page.js";
+import { Session } from "./Session.js";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
@@ -25,6 +26,11 @@ window.addEventListener("load", function() {
 		navigator.serviceWorker.register("sw.js")
 			.then(reg => console.log('service worker registered:', reg))
 			.catch(err => console.log('service worker not registered', err));
+	}
+
+	if (!Session.isLoggedIn) {
+		location.href = "login.php";
+		return;
 	}
 
 	body = document.querySelector("body");
