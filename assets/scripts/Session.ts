@@ -22,7 +22,8 @@ class SessionStruct {
 		(function() {
 			let cookies = decodeURIComponent(document.cookie).split('; ');
 			cookies.forEach(val => {
-				if (val.indexOf(SessionStruct.cookieName) === 0) json = val.substring(SessionStruct.cookieName.length);
+				if (val.indexOf(SessionStruct.cookieName) === 0)
+					json = JSON.parse(val.substring(SessionStruct.cookieName.length));
 			});
 		})();
 		if (json == null) return this.saveToCookie();
