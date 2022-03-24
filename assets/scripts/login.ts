@@ -1,5 +1,6 @@
 import { Page } from "./Page";
 import { Session } from "./Session";
+import { Networker } from "./Networker";
 
 class PageLogin extends Page {
 
@@ -16,7 +17,7 @@ class PageLogin extends Page {
 		super("pageLogin");
 
 		if (Session.isLoggedIn) {
-			location.href = "./";
+			PageLogin.goToIndex();
 			return;
 		}
 
@@ -32,6 +33,15 @@ class PageLogin extends Page {
 		this.signupPasswordInput.onchange = () => this.doSignupPasswordsMatch();
 		this.signupPasswordInput2.onchange = () => this.doSignupPasswordsMatch();
 		this.signupPasswordInput2.onkeyup = () => this.doSignupPasswordsMatch();
+
+		this.loginForm.onsubmit = (e) => {
+			e.preventDefault();
+			this.submitForm(this.loginForm);
+		}
+		this.signupForm.onsubmit = (e) => {
+			e.preventDefault();
+			this.submitForm(this.signupForm);
+		}
 	}
 
 	doSignupPasswordsMatch() {
@@ -41,6 +51,26 @@ class PageLogin extends Page {
 			this.signupPasswordInput2.setCustomValidity('Passwords do not match.');
 
 		this.signupPasswordInput2.reportValidity();
+	}
+
+	async submitForm(form: HTMLFormElement) {
+		let errorElem: HTMLParagraphElement = form.querySelector(".form-error");
+		errorElem.innerText = "";
+
+		let apiUrl = form == this.loginForm ? "Auth.Login.php" : "Auth.SignUp.php";
+		let [ success, response ] = await Networker.postApi(apiUrl);
+
+		if (success) {
+			Session.isLoggedIn = true;
+			PageLogin.goToIndex();
+		} else {
+			errorElem.innerText = response;
+		}
+	}
+
+	private static goToIndex() {
+		Session.saveNowIfNeeded();
+		location.href = "./";
 	}
 }
 

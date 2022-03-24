@@ -1,6 +1,7 @@
 
 class SessionStruct {
 	private static readonly cookieName: string = "session=";
+	private saveToCookieTimeout: number = null;
 
 	private _isLoggedIn: boolean = false;
 
@@ -11,13 +12,12 @@ class SessionStruct {
 		this.restoreFromCookie();
 	}
 
-	saveToCookieTimeout: number = null;
 	private onchange() {
 		clearTimeout(this.saveToCookieTimeout);
 		this.saveToCookieTimeout = setTimeout(() => this.saveToCookie(), 200);
 	}
 
-	restoreFromCookie() {
+	private restoreFromCookie() {
 		let json = null;
 		(function() {
 			let cookies = decodeURIComponent(document.cookie).split('; ');
@@ -29,12 +29,21 @@ class SessionStruct {
 
 		this.isLoggedIn = json.isLoggedIn;
 		clearTimeout(this.saveToCookieTimeout);
+		this.saveToCookieTimeout = null;
 	}
-	saveToCookie() {
+	private saveToCookie() {
+		clearTimeout(this.saveToCookieTimeout);
+		this.saveToCookieTimeout = null;
+
 		let json = JSON.stringify({
 			isLoggedIn: this.isLoggedIn
 		});
 		document.cookie = SessionStruct.cookieName + json + "; SameSite=Strict; Secure; max-age=31536000";
+	}
+
+	public saveNowIfNeeded() {
+		if (this.saveToCookieTimeout == null) return;
+		this.saveToCookie();
 	}
 
 }

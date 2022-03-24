@@ -40,6 +40,7 @@ include_once "../global_tools.php";
                        type="password" required
                        id="loginPasswordInput" name="password">
             </div>
+            <p class="form-error"></p>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
@@ -68,6 +69,7 @@ include_once "../global_tools.php";
                        type="password" required
                        id="signupPasswordInput2" name="password2">
             </div>
+            <p class="form-error"></p>
             <button type="submit" class="btn btn-primary">Sign up</button>
         </form>
     </div>

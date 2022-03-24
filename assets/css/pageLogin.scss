@@ -2,4 +2,14 @@
 	> .portraitArea {
 		padding: 1rem;
 	}
+
+	.form-error {
+		color: #d20000;
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		.form-error {
+			color: #ff6565;
+		}
+	}
 }
