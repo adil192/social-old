@@ -29,13 +29,13 @@ self.addEventListener('install', (evt) => {
 
 				'/SocialMediaDemo/assets/css/style.css',
 
-				'/SocialMediaDemo/assets/scripts/Catalogue.js',
+				'/SocialMediaDemo/assets/scripts/Catalogue',
 				'/SocialMediaDemo/assets/scripts/main.js',
-				'/SocialMediaDemo/assets/scripts/Page.js',
-				'/SocialMediaDemo/assets/scripts/PageCamera.js',
-				'/SocialMediaDemo/assets/scripts/PageChat.js',
-				'/SocialMediaDemo/assets/scripts/PageChatOpen.js',
-				'/SocialMediaDemo/assets/scripts/PageFeed.js',
+				'/SocialMediaDemo/assets/scripts/Page',
+				'/SocialMediaDemo/assets/scripts/PageCamera',
+				'/SocialMediaDemo/assets/scripts/PageChat',
+				'/SocialMediaDemo/assets/scripts/PageChatOpen',
+				'/SocialMediaDemo/assets/scripts/PageFeed',
 
 				'/SocialMediaDemo/assets/scripts/login.js',
 			]);
