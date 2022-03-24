@@ -29,9 +29,9 @@ include_once "../global_tools.php";
     <div class="portraitArea">
         <form id="loginForm" action="api/Auth.Login.php" method="post">
             <div class="mb-3">
-                <label for="loginEmailInput" class="form-label">Email address</label>
+                <label for="loginEmailInput" class="form-label">Email address or Username</label>
                 <input class="form-control"
-                       type="email" required
+                       type="text" required
                        id="loginEmailInput" name="email">
             </div>
             <div class="mb-3">
