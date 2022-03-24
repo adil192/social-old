@@ -1,19 +1,20 @@
 
-export class Session {
-	private static _isReady: boolean = false;
-	private static _isLoggedIn: boolean = false;
+class SessionStruct {
+	private _isReady: boolean = false;
+	private _isLoggedIn: boolean = false;
 
-	public static get isReady(): boolean { return this._isReady; }
-	public static set isReady(isReady: boolean) { this._isReady = isReady; this.onchange(); }
+	public get isReady(): boolean { return this._isReady; }
+	public set isReady(isReady: boolean) { this._isReady = isReady; this.onchange(); }
 
-	public static get isLoggedIn(): boolean { return this._isLoggedIn; }
-	public static set isLoggedIn(isLoggedIn: boolean) { this._isLoggedIn = isLoggedIn; }
+	public get isLoggedIn(): boolean { return this._isLoggedIn; }
+	public set isLoggedIn(isLoggedIn: boolean) { this._isLoggedIn = isLoggedIn; }
 
-	private static onchange() {
-		// todo
+	private onchange() {
+
 	}
 
 }
+export let Session = new SessionStruct();
 
 async function getSessionCookie() {
 	try {
