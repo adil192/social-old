@@ -20,8 +20,14 @@ if (!password_verify($password, $row->PasswordHash)) respond("Incorrect password
 // save to session
 $_SESSION["UserId"] = $row->UserId;
 $_SESSION["Username"] = $row->Username;
+$_SESSION["LoginToken"] = uuid();
+
+// save login session uuid
+$stmt = $conn->prepare('INSERT into UserSession (LoginToken, UserId) VALUES (?,?)');
+$stmt->execute([$_SESSION["LoginToken"], $_SESSION["UserId"]]);
 
 respond(array(
 	"UserId" => $_SESSION["UserId"],
 	"Username" => $_SESSION["Username"],
+	"LoginToken" => $_SESSION["LoginToken"],
 ), true);

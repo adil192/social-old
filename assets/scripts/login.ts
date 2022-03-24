@@ -62,6 +62,9 @@ class PageLogin extends Page {
 
 		if (success) {
 			Session.isLoggedIn = true;
+			Session.user.id = response.UserId;
+			Session.user.name = response.Username;
+			Session.user.loginToken = response.LoginToken;
 			PageLogin.goToIndex();
 		} else {
 			errorElem.innerText = response;
