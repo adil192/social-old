@@ -25,17 +25,17 @@ $stmt = $conn->prepare('SELECT UserId, Username FROM User WHERE Email=? LIMIT 1'
 $stmt->execute([$email]);
 $row = $stmt->fetchObject();
 
-// save to session
-$_SESSION["UserId"] = $row->UserId;
-$_SESSION["Username"] = $row->Username;
-$_SESSION["LoginToken"] = uuid();
+// collect information
+$UserId = $row->UserId;
+$Username = $row->Username;
+$LoginToken = uuid();
 
 // save login session uuid
 $stmt = $conn->prepare('INSERT into UserSession (LoginToken, UserId) VALUES (?,?)');
-$stmt->execute([$_SESSION["LoginToken"], $_SESSION["UserId"]]);
+$stmt->execute([$LoginToken, $UserId]);
 
 respond(array(
-	"UserId" => $_SESSION["UserId"],
-	"Username" => $_SESSION["Username"],
-	"LoginToken" => $_SESSION["LoginToken"],
+	"UserId" => $UserId,
+	"Username" => $Username,
+	"LoginToken" => $LoginToken,
 ), true);

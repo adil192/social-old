@@ -17,17 +17,17 @@ if (empty($row)) respond("No user exists with that email.", false);
 // check if password matches
 if (!password_verify($password, $row->PasswordHash)) respond("Incorrect password for user `$row->Username`.", false);
 
-// save to session
-$_SESSION["UserId"] = $row->UserId;
-$_SESSION["Username"] = $row->Username;
-$_SESSION["LoginToken"] = uuid();
+// collect information
+$UserId = $row->UserId;
+$Username = $row->Username;
+$LoginToken = uuid();
 
 // save login session uuid
 $stmt = $conn->prepare('INSERT into UserSession (LoginToken, UserId) VALUES (?,?)');
-$stmt->execute([$_SESSION["LoginToken"], $_SESSION["UserId"]]);
+$stmt->execute([$LoginToken, $UserId]);
 
 respond(array(
-	"UserId" => $_SESSION["UserId"],
-	"Username" => $_SESSION["Username"],
-	"LoginToken" => $_SESSION["LoginToken"],
+	"UserId" => $UserId,
+	"Username" => $Username,
+	"LoginToken" => $LoginToken,
 ), true);

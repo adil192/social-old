@@ -2,7 +2,6 @@
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 /** @noinspection PhpIllegalPsrClassPathInspection */
 
-@session_start();
 require_once "api.secrets.php";
 
 const URL_PREFIX = "https://adil.hanney.org/SocialMediaDemo/api";
