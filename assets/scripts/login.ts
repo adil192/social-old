@@ -58,13 +58,24 @@ class PageLogin extends Page {
 		errorElem.innerText = "";
 
 		let apiUrl = form == this.loginForm ? "Auth.Login.php" : "Auth.SignUp.php";
-		let [ success, response ] = await Networker.postApi(apiUrl);
+		let [ success, response ] = await Networker.postApi(apiUrl, this.getFormData(form));
 
 		if (success) {
 			Session.isLoggedIn = true;
 			PageLogin.goToIndex();
 		} else {
 			errorElem.innerText = response;
+		}
+	}
+	getFormData(form: HTMLFormElement): Record<string, string> {
+		if (form == this.loginForm) return {
+			email: this.loginEmailInput.value,
+			password: this.loginPasswordInput.value,
+		};
+		else return {
+			email: this.signupEmailInput.value,
+			password: this.signupPasswordInput.value,
+			password2: this.signupPasswordInput2.value,
 		}
 	}
 
