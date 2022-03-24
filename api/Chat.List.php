@@ -1,6 +1,6 @@
 <?php
-header('Content-Type: application/json');
-echo json_encode([
+require_once "api.globals.php";
+respond([
 	[2, "John Doe", "Sorted :)"],
 	[3, "John Doe", "Did you hurt your head?"],
 	[4, "John Doe", "Well looky what we have here. No no no, you're staying right here with me."],
@@ -14,4 +14,4 @@ echo json_encode([
 	[12, "John Doe", "You'll find out in thirty years!"],
 	[13, "John Doe", "Get out of town, I didn't know you did anything creative"],
 	[14, "John Doe", "The consequences could be disastrous!"],
-]);
+], true);
