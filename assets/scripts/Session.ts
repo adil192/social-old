@@ -25,7 +25,7 @@ class SessionStruct {
 				if (val.indexOf(SessionStruct.cookieName) === 0) json = val.substring(SessionStruct.cookieName.length);
 			});
 		})();
-		if (json == null) return;
+		if (json == null) return this.saveToCookie();
 
 		this.isLoggedIn = json.isLoggedIn;
 		clearTimeout(this.saveToCookieTimeout);
