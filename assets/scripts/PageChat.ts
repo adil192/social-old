@@ -14,7 +14,7 @@ export class PageChat extends Page {
 	}
 
 	async updateChatList() {
-		let [ success, chats ] = await Networker.postApi("Chat.List.php");
+		let [ success, chats ] = await Networker.postApi("Chat.List");
 		if (success) for (let i in chats) {
 			let chat = chats[i];
 			this.createChatOption(chat[0], chat[1], chat[2]);

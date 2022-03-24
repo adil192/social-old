@@ -57,7 +57,7 @@ class PageLogin extends Page {
 		let errorElem: HTMLParagraphElement = form.querySelector(".form-error");
 		errorElem.innerText = "";
 
-		let apiUrl = form == this.loginForm ? "Auth.Login.php" : "Auth.SignUp.php";
+		let apiUrl = form == this.loginForm ? "Auth.Login" : "Auth.SignUp";
 		let [ success, response ] = await Networker.postApi(apiUrl, this.getFormData(form));
 
 		if (success) {
