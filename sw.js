@@ -86,9 +86,11 @@ async function fetchApi(event) {
 	}
 
 	// if internet fetch worked, cache the new response for later
-	caches.open(apiCacheName).then(cache => {
-		cache.put(event.request, response.clone());
-	});
+	// (don't cache Auth.*.php api requests as they contain plain-text passwords)
+	if (!event.request.url.startsWith(apiUrlPrefix + "/Auth."))
+		caches.open(apiCacheName).then(cache => {
+			cache.put(event.request, response.clone());
+		});
 
 	return response;
 }
