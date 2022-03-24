@@ -1,10 +1,10 @@
-import { Catalogue } from "./Catalogue.js";
-import { PageFeed } from "./PageFeed.js";
-import { PageCamera } from "./PageCamera.js";
-import { PageChat} from "./PageChat.js";
-import { PageChatOpen } from "./PageChatOpen.js";
-import { Page } from "./Page.js";
-import { Session } from "./Session.js";
+import { Catalogue } from "./Catalogue";
+import { PageFeed } from "./PageFeed";
+import { PageCamera } from "./PageCamera";
+import { PageChat} from "./PageChat";
+import { PageChatOpen } from "./PageChatOpen";
+import { Page } from "./Page";
+import { Session } from "./Session";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;

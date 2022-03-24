@@ -1,4 +1,4 @@
-import {Page} from "./Page.js";
+import {Page} from "./Page";
 
 export class PageFeed extends Page {
 

@@ -1,5 +1,5 @@
-import {Page} from "./Page.js";
-import {Networker} from "./Networker.js";
+import {Page} from "./Page";
+import {Networker} from "./Networker";
 
 export class PageChat extends Page {
 	pageChatOptions: HTMLDivElement;

@@ -1,4 +1,4 @@
-import { Page } from "./Page.js";
+import { Page } from "./Page";
 
 export class PageCamera extends Page {
 	readonly constraints: MediaStreamConstraints = {
