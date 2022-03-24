@@ -1,9 +1,18 @@
-///<reference path="../../node_modules/jose/dist/types/index.d.ts" />
-import * as jose from '../../node_modules/jose/dist/browser/index.js';
 
 export class Session {
-	public static isReady: boolean = false;
-	public static isLoggedIn: boolean = false;
+	private static _isReady: boolean = false;
+	private static _isLoggedIn: boolean = false;
+
+	public static get isReady(): boolean { return this._isReady; }
+	public static set isReady(isReady: boolean) { this._isReady = isReady; this.onchange(); }
+
+	public static get isLoggedIn(): boolean { return this._isLoggedIn; }
+	public static set isLoggedIn(isLoggedIn: boolean) { this._isLoggedIn = isLoggedIn; }
+
+	private static onchange() {
+		// todo
+	}
+
 }
 
 async function getSessionCookie() {
@@ -19,12 +28,12 @@ async function getSessionCookie() {
 
 		if (jwt == null) return;
 
-		let publicKey: jose.KeyLike = null;
+		/*let publicKey: jose.KeyLike = null;
 		const { payload, protectedHeader } = await jose.jwtVerify(jwt, publicKey);
 
 		for (let i in payload) {
 			Session[i] = payload[i];
-		}
+		}*/
 	} finally {
 		Session.isReady = true;
 	}
