@@ -1,4 +1,5 @@
 import { Page } from "./Page";
+import { Session } from "./Session";
 
 class PageLogin extends Page {
 
@@ -13,6 +14,11 @@ class PageLogin extends Page {
 
 	constructor() {
 		super("pageLogin");
+
+		if (Session.isLoggedIn) {
+			location.href = "./";
+			return;
+		}
 
 		this.loginForm = document.querySelector("#loginForm");
 		this.loginEmailInput = document.querySelector("#loginEmailInput");
