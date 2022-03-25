@@ -1,5 +1,11 @@
 <?php
 require_once "api.globals.php";
+
+$conn = getConn();
+if (!isLoggedIn($conn)) {
+	respond(ErrorMessages::$NotLoggedIn, false);
+}
+
 respond([
 	[2, "John Doe", "Sorted :)"],
 	[3, "John Doe", "Did you hurt your head?"],

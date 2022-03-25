@@ -6,6 +6,9 @@ require_once "api.secrets.php";
 
 const URL_PREFIX = "https://adil.hanney.org/SocialMediaDemo/api";
 
+const loginTokenName = "loginToken";
+const loginTokenNameExpiry = "loginTokenExpiry";
+
 function getConn() {
 	global $secrets__password;
 	$host = "localhost";
@@ -40,6 +43,35 @@ function uuid(): string {
 		// 48 bits for the node
 		mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
 	);
+}
+
+function isLoggedIn($conn = null): bool {
+	$loginToken = $_COOKIE[loginTokenName] ?? $_POST[loginTokenName];
+	if (empty($loginToken)) return false;
+
+	// if we've already verified this login token is correct
+	if ($_SESSION[loginTokenName] == $loginToken) {
+		// timeout session token so user can revoke logins
+		if (time() > $_SESSION[loginTokenNameExpiry]) {
+			unset($_SESSION[loginTokenName]);
+			// then re-verify...
+		} else {
+			return true;
+		}
+	}
+
+	// now we'll check if the loginToken is valid in the database
+	if ($conn == null) $conn = getConn();
+	$stmt = $conn->prepare('SELECT UserId FROM UserSession WHERE LoginToken=? LIMIT 1');
+	$stmt->execute([$loginToken]);
+	$row = $stmt->fetchObject();
+	if (empty($row)) return false;
+
+	// save verified token to $_SESSION so we don't need to check the database every time
+	$_SESSION[loginTokenName] = $loginToken;
+	$_SESSION[loginTokenNameExpiry] = time() + 30 * 60; // re-verify login token after 30 minutes
+
+	return true;
 }
 
 function respond($response, $success) {

@@ -28,14 +28,15 @@ $row = $stmt->fetchObject();
 // collect information
 $UserId = $row->UserId;
 $Username = $row->Username;
-$LoginToken = uuid();
+$loginToken = uuid();
+$_COOKIE[loginTokenName] = $loginToken;
 
 // save login session uuid
 $stmt = $conn->prepare('INSERT into UserSession (LoginToken, UserId) VALUES (?,?)');
-$stmt->execute([$LoginToken, $UserId]);
+$stmt->execute([$loginToken, $UserId]);
 
 respond(array(
 	"UserId" => $UserId,
 	"Username" => $Username,
-	"LoginToken" => $LoginToken,
+	"LoginToken" => $loginToken,
 ), true);
