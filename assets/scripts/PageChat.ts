@@ -2,15 +2,22 @@ import {Page} from "./Page";
 import {Networker} from "./Networker";
 
 export class PageChat extends Page {
+	pageChatSearch: HTMLInputElement;
 	pageChatOptions: HTMLDivElement;
 	pageChatOptionTemplate: HTMLTemplateElement;
 
 	constructor() {
 		super("pageChat");
+
+		this.pageChatSearch = this.pageElem.querySelector(".pageChatSearch");
 		this.pageChatOptions = this.pageElem.querySelector("#pageChatOptions");
 		this.pageChatOptionTemplate = this.pageElem.querySelector("#pageChatOptionTemplate");
 
 		this.updateChatList().then();
+
+		this.pageChatSearch.addEventListener("click", function() {
+			location.hash = "pageSearch";
+		})
 	}
 
 	async updateChatList() {

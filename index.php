@@ -41,7 +41,7 @@ include_once "../global_tools.php";
     </div>
     <div class="portraitArea">
         <div class="pageChat-search-parent">
-            <input id="pageChatSearch" aria-label="Search chats" placeholder="Search">
+            <input class="pageChatSearch" aria-label="Search chats" placeholder="Search">
         </div>
         <ul id="pageChatOptions">
             <template id="pageChatOptionTemplate">
@@ -62,6 +62,18 @@ include_once "../global_tools.php";
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat with John Placeholder</h1>
+    </div>
+    <div class="portraitArea">
+        hi
+    </div>
+</div>
+
+<div class="page page-overlay" id="pageSearch">
+    <div class="page-header">
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <div class="pageChat-search-parent">
+            <input id="pageSearchInput" class="pageChatSearch" aria-label="Search chats" placeholder="Search">
+        </div>
     </div>
     <div class="portraitArea">
         hi
