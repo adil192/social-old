@@ -30,5 +30,5 @@ $stmt->execute([$loginToken, $UserId]);
 respond(array(
 	"UserId" => $UserId,
 	"Username" => $Username,
-	"LoginToken" => $loginToken,
+	"loginToken" => $loginToken,
 ), true);
