@@ -54,7 +54,8 @@ class SessionStruct {
 			loginToken: this.user.loginToken
 		});
 		document.cookie = SessionStruct.cookieName + json + "; SameSite=Strict; Secure; max-age=31536000";
-		document.cookie = "loginToken=" + this.user.loginToken + "; SameSite=Strict; Secure; max-age=31536000";
+		if (!!this.user.loginToken)
+			document.cookie = "loginToken=" + this.user.loginToken + "; SameSite=Strict; Secure; max-age=31536000";
 	}
 
 	public saveNowIfNeeded() {
