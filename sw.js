@@ -41,6 +41,7 @@ self.addEventListener('install', (evt) => {
 
 				'/SocialMediaDemo/assets/css/style.css',
 
+				'/SocialMediaDemo/assets/scripts/sw/CustomAPICache.js',
 				'/SocialMediaDemo/assets/scripts/Catalogue',
 				'/SocialMediaDemo/assets/scripts/main.js',
 				'/SocialMediaDemo/assets/scripts/Page',
