@@ -1,12 +1,21 @@
+//importScripts("https://unpkg.com/dexie/dist/dexie.js");
+importScripts("https://unpkg.com/dexie@3.2.1/dist/dexie.js");
+
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-25-1412";
-const apiCacheName = "SocialMediaDemo-api-cache";
-const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api"
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-26-1130";
+const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
+
+// Dexie (IndexedDB)
+let db = new Dexie("APICache");
 
 self.addEventListener('install', (evt) => {
 	evt.waitUntil(
 		(async () => {
-			// non-essential cache items
+			db.version(1).stores({
+				apiCache: `hash, response`
+			});
+
+			// non-essential cache items (don't await)
 			caches.open(staticCacheName).then(cache => {
 				cache.addAll([
 					'/SocialMediaDemo/assets/images/transparent.webp',
@@ -25,6 +34,7 @@ self.addEventListener('install', (evt) => {
 
 				'/SocialMediaDemo/manifest.webmanifest',
 
+				'https://unpkg.com/dexie@3.2.1/dist/dexie.js',
 				'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
 
 				'/SocialMediaDemo/assets/css/style.css',
@@ -49,7 +59,7 @@ self.addEventListener('activate', event => {
 			let cacheNames = await caches.keys();
 			await Promise.all(cacheNames
 				.filter((cacheName) => {
-					return staticCacheName.indexOf(cacheName) === -1 && apiCacheName.indexOf(cacheName) === -1;
+					return staticCacheName.indexOf(cacheName) === -1;
 				})
 				.map((cacheName) => {
 					return caches.delete(cacheName);
@@ -62,7 +72,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', function(event) {
 	event.respondWith(
 		(async () => {
-			if (event.request.url.startsWith(apiUrlPrefix)) {
+			if (event.request.method === "POST" || event.request.url.startsWith(apiUrlPrefix)) {
 				return await fetchApi(event);
 			} else {
 				return await fetchStatic(event);
@@ -72,25 +82,34 @@ self.addEventListener('fetch', function(event) {
 });
 
 async function fetchApi(event) {
-	console.log("fetchApi:", event.request.url)
+	let url = event.request.url;
+	// hash post data for caching purposes
+	let hash = await hashRequest(url, event.request.clone());
+	// find cache items that match this hash
+	console.log("fetchApi:", url, "hash:", hash)
+	let cacheCollection = await db.apiCache.where("hash").equals(hash);
 
-	// first try internet
+	// try internet first
 	let response = null;
 	try {
 		response = await fetch(event.request);
 	} catch (e) {
-		// if offline, used cached response
-		return await caches.match(event.request.url, {
-			cacheName: apiCacheName
-		});
+		// if offline, try to find a cached response
+		let cacheItems = await cacheCollection.toArray();
+		if (cacheItems.length) return deserializeResponse(cacheItems[0].response);
+		else return null;
 	}
 
-	// if internet fetch worked, cache the new response for later
+	// if internet fetch worked, cache the new response for later (don't await)
 	// (don't cache Auth.*.php api requests as they contain plain-text passwords)
-	if (!event.request.url.startsWith(apiUrlPrefix + "/Auth."))
-		caches.open(apiCacheName).then(cache => {
-			cache.put(event.request, response.clone());
-		});
+	if (!url.startsWith(apiUrlPrefix + "/Auth.")) {
+		serializeResponse(response.clone()).then(clone => {
+			return db.apiCache.put({
+				hash: hash,
+				response: clone,
+			});
+		})
+	}
 
 	return response;
 }
@@ -107,4 +126,36 @@ async function fetchStatic(event) {
 
 	// otherwise, try internet
 	return await fetch(event.request);
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
+async function digestMessage(message) {
+	const encoded = new TextEncoder().encode(message);
+	const buffer = await crypto.subtle.digest('SHA-256', encoded);
+	const byteArray = Array.from(new Uint8Array(buffer));
+	return byteArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function hashRequest(url, request) {
+	let formData = {};
+	for (let pair of (await request.formData()).entries()) {
+		formData[pair[0]] = pair[1];
+	}
+	return await digestMessage(JSON.stringify(formData) + "|" + url);
+}
+// https://a.kabachnik.info/offline-post-requests-via-service-worker-and-indexeddb.html
+async function serializeResponse(response) {
+	let serialized = {
+		headers: {},
+		status: response.status,
+		statusText: response.statusText
+	};
+	for (let pair of response.headers.entries()) {
+		serialized.headers[pair[0]] = pair[1];
+	}
+	serialized.body = await response.clone().text();
+	return serialized;
+}
+// https://a.kabachnik.info/offline-post-requests-via-service-worker-and-indexeddb.html
+function deserializeResponse(data) {
+	return new Response(data.body, data);
 }
