@@ -1,3 +1,4 @@
+/// <reference path="./Extensions.ts"/>
 import {Page} from "./Page";
 import {Networker} from "./Networker";
 
@@ -16,7 +17,7 @@ export class PageChat extends Page {
 		this.updateChatList().then();
 
 		this.pageChatSearch.addEventListener("click", function() {
-			location.hash = "pageSearch";
+			window.openPage("pageSearch");
 		})
 	}
 

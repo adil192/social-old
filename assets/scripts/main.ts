@@ -1,3 +1,4 @@
+/// <reference path="./Extensions.ts"/>
 import { Catalogue } from "./Catalogue";
 import { PageFeed } from "./PageFeed";
 import { PageCamera } from "./PageCamera";
@@ -92,6 +93,10 @@ window.addEventListener("resize", function () {
 	document.getElementById(currentPageId).scrollIntoView();
 });
 
+window.openPage = function (id: string) {
+	location.hash = id;
+};
+
 window.onhashchange = function () {
 	if (location.hash == "#" + currentPageId) return;
 
@@ -118,4 +123,6 @@ window.onhashchange = function () {
 			behavior: "smooth"
 		});
 	}
+
+	if (!!page.Page) (page.Page as Page).OnOpen();
 }
