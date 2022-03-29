@@ -5,7 +5,7 @@ export class PageChatOpen extends Page {
 	chatIdSpan: HTMLSpanElement;
 
 	constructor() {
-		super("pageChatOpen");
+		super("pageChatOpen", "pageOverlayChatOpen");
 		this.chatIdSpan = this.pageElem.querySelector(".pageChatOpen-chatId");
 	}
 

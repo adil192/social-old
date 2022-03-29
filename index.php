@@ -58,7 +58,7 @@ include_once "../global_tools.php";
     </div>
 </div>
 
-<div class="page page-overlay" id="pageChatOpen">
+<div class="page page-overlay" id="pageOverlayChatOpen">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <h1>Chat with John Placeholder</h1>
@@ -68,7 +68,7 @@ include_once "../global_tools.php";
     </div>
 </div>
 
-<div class="page page-overlay" id="pageSearch">
+<div class="page page-overlay" id="pageOverlaySearch">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
         <div class="pageChat-search-parent">
