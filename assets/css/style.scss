@@ -49,7 +49,7 @@ html, body, .page {
 		top: 0;
 		left: 0;
 		transform: translateX(100%);
-		transition: transform 1s;
+		transition: transform 0.5s;
 		&.page-overlay-show {
 			transform: translateX(0);
 		}
