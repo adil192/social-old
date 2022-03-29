@@ -14,14 +14,6 @@ let observer: IntersectionObserver;
 
 const intersectionThreshold: number = 0.9;
 
-function isPageAnOverlay(pageId: string) {
-	let allOverlayPages = Catalogue.AllOverlayPages;
-	for (let i in allOverlayPages) {
-		let overlayPage: Page = allOverlayPages[i];
-		if (pageId == overlayPage.pageId) return true;
-	}
-	return false;
-}
 
 window.addEventListener("load", function() {
 	// set up PWA service worker
@@ -104,23 +96,33 @@ window.onhashchange = function () {
 	if (location.hash == "#" + currentPageId) return;
 
 	let page: HTMLDivElement;
+	currentPageId = location.hash.substring(1);
+	let currentPageElemId = currentPageId;
 	if (location.hash.length <= 1) {
 		page = Catalogue.PageCamera.pageElem;
 		currentPageId = Catalogue.PageCamera.pageId;
+		currentPageElemId = currentPageId;
 	} else {
 		page = document.querySelector(location.hash);
-		currentPageId = location.hash.substring(1);
+		if (page == null) {
+			currentPageElemId = "pageOverlay" + location.hash.substring(5);
+			page = document.querySelector("#" + currentPageElemId);
+		}
 	}
 
 	// hide all other page overlays
+	let isCurrentAnOverlay = false;
 	let overlayPages = Catalogue.AllOverlayPages;
 	for (let i in overlayPages) {
 		let overlayPage: Page = overlayPages[i];
-		if (overlayPage.pageId == currentPageId) continue;
-		overlayPage.pageElem.classList.remove("page-overlay-show");
+		if (overlayPage.pageId == currentPageId) {
+			isCurrentAnOverlay = true;
+		} else {
+			overlayPage.pageElem.classList.remove("page-overlay-show");
+		}
 	}
 
-	if (isPageAnOverlay(page.id)) {
+	if (isCurrentAnOverlay) {
 		page.classList.add("page-overlay-show");
 	} else {
 		page.scrollIntoView({
