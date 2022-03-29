@@ -30,12 +30,20 @@ export class PageChat extends Page {
 	}
 
 	createChatOption(id: number, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
-		let optionElem: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
+		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
+		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
+
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
 		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg ?? "Say hi!";
 		// todo: set alt text and aria-labels
-		this.pageChatOptions.append(optionElem);
+
+		optionElem.addEventListener("click", function () {
+			window.currentChat = id;
+			window.openPage("pageChatOpen")
+		});
+
+		this.pageChatOptions.append(optionElemFragment);
 	}
 
 }

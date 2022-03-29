@@ -64,7 +64,7 @@ include_once "../global_tools.php";
         <h1>Chat with John Placeholder</h1>
     </div>
     <div class="portraitArea">
-        hi
+        Open chat id: <span class="pageChatOpen-chatId"></span>
     </div>
 </div>
 
@@ -76,7 +76,7 @@ include_once "../global_tools.php";
         </div>
     </div>
     <div class="portraitArea">
-        hi
+        pageSearch
     </div>
 </div>
 
