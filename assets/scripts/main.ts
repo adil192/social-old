@@ -1,11 +1,13 @@
 /// <reference path="./Extensions.ts"/>
 import { Catalogue } from "./Catalogue";
+import { Page } from "./Page";
+import { Session } from "./Session";
+
 import { PageFeed } from "./PageFeed";
 import { PageCamera } from "./PageCamera";
 import { PageChat} from "./PageChat";
 import { PageChatOpen } from "./PageChatOpen";
-import { Page } from "./Page";
-import { Session } from "./Session";
+import { PageSearch } from "./PageSearch";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
@@ -40,6 +42,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageCamera = new PageCamera();
 	Catalogue.PageChat = new PageChat();
 	Catalogue.PageChatOpen = new PageChatOpen();
+	Catalogue.PageSearch = new PageSearch();
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {
@@ -110,8 +113,9 @@ window.onhashchange = function () {
 	}
 
 	// hide all other page overlays
-	for (let i in Catalogue.AllOverlayPages) {
-		let overlayPage: Page = Catalogue.AllOverlayPages[i];
+	let overlayPages = Catalogue.AllOverlayPages;
+	for (let i in overlayPages) {
+		let overlayPage: Page = overlayPages[i];
 		if (overlayPage.pageId == currentPageId) continue;
 		overlayPage.pageElem.classList.remove("page-overlay-show");
 	}
