@@ -29,7 +29,7 @@ export class PageChat extends Page {
 		}
 	}
 
-	createChatOption(id: number, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
+	createChatOption(username: string, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
 		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
 
@@ -39,7 +39,7 @@ export class PageChat extends Page {
 		// todo: set alt text and aria-labels
 
 		optionElem.addEventListener("click", function () {
-			window.currentChat = id;
+			window.currentChatUsername = username;
 			window.openPage("pageChatOpen")
 		});
 

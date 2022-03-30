@@ -2,15 +2,15 @@ import {Page} from "./Page";
 
 export class PageChatOpen extends Page {
 
-	chatIdSpan: HTMLSpanElement;
+	chatDisplayName: HTMLSpanElement;
 
 	constructor() {
 		super("pageChatOpen", "pageOverlayChatOpen");
-		this.chatIdSpan = this.pageElem.querySelector(".pageChatOpen-chatId");
+		this.chatDisplayName = this.pageElem.querySelector(".pageChatOpen-chatDisplayName");
 	}
 
 	OnOpen() {
 		super.OnOpen();
-		this.chatIdSpan.innerText = window.currentChat + "";
+		this.chatDisplayName.innerText = window.currentChatUsername;
 	}
 }

@@ -61,10 +61,10 @@ include_once "../global_tools.php";
 <div class="page page-overlay" id="pageOverlayChatOpen">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
-        <h1>Chat with John Placeholder</h1>
+        <h1>Chat with <span class="pageChatOpen-chatDisplayName">PLACEHOLDER</span></h1>
     </div>
     <div class="portraitArea">
-        Open chat id: <span class="pageChatOpen-chatId"></span>
+        Open chat
     </div>
 </div>
 
