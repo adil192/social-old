@@ -1,10 +1,10 @@
 importScripts(
-	"https://unpkg.com/dexie@3.2.1/dist/dexie.js", // https://unpkg.com/dexie/dist/dexie.js
+	"../assets/ext/dexie.3.2.1.js", // https://unpkg.com/dexie/dist/dexie.js
 	"./assets/scripts/sw/CustomAPICache.js"
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-03-29-1029";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-02-0246";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
 // Dexie (IndexedDB)
@@ -36,8 +36,9 @@ self.addEventListener('install', (evt) => {
 
 				'/SocialMediaDemo/manifest.webmanifest',
 
-				'https://unpkg.com/dexie@3.2.1/dist/dexie.js',
-				'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+				'/assets/ext/bootstrap.5.1.3.min.css',
+				'/assets/ext/bootstrap.bundle.5.1.3.min.js',
+				'/assets/ext/dexie.3.2.1.js',
 
 				'/SocialMediaDemo/assets/css/style.css',
 
