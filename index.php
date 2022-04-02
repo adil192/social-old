@@ -64,7 +64,36 @@ include_once "../global_tools.php";
         <h1>Chat with <span class="pageChatOpen-chatDisplayName">PLACEHOLDER</span></h1>
     </div>
     <div class="portraitArea">
-        Open chat
+        <ul id="pageChatOpen-messages">
+            <li class="pageChatOpen-message">
+                <span class="pageChatOpen-message-text">This is a message</span>
+                <div class="pageChatOpen-message-footer">
+                    <span class="pageChatOpen-message-sender">Asta</span>
+                    <span class="pageChatOpen-message-time">11:38</span>
+                </div>
+            </li>
+            <li class="pageChatOpen-message pageChatOpen-message-own">
+                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
+                <div class="pageChatOpen-message-footer">
+                    <span class="pageChatOpen-message-sender">Asta</span>
+                    <span class="pageChatOpen-message-time">11:38</span>
+                </div>
+            </li>
+            <li class="pageChatOpen-message">
+                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
+                <div class="pageChatOpen-message-footer">
+                    <span class="pageChatOpen-message-sender">Asta</span>
+                    <span class="pageChatOpen-message-time">11:38</span>
+                </div>
+            </li>
+            <li class="pageChatOpen-message">
+                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
+                <div class="pageChatOpen-message-footer">
+                    <span class="pageChatOpen-message-sender">Asta</span>
+                    <span class="pageChatOpen-message-time">11:38</span>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 
