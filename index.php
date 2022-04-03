@@ -65,34 +65,15 @@ include_once "../global_tools.php";
     </div>
     <div class="portraitArea">
         <ul id="pageChatOpen-messages">
-            <li class="pageChatOpen-message">
-                <span class="pageChatOpen-message-text">This is a message</span>
-                <div class="pageChatOpen-message-footer">
-                    <span class="pageChatOpen-message-sender">Asta</span>
-                    <span class="pageChatOpen-message-time">11:38</span>
-                </div>
-            </li>
-            <li class="pageChatOpen-message pageChatOpen-message-own">
-                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
-                <div class="pageChatOpen-message-footer">
-                    <span class="pageChatOpen-message-sender">Asta</span>
-                    <span class="pageChatOpen-message-time">11:38</span>
-                </div>
-            </li>
-            <li class="pageChatOpen-message">
-                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
-                <div class="pageChatOpen-message-footer">
-                    <span class="pageChatOpen-message-sender">Asta</span>
-                    <span class="pageChatOpen-message-time">11:38</span>
-                </div>
-            </li>
-            <li class="pageChatOpen-message">
-                <span class="pageChatOpen-message-text">This is an example longer message to showcase how the css handles overflow</span>
-                <div class="pageChatOpen-message-footer">
-                    <span class="pageChatOpen-message-sender">Asta</span>
-                    <span class="pageChatOpen-message-time">11:38</span>
-                </div>
-            </li>
+            <template id="pageChatOpen-message-template">
+                <li class="pageChatOpen-message">
+                    <span class="pageChatOpen-message-text"></span>
+                    <div class="pageChatOpen-message-footer">
+                        <span class="pageChatOpen-message-sender"></span>
+                        <span class="pageChatOpen-message-time"></span>
+                    </div>
+                </li>
+            </template>
         </ul>
     </div>
 </div>

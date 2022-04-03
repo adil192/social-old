@@ -2,11 +2,14 @@
 export class Networker {
 	static apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
-	static async postApi(url: string, data: Record<string, string> = {}): Promise<[boolean, any]> {
+	static async postApi(url: string, data: string[][] | Record<string, string|number|boolean> = {}): Promise<[boolean, any]> {
 		if (!url.startsWith("http")) {
 			if (!url.startsWith("/")) url = "/" + url;
 			url = this.apiUrlPrefix + url;
 		}
+
+		// convert data values to strings for URLSearchParams
+		data = Object.entries(data).map(([key, value]) => [key, value.toString()]);
 
 		let response: Response = await fetch(url, {
 			method: "POST",
