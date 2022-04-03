@@ -10,7 +10,7 @@ export class PageChat extends Page {
 	constructor() {
 		super("pageChat");
 
-		this.pageChatSearch = this.pageElem.querySelector(".pageChatSearch");
+		this.pageChatSearch = this.pageElem.querySelector("#pageChatSearch");
 		this.pageChatOptions = this.pageElem.querySelector("#pageChatOptions");
 		this.pageChatOptionTemplate = this.pageElem.querySelector("#pageChatOptionTemplate");
 
