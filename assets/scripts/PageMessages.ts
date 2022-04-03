@@ -20,8 +20,16 @@ export class PageMessages extends Page {
 		this.input.addEventListener("keydown", () => {
 			setTimeout(() => {
 				this.input.style.height = 'auto';
-				this.input.style.height = (this.input.scrollHeight)+'px';
-			});
+				this.input.style.height = this.input.scrollHeight + 'px';
+			}, 0);
+		});
+
+		// if near the bottom, keep scroll position at the bottom
+		window.addEventListener("resize", () => {
+			let maxOffset = Math.max(this.messagesElem.offsetHeight * 0.3, 350);
+			if (this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset) {
+				this.scrollToBottom();
+			}
 		});
 	}
 
@@ -29,7 +37,9 @@ export class PageMessages extends Page {
 		super.OnOpen();
 		this.chatDisplayName.innerText = window.currentChatUsername;
 		this.clearMessages();
-		this.loadMessages().then();
+		this.loadMessages().then(() => {
+			this.scrollToBottom();
+		});
 	}
 
 	clearMessages() {
@@ -64,5 +74,9 @@ export class PageMessages extends Page {
 		}
 
 		this.messagesElem.append(messageElemFragment);
+	}
+
+	private scrollToBottom() {
+		this.messagesElem.scrollTo(0, this.messagesElem.scrollHeight);
 	}
 }
