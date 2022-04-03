@@ -75,6 +75,11 @@ include_once "../global_tools.php";
                 </li>
             </template>
         </ul>
+        <form method="post">
+            <div class="input-group">
+                <textarea id="pageMessagesInput" aria-label="Send a message..." placeholder="Send a message..." rows="1"></textarea>
+            </div>
+        </form>
     </div>
 </div>
 

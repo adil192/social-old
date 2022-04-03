@@ -1,7 +1,15 @@
 #pageOverlayMessages {
+	.portraitArea {
+		display: flex;
+		flex-flow: column nowrap;
+	}
+
 	ul#pageMessages-messages {
+		flex: 1;
+		overflow-y: auto;
 		list-style: none;
 		padding: 1rem;
+		margin-bottom: 0;
 
 		li.pageMessages-message {
 			background: rgba(0,0,0,0.01);
