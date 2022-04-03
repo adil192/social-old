@@ -31,6 +31,9 @@
 					width: 2.5em;
 					display: inline-block;
 				}
+				.pageChatOpen-message-time:empty {
+					display: none;
+				}
 			}
 		}
 	}

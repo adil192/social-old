@@ -32,12 +32,12 @@ export class PageChatOpen extends Page {
 		});
 		if (!success) return;
 		for (let i = 0; i < messages.length; ++i) {
-			let [ messageId, messageText, messageUsername ]: [number, string, string] = messages[i];
-			this.createMessageElem(messageId, messageText, messageUsername);
+			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, string] = messages[i];
+			this.createMessageElem(messageId, messageText, messageUsername, messageTime);
 		}
 	}
 
-	private createMessageElem(messageId: number, messageText: string, messageUsername: string) {
+	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: string) {
 		// pageChatOpen-message-template
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
@@ -45,6 +45,7 @@ export class PageChatOpen extends Page {
 		messageElem.setAttribute("data-messageId", messageId + "");
 		messageElem.querySelector(".pageChatOpen-message-text").textContent = messageText;
 		messageElem.querySelector(".pageChatOpen-message-sender").textContent = messageUsername;
+		messageElem.querySelector(".pageChatOpen-message-time").textContent = messageTime;
 
 		if (!messageUsername || messageUsername == Session.user.name) {
 			messageElem.classList.add("pageChatOpen-message-own");
