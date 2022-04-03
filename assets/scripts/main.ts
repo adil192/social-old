@@ -85,7 +85,8 @@ function isOnCameraPage(): boolean {
 }
 
 window.addEventListener("resize", function () {
-	document.getElementById(currentPageId).scrollIntoView();
+	if (Catalogue.AllSwipingPages.filter(page => page.pageId == currentPageId).length > 0)
+		document.getElementById(currentPageId).scrollIntoView();
 });
 
 window.openPage = function (id: string) {

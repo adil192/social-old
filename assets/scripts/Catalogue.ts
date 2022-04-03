@@ -16,6 +16,9 @@ class _Catalogue {
 	get AllPages(): Page[] {
 		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageMessages, this.PageSearch ];
 	}
+	get AllSwipingPages(): Page[] {
+		return [ this.PageFeed, this.PageCamera, this.PageChat ];
+	}
 	get AllOverlayPages(): Page[] {
 		return [ this.PageMessages, this.PageSearch ];
 	}
