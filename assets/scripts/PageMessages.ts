@@ -7,12 +7,22 @@ export class PageMessages extends Page {
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
 	messageTemplate: HTMLTemplateElement;
+	input: HTMLTextAreaElement;
 
 	constructor() {
 		super("pageMessages", "pageOverlayMessages");
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
+		this.input = this.pageElem.querySelector("#pageMessagesInput");
+
+		// resize input based on content
+		this.input.addEventListener("keydown", () => {
+			setTimeout(() => {
+				this.input.style.height = 'auto';
+				this.input.style.height = (this.input.scrollHeight)+'px';
+			});
+		});
 	}
 
 	OnOpen() {
