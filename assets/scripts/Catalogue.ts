@@ -2,7 +2,7 @@ import {Page} from "./Page";
 import {PageFeed} from "./PageFeed";
 import {PageCamera} from "./PageCamera";
 import {PageChat} from "./PageChat";
-import {PageChatOpen} from "./PageChatOpen";
+import {PageMessages} from "./PageMessages";
 import {PageSearch} from "./PageSearch";
 
 class _Catalogue {
@@ -10,14 +10,14 @@ class _Catalogue {
 	PageCamera: PageCamera;
 	PageChat: PageChat;
 
-	PageChatOpen: PageChatOpen;
+	PageMessages: PageMessages;
 	PageSearch: PageSearch;
 
 	get AllPages(): Page[] {
-		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageChatOpen, this.PageSearch ];
+		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageMessages, this.PageSearch ];
 	}
 	get AllOverlayPages(): Page[] {
-		return [ this.PageChatOpen, this.PageSearch ];
+		return [ this.PageMessages, this.PageSearch ];
 	}
 }
 

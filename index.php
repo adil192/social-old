@@ -58,19 +58,19 @@ include_once "../global_tools.php";
     </div>
 </div>
 
-<div class="page page-overlay" id="pageOverlayChatOpen">
+<div class="page page-overlay" id="pageOverlayMessages">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
-        <h1>Chat with <span class="pageChatOpen-chatDisplayName">PLACEHOLDER</span></h1>
+        <h1>Chat with <span class="pageMessages-chatDisplayName">PLACEHOLDER</span></h1>
     </div>
     <div class="portraitArea">
-        <ul id="pageChatOpen-messages">
-            <template id="pageChatOpen-message-template">
-                <li class="pageChatOpen-message">
-                    <span class="pageChatOpen-message-text"></span>
-                    <div class="pageChatOpen-message-footer">
-                        <span class="pageChatOpen-message-sender"></span>
-                        <span class="pageChatOpen-message-time"></span>
+        <ul id="pageMessages-messages">
+            <template id="pageMessages-message-template">
+                <li class="pageMessages-message">
+                    <span class="pageMessages-message-text"></span>
+                    <div class="pageMessages-message-footer">
+                        <span class="pageMessages-message-sender"></span>
+                        <span class="pageMessages-message-time"></span>
                     </div>
                 </li>
             </template>

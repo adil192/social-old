@@ -40,7 +40,7 @@ export class PageChat extends Page {
 
 		optionElem.addEventListener("click", function () {
 			window.currentChatUsername = username;
-			window.openPage("pageChatOpen")
+			window.openPage("pageMessages")
 		});
 
 		this.pageChatOptions.append(optionElemFragment);

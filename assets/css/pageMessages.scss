@@ -1,9 +1,9 @@
-#pageOverlayChatOpen {
-	ul#pageChatOpen-messages {
+#pageOverlayMessages {
+	ul#pageMessages-messages {
 		list-style: none;
 		padding: 1rem;
 
-		li.pageChatOpen-message {
+		li.pageMessages-message {
 			background: rgba(0,0,0,0.01);
 			box-shadow: rgba(0,0,0,0.1) 0.1rem 0.1rem 0.1rem;
 			border-radius: 1rem;
@@ -13,25 +13,25 @@
 			display: table; // hack to get messages to autosize
 			max-width: max(75%, 20rem);
 
-			&:not(.pageChatOpen-message-own) {
+			&:not(.pageMessages-message-own) {
 				border-bottom-left-radius: 0;
 			}
-			&.pageChatOpen-message-own {
+			&.pageMessages-message-own {
 				background: rgba(0,0,0,0.05);
 				border-bottom-right-radius: 0;
 				margin-inline-start: auto;
 			}
 
-			.pageChatOpen-message-footer {
+			.pageMessages-message-footer {
 				font-size: 0.9em;
 				margin-bottom: -1em;
 				text-align: end;
 
-				.pageChatOpen-message-time {
+				.pageMessages-message-time {
 					width: 2.5em;
 					display: inline-block;
 				}
-				.pageChatOpen-message-time:empty {
+				.pageMessages-message-time:empty {
 					display: none;
 				}
 			}

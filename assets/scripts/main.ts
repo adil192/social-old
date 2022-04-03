@@ -6,7 +6,7 @@ import { Session } from "./Session";
 import { PageFeed } from "./PageFeed";
 import { PageCamera } from "./PageCamera";
 import { PageChat} from "./PageChat";
-import { PageChatOpen } from "./PageChatOpen";
+import { PageMessages } from "./PageMessages";
 import { PageSearch } from "./PageSearch";
 
 let body: HTMLBodyElement;
@@ -33,7 +33,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageFeed = new PageFeed();
 	Catalogue.PageCamera = new PageCamera();
 	Catalogue.PageChat = new PageChat();
-	Catalogue.PageChatOpen = new PageChatOpen();
+	Catalogue.PageMessages = new PageMessages();
 	Catalogue.PageSearch = new PageSearch();
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {

@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-02-0246";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-03-1619";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
 // Dexie (IndexedDB)
@@ -48,7 +48,7 @@ self.addEventListener('install', (evt) => {
 				'/SocialMediaDemo/assets/scripts/Page',
 				'/SocialMediaDemo/assets/scripts/PageCamera',
 				'/SocialMediaDemo/assets/scripts/PageChat',
-				'/SocialMediaDemo/assets/scripts/PageChatOpen',
+				'/SocialMediaDemo/assets/scripts/PageMessages',
 				'/SocialMediaDemo/assets/scripts/PageFeed',
 
 				'/SocialMediaDemo/assets/scripts/login.js',
