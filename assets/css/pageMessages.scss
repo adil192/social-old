@@ -7,7 +7,7 @@
 			background: rgba(0,0,0,0.01);
 			box-shadow: rgba(0,0,0,0.1) 0.1rem 0.1rem 0.1rem;
 			border-radius: 1rem;
-			padding: 1rem;
+			padding: 0.7rem;
 			margin-bottom: 0.5rem;
 
 			display: table; // hack to get messages to autosize
@@ -24,7 +24,8 @@
 
 			.pageMessages-message-footer {
 				font-size: 0.9em;
-				margin-bottom: -1em;
+				margin-top: -0.2em;
+				margin-bottom: -0.7em;
 				text-align: end;
 
 				.pageMessages-message-time {
