@@ -14,7 +14,9 @@ export class PageSearch extends Page {
 		super.OnOpen();
 
 		this.pageSearchInput.value = "";
-		this.pageSearchInput.focus();
+		this.pageSearchInput.focus({
+			preventScroll: true
+		});
 	}
 
 	onSearchTermChange() {
