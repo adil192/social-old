@@ -1,5 +1,5 @@
 import {Page} from "./Page";
-import {Networker} from "./Networker";
+import {Meta, Networker} from "./Networker";
 import {Session} from "./Session";
 
 export class PageMessages extends Page {
@@ -7,6 +7,8 @@ export class PageMessages extends Page {
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
 	messageTemplate: HTMLTemplateElement;
+
+	inputForm: HTMLFormElement;
 	input: HTMLTextAreaElement;
 
 	constructor() {
@@ -14,11 +16,14 @@ export class PageMessages extends Page {
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
+
+		this.inputForm = this.pageElem.querySelector("#pageMessagesInputForm");
 		this.input = this.pageElem.querySelector("#pageMessagesInput");
 
-		// resize input based on content
+		this.inputForm.addEventListener("submit", (e) => this.onInputFormSubmit(e));
 		this.input.addEventListener("keydown", () => {
 			setTimeout(() => {
+				// resize input based on content
 				this.input.style.height = 'auto';
 				this.input.style.height = this.input.scrollHeight + 'px';
 			}, 0);
@@ -74,6 +79,26 @@ export class PageMessages extends Page {
 		}
 
 		this.messagesElem.append(messageElemFragment);
+	}
+
+	private async onInputFormSubmit(e: SubmitEvent) {
+		e.preventDefault();
+		if (!this.input.value) return;
+
+		let time = new Date().toLocaleTimeString("en-GB", {
+			hour12: false,
+			hour: "2-digit",
+			minute: "2-digit",
+		});
+		let messageText = this.input.value;
+
+		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
+			messageText: messageText
+		});
+		if (meta.success) {
+			this.createMessageElem(newId, messageText, Session.user.name, time, false);
+			this.scrollToBottom();
+		}
 	}
 
 	private static formatUsername(username: string): string {

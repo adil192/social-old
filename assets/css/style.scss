@@ -96,6 +96,7 @@ html, body, .page {
 	> * {
 		background: rgba(0,0,0,0.1);
 		padding: 0.4rem;
+		border: none;
 
 		@media screen and (prefers-color-scheme: dark) {
 			background: rgba(255,255,255,0.15);
