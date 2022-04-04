@@ -92,6 +92,10 @@ export class PageMessages extends Page {
 		});
 		let messageText = this.input.value;
 
+		// clear input and return focus
+		this.input.value = "";
+		this.input.focus();
+
 		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
 			messageText: messageText
 		});
