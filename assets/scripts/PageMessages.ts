@@ -69,11 +69,16 @@ export class PageMessages extends Page {
 			messageElem.classList.add("pageMessages-message-own");
 		} else {
 			if (isGroupChat) {
-				messageElem.querySelector(".pageMessages-message-sender").textContent = messageUsername;
+				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(messageUsername);
 			}
 		}
 
 		this.messagesElem.append(messageElemFragment);
+	}
+
+	private static formatUsername(username: string): string {
+		if (username.length > 15) return username.substring(0, 13) + "...";
+		return username;
 	}
 
 	private scrollToBottom() {
