@@ -47,10 +47,10 @@ export class PageMessages extends Page {
 	}
 
 	async loadMessages() {
-		let [ success, messages ] = await Networker.postApi("Chat.GetMessages", {
+		let [ meta, messages ] = await Networker.postApi("Chat.GetMessages", {
 			chatId: window.currentChatUsername
 		});
-		if (!success) return;
+		if (!meta.success) return;
 		for (let i = 0; i < messages.length; ++i) {
 			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, string] = messages[i];
 			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);

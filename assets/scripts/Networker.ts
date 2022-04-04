@@ -1,8 +1,12 @@
 
+export type Meta = {
+	success: boolean;
+}
+
 export class Networker {
 	static apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
-	static async postApi(url: string, data: string[][] | Record<string, string|number|boolean> = {}): Promise<[boolean, any]> {
+	static async postApi(url: string, data: string[][] | Record<string, string|number|boolean> = {}): Promise<[Meta, any]> {
 		if (!url.startsWith("http")) {
 			if (!url.startsWith("/")) url = "/" + url;
 			url = this.apiUrlPrefix + url;
@@ -19,6 +23,6 @@ export class Networker {
 			}
 		});
 		let parsed = await response.json();
-		return [ parsed.meta.success, parsed.response ];
+		return [ parsed.meta, parsed.response ];
 	}
 }

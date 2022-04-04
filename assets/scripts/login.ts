@@ -58,9 +58,9 @@ class PageLogin extends Page {
 		errorElem.innerText = "";
 
 		let apiUrl = form == this.loginForm ? "Auth.Login" : "Auth.SignUp";
-		let [ success, response ] = await Networker.postApi(apiUrl, this.getFormData(form));
+		let [ meta, response ] = await Networker.postApi(apiUrl, this.getFormData(form));
 
-		if (success) {
+		if (meta.success) {
 			Session.isLoggedIn = true;
 			Session.user.id = response.UserId;
 			Session.user.name = response.Username;
