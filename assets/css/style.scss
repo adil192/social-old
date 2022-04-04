@@ -92,6 +92,7 @@ html, body, .page {
 		border: none;
 		resize: none;
 		overflow: hidden;
+		outline: none !important;
 	}
 
 	&::before {
