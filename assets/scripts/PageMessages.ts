@@ -67,7 +67,7 @@ export class PageMessages extends Page {
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
 		messageElem.setAttribute("data-messageId", messageId + "");
-		messageElem.querySelector(".pageMessages-message-text").textContent = messageText;
+		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
 		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
 
 		if (!messageUsername || messageUsername == Session.user.name) {
