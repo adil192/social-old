@@ -71,7 +71,19 @@ function isLoggedIn($conn = null): bool {
 	$_SESSION[loginTokenName] = $loginToken;
 	$_SESSION[loginTokenNameExpiry] = time() + 30 * 60; // re-verify login token after 30 minutes
 
+	loadSessionFromCookie();
+
 	return true;
+}
+
+function loadSessionFromCookie() {
+	$cookie = $_COOKIE["session"];
+	if (empty($cookie)) return;
+
+	$parsed = json_decode($cookie);
+	$_SESSION["isLoggedIn"] = $parsed->isLoggedIn;
+	$_SESSION["userId"] = $parsed->userId;
+	$_SESSION["userName"] = $parsed->userName;
 }
 
 function respond($response, $success) {
