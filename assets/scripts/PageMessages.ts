@@ -47,7 +47,9 @@ export class PageMessages extends Page {
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
 
-			this.loadMessagesIntervalId = setInterval(async () => await this.loadMessages(), this.loadMessagesIntervalMs);
+			this.loadMessagesIntervalId = setInterval(() => {
+				requestAnimationFrame(() => this.loadMessages());
+			}, this.loadMessagesIntervalMs);
 		});
 	}
 	OnClose() {
