@@ -70,13 +70,13 @@ export class PageMessages extends Page {
 		if (!meta.success) return;
 		for (let i = 0; i < messages.length; ++i) {
 			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, string] = messages[i];
+			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
+			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
 			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);
 		}
 	}
 
 	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
-		if (this.excludedMessageIds.indexOf(messageId) !== -1) return;
-
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
