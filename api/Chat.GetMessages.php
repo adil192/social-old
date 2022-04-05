@@ -7,21 +7,24 @@ if (!isLoggedIn($conn)) {
 }
 
 $chatId = $_POST["chatId"];
-if (empty($chatId)) respond("No chat selected", false);
-$chatUsername = "$chatId";
+if (empty($chatId) || !is_numeric($chatId)) respond("No chat selected", false);
 
-respond([
-	[10, "So would you be interested in hanging out again?", $_SESSION["Username"], "11:00"],
-	[12, "Yeah sure :)", $chatUsername, "11:02"],
-	[23, "What are you up to Wednesday after work?", $_SESSION["Username"], "11:02"],
-	[25, "I don't think I'll be able to do anything this week", $chatUsername, "11:02"],
-	[26, "just too busy with work", $chatUsername, "11:03"],
-	[27, "Maybe next week?", $chatUsername, "11:03"],
-	[31, "Too bad, I'm going to be out of town Thursday to Friday", $_SESSION["Username"], "11:04"],
-	[32, "Was hoping to see how the stache was looking", $_SESSION["Username"], "11:04"],
-	[33, "SCROLL", $chatUsername, "11:05"],
-	[34, "SCROLL", $chatUsername, "11:05"],
-	[35, "SCROLL", $chatUsername, "11:05"],
-	[36, "SCROLL", $chatUsername, "11:05"],
-	[37, "SCROLL", $chatUsername, "11:05"],
-], true);
+$lastMessageId = $_POST["lastMessageId"] ?? 0;
+
+$stmt = $conn->prepare("SELECT ChatMessage.MessageId, ChatMessage.MessageText, ChatMessage.Date, User.Username
+FROM ChatMessage, User
+WHERE ChatMessage.ChatId=? AND ChatMessage.MessageId>? AND ChatMessage.UserId = User.UserId
+ORDER BY MessageId DESC LIMIT 50");
+$stmt->execute([$chatId, $lastMessageId]);
+
+$results = [];
+
+while ($row = $stmt->fetchObject()) {
+	$results[] = [
+		$row->MessageId,
+		$row->MessageText,
+		$row->UserId,
+		$row->Date
+	];
+}
+respond($results, true);
