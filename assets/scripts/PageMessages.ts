@@ -70,7 +70,7 @@ export class PageMessages extends Page {
 
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
-			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, string] = messages[i];
+			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, number ] = messages[i];
 			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
 			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
 			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);
@@ -78,13 +78,13 @@ export class PageMessages extends Page {
 		if (messages.length && isNearBottom) this.scrollToBottom();
 	}
 
-	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
+	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: number, isGroupChat: boolean) {
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
 		messageElem.setAttribute("data-messageId", messageId + "");
 		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
-		messageElem.querySelector(".pageMessages-message-time").textContent = PageMessages.timestampToTime(parseInt(messageTime));
+		messageElem.querySelector(".pageMessages-message-time").textContent = PageMessages.timestampToTime(messageTime);
 
 		if (!messageUsername || messageUsername == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
@@ -101,7 +101,7 @@ export class PageMessages extends Page {
 		e.preventDefault();
 		if (!this.input.value) return;
 
-		let timestamp: string = +new Date() / 1000 + "";
+		let timestamp: number = +new Date() / 1000;
 		let messageText = this.input.value;
 
 		// clear input and return focus

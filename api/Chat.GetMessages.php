@@ -21,7 +21,7 @@ $results = [];
 
 while ($row = $stmt->fetchObject()) {
 	$results[] = [
-		$row->MessageId,
+		(int)$row->MessageId,
 		$row->MessageText,
 		$row->Username,
 		strtotime($row->Date)
