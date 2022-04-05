@@ -24,7 +24,7 @@ while ($row = $stmt->fetchObject()) {
 		$row->MessageId,
 		$row->MessageText,
 		$row->UserId,
-		$row->Date
+		strtotime($row->Date)
 	];
 }
 respond($results, true);

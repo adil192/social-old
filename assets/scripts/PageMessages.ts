@@ -82,7 +82,7 @@ export class PageMessages extends Page {
 
 		messageElem.setAttribute("data-messageId", messageId + "");
 		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
-		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
+		messageElem.querySelector(".pageMessages-message-time").textContent = PageMessages.timestampToTime(parseInt(messageTime));
 
 		if (!messageUsername || messageUsername == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
@@ -130,5 +130,13 @@ export class PageMessages extends Page {
 
 	private scrollToBottom() {
 		this.messagesElem.scrollTo(0, this.messagesElem.scrollHeight);
+	}
+
+	private static timestampToTime(timestamp: number): string {
+		return new Date(timestamp * 1000).toLocaleTimeString("en-GB", {
+			hour12: false,
+			hour: "2-digit",
+			minute: "2-digit",
+		});
 	}
 }
