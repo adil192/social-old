@@ -23,7 +23,7 @@ while ($row = $stmt->fetchObject()) {
 	$results[] = [
 		$row->MessageId,
 		$row->MessageText,
-		$row->UserId,
+		$row->Username,
 		strtotime($row->Date)
 	];
 }
