@@ -40,7 +40,7 @@ export class PageMessages extends Page {
 
 	OnOpen() {
 		super.OnOpen();
-		this.chatDisplayName.innerText = window.currentChatUsername;
+		this.chatDisplayName.innerText = window.currentChat.name;
 		this.clearMessages();
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
@@ -53,7 +53,7 @@ export class PageMessages extends Page {
 
 	async loadMessages() {
 		let [ meta, messages ] = await Networker.postApi("Chat.GetMessages", {
-			chatId: window.currentChatUsername
+			chatId: window.currentChat.id
 		});
 		if (!meta.success) return;
 		for (let i = 0; i < messages.length; ++i) {

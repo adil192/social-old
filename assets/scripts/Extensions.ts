@@ -1,7 +1,10 @@
 interface Window {
 	openPage(id: string);
 
-	currentChatUsername?: string;
+	currentChat?: {
+		id: number;
+		name?: string;
+	};
 }
 
 interface HTMLDivElement {
