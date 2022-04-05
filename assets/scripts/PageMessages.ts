@@ -99,11 +99,7 @@ export class PageMessages extends Page {
 		e.preventDefault();
 		if (!this.input.value) return;
 
-		let time = new Date().toLocaleTimeString("en-GB", {
-			hour12: false,
-			hour: "2-digit",
-			minute: "2-digit",
-		});
+		let timestamp: string = +new Date() / 1000 + "";
 		let messageText = this.input.value;
 
 		// clear input and return focus
@@ -117,7 +113,7 @@ export class PageMessages extends Page {
 			messageText: messageText
 		});
 		if (meta.success) {
-			this.createMessageElem(newId, messageText, Session.user.name, time, false);
+			this.createMessageElem(newId, messageText, Session.user.name, timestamp, false);
 			this.excludedMessageIds.push(newId);
 			this.scrollToBottom();
 		}
