@@ -27,4 +27,4 @@ while ($row = $stmt->fetchObject()) {
 		strtotime($row->Date)
 	];
 }
-respond($results, true);
+respond(array_reverse($results), true);
