@@ -11,6 +11,7 @@ if (empty($_POST["userIds"])) respond("No user ids specified", false);
 $userIds = explode(",", $_POST["userIds"]); // parse comma delimited list of user ids
 if (!in_array($_SESSION["userId"], $userIds)) $userIds[] = $_SESSION["userId"]; // add current user if omitted
 $userIds = array_map((fn($userId) => (int)$userId), $userIds); // make sure each element is an int
+sort($userIds);
 
 // check if chat already exists
 $stmt = $conn->prepare("SELECT ChatId

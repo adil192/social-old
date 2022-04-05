@@ -40,11 +40,15 @@ export class PageSearch extends Page {
 		});
 		if (!meta.success) return console.log(response);
 
-		this.pageSearchResults.querySelectorAll('li').forEach(e => e.remove());
+		this.clearChatOptions();
 		for (let i in response) {
 			let result = response[i];
 			this.createChatOption(result.UserId, result.Username, result.Username);
 		}
+	}
+
+	clearChatOptions() {
+		this.pageSearchResults.querySelectorAll('li').forEach(e => e.remove());
 	}
 
 	createChatOption(userId: number, username: string, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
@@ -54,6 +58,25 @@ export class PageSearch extends Page {
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
 
+		optionElem.addEventListener("click", async () => {
+			this.clearChatOptions();
+			await this.createChat(userId, username);
+		});
+
 		this.pageSearchResults.append(optionElemFragment);
+	}
+
+
+	private async createChat(userId: number, username: string) {
+		let [ meta, response ]: [Meta, number] = await Networker.postApi("Chat.Create", {
+			"userIds": [userId].join(",")
+		});
+		if (!meta.success) history.back();
+
+		window.currentChat = {
+			id: response,
+			name: username
+		};
+		window.openPage("pageMessages");
 	}
 }
