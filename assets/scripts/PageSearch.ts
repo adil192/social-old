@@ -1,25 +1,59 @@
 import {Page} from "./Page";
+import {Meta, Networker} from "./Networker";
 
 export class PageSearch extends Page {
-	pageSearchInput: HTMLInputElement;
+	pageSearchResults: HTMLUListElement;
+	pageChatOptionTemplate: HTMLTemplateElement;
+
+	input: HTMLInputElement;
+	searchTimeoutMs: number = 300;
+	searchTimeoutId: number = null;
 
 	constructor() {
 		super("pageSearch", "pageOverlaySearch");
 
-		this.pageSearchInput = this.pageElem.querySelector("#pageSearchInput");
-		this.pageSearchInput.onkeyup = () => this.onSearchTermChange();
+		this.pageSearchResults = this.pageElem.querySelector("#pageSearchResults");
+		this.pageChatOptionTemplate = document.querySelector("#pageChatOptionTemplate");
+
+		this.input = this.pageElem.querySelector("#pageSearchInput");
+		this.input.onkeyup = () => {
+			clearTimeout(this.searchTimeoutId);
+			this.searchTimeoutId = setTimeout(() => this.onSearchTermChange(), this.searchTimeoutMs);
+		};
 	}
 
 	OnOpen() {
 		super.OnOpen();
 
-		this.pageSearchInput.value = "";
-		this.pageSearchInput.focus({
+		this.input.value = "";
+		this.input.focus({
 			preventScroll: true
 		});
 	}
 
-	onSearchTermChange() {
+	async onSearchTermChange() {
+		let searchTerm = this.input.value;
+		if (!searchTerm) return;
 
+		let [ meta, response ]: [Meta, Record<string, any>[]] = await Networker.postApi("Users.Search", {
+			"searchTerm": searchTerm
+		});
+		if (!meta.success) return console.log(response);
+
+		this.pageSearchResults.querySelectorAll('li').forEach(e => e.remove());
+		for (let i in response) {
+			let result = response[i];
+			this.createChatOption(result.UserId, result.Username, result.Username);
+		}
+	}
+
+	createChatOption(userId: number, username: string, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
+		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
+		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
+
+		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
+		optionElem.querySelector(".pageChat-option-name").textContent = name;
+
+		this.pageSearchResults.append(optionElemFragment);
 	}
 }
