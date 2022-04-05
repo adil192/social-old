@@ -36,10 +36,7 @@ export class PageMessages extends Page {
 
 		// if near the bottom, keep scroll position at the bottom
 		window.addEventListener("resize", () => {
-			let maxOffset = Math.max(this.messagesElem.offsetHeight * 0.3, 350);
-			if (this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset) {
-				this.scrollToBottom();
-			}
+			this.remainAtBottomIfNecessary();
 		});
 	}
 
@@ -50,7 +47,10 @@ export class PageMessages extends Page {
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
 
-			this.loadMessagesIntervalId = setInterval(() => this.loadMessages(), this.loadMessagesIntervalMs);
+			this.loadMessagesIntervalId = setInterval(async () => {
+				await this.loadMessages();
+				this.remainAtBottomIfNecessary(0.1);
+			}, this.loadMessagesIntervalMs);
 		});
 	}
 	OnClose() {
@@ -130,6 +130,12 @@ export class PageMessages extends Page {
 
 	private scrollToBottom() {
 		this.messagesElem.scrollTo(0, this.messagesElem.scrollHeight);
+	}
+	private remainAtBottomIfNecessary(ratio: number = 0.3) {
+		let maxOffset = Math.max(this.messagesElem.offsetHeight * ratio, 350);
+		if (this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset) {
+			this.scrollToBottom();
+		}
 	}
 
 	private static timestampToTime(timestamp: number): string {
