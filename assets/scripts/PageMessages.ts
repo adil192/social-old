@@ -99,6 +99,7 @@ export class PageMessages extends Page {
 		});
 
 		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
+			chatId: window.currentChat.id,
 			messageText: messageText
 		});
 		if (meta.success) {

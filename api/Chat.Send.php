@@ -6,7 +6,14 @@ if (!isLoggedIn($conn)) {
 	respond(ErrorMessages::$NotLoggedIn, false);
 }
 
+$chatId = $_POST["chatId"];
+if (empty($chatId)) respond("No chat specified", false);
+
 $messageText = $_POST["messageText"];
 if (empty($messageText)) respond("Empty message", false);
 
-respond(9999, true);
+$stmt = $conn->prepare("INSERT INTO ChatMessage (ChatId, UserId, MessageText) 
+VALUES (?, ?, ?)");
+$stmt->execute([$chatId, $_SESSION["userId"], $messageText]);
+
+respond($conn->lastInsertId("MessageId"), true);
