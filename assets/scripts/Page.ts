@@ -11,4 +11,5 @@ export abstract class Page {
 	}
 
 	public OnOpen() {}
+	public OnClose() {}
 }

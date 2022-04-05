@@ -96,6 +96,12 @@ window.openPage = function (id: string) {
 window.onhashchange = function () {
 	if (location.hash == "#" + currentPageId) return;
 
+	let previousPageId: string = currentPageId;
+	let previousPage: HTMLDivElement = document.querySelector("#" + previousPageId);
+	if (previousPage == null) {
+		previousPage = document.querySelector("#pageOverlay" + previousPageId.substring(4));
+	}
+
 	let page: HTMLDivElement;
 	currentPageId = location.hash.substring(1);
 	let currentPageElemId = currentPageId;
@@ -131,5 +137,6 @@ window.onhashchange = function () {
 		});
 	}
 
+	if (!!previousPage.Page) (page.Page as Page).OnClose();
 	if (!!page.Page) (page.Page as Page).OnOpen();
 }
