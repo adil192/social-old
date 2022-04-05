@@ -14,6 +14,7 @@ export class PageMessages extends Page {
 	lastMessageId: number = 0;
 	excludedMessageIds: number[] = [];
 	loadMessagesIntervalId: number = null;
+	loadMessagesFrame: number = null;
 	readonly loadMessagesIntervalMs: number = 1000;
 
 	constructor() {
@@ -48,7 +49,8 @@ export class PageMessages extends Page {
 			this.scrollToBottom();
 
 			this.loadMessagesIntervalId = setInterval(() => {
-				requestAnimationFrame(() => this.loadMessages());
+				cancelAnimationFrame(this.loadMessagesFrame);
+				this.loadMessagesFrame = requestAnimationFrame(() => this.loadMessages());
 			}, this.loadMessagesIntervalMs);
 		});
 	}
@@ -57,6 +59,7 @@ export class PageMessages extends Page {
 		this.lastMessageId = 0;
 		this.excludedMessageIds = [];
 		clearInterval(this.loadMessagesIntervalId);
+		cancelAnimationFrame(this.loadMessagesFrame);
 	}
 
 	clearMessages() {
