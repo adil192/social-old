@@ -7,6 +7,7 @@
 	ul#pageMessages-messages {
 		flex: 1;
 		overflow-y: auto;
+		scroll-behavior: smooth;
 		list-style: none;
 		padding: 1rem;
 		margin-bottom: 0;

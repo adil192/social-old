@@ -36,7 +36,7 @@ export class PageMessages extends Page {
 
 		// if near the bottom, keep scroll position at the bottom
 		window.addEventListener("resize", () => {
-			this.remainAtBottomIfNecessary();
+			if (this.isNearBottom()) this.scrollToBottom();
 		});
 	}
 
@@ -47,10 +47,7 @@ export class PageMessages extends Page {
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
 
-			this.loadMessagesIntervalId = setInterval(async () => {
-				await this.loadMessages();
-				this.remainAtBottomIfNecessary(0.1);
-			}, this.loadMessagesIntervalMs);
+			this.loadMessagesIntervalId = setInterval(async () => await this.loadMessages(), this.loadMessagesIntervalMs);
 		});
 	}
 	OnClose() {
@@ -68,12 +65,15 @@ export class PageMessages extends Page {
 			lastMessageId: this.lastMessageId
 		});
 		if (!meta.success) return;
+
+		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
 			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, string] = messages[i];
 			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
 			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
 			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);
 		}
+		if (messages.length && isNearBottom) this.scrollToBottom();
 	}
 
 	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
@@ -127,11 +127,9 @@ export class PageMessages extends Page {
 	private scrollToBottom() {
 		this.messagesElem.scrollTo(0, this.messagesElem.scrollHeight);
 	}
-	private remainAtBottomIfNecessary(ratio: number = 0.3) {
+	private isNearBottom(ratio: number = 0.3) {
 		let maxOffset = Math.max(this.messagesElem.offsetHeight * ratio, 350);
-		if (this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset) {
-			this.scrollToBottom();
-		}
+		return this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset;
 	}
 
 	private static timestampToTime(timestamp: number): string {
