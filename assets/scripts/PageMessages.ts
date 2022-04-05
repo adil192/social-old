@@ -14,7 +14,7 @@ export class PageMessages extends Page {
 	lastMessageId: number = 0;
 	excludedMessageIds: number[] = [];
 	loadMessagesIntervalId: number = null;
-	loadMessagesIntervalMs: number = 1000;
+	readonly loadMessagesIntervalMs: number = 1000;
 
 	constructor() {
 		super("pageMessages", "pageOverlayMessages");
@@ -52,6 +52,8 @@ export class PageMessages extends Page {
 	}
 	OnClose() {
 		super.OnClose();
+		this.lastMessageId = 0;
+		this.excludedMessageIds = [];
 		clearInterval(this.loadMessagesIntervalId);
 	}
 
