@@ -11,6 +11,11 @@ export class PageMessages extends Page {
 	inputForm: HTMLFormElement;
 	input: HTMLTextAreaElement;
 
+	lastMessageId: number = 0;
+	excludedMessageIds: number[] = [];
+	loadMessagesIntervalId: number = null;
+	loadMessagesIntervalMs: number = 1000;
+
 	constructor() {
 		super("pageMessages", "pageOverlayMessages");
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
@@ -44,7 +49,13 @@ export class PageMessages extends Page {
 		this.clearMessages();
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
+
+			this.loadMessagesIntervalId = setInterval(() => this.loadMessages(), this.loadMessagesIntervalMs);
 		});
+	}
+	OnClose() {
+		super.OnClose();
+		clearInterval(this.loadMessagesIntervalId);
 	}
 
 	clearMessages() {
@@ -53,7 +64,8 @@ export class PageMessages extends Page {
 
 	async loadMessages() {
 		let [ meta, messages ] = await Networker.postApi("Chat.GetMessages", {
-			chatId: window.currentChat.id
+			chatId: window.currentChat.id,
+			lastMessageId: this.lastMessageId
 		});
 		if (!meta.success) return;
 		for (let i = 0; i < messages.length; ++i) {
@@ -63,6 +75,8 @@ export class PageMessages extends Page {
 	}
 
 	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
+		if (this.excludedMessageIds.indexOf(messageId) !== -1) return;
+
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
@@ -104,6 +118,7 @@ export class PageMessages extends Page {
 		});
 		if (meta.success) {
 			this.createMessageElem(newId, messageText, Session.user.name, time, false);
+			this.excludedMessageIds.push(newId);
 			this.scrollToBottom();
 		}
 	}
