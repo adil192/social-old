@@ -92,7 +92,8 @@ include_once "../global_tools.php";
         </div>
     </div>
     <div class="portraitArea">
-        pageSearch
+        <ul id="pageSearchResults">
+        </ul>
     </div>
 </div>
 

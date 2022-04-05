@@ -5,51 +5,51 @@
 		list-style: none;
 		padding: 0;
 	}
-	.pageChat-option {
-		display: flex;
-		flex-flow: row nowrap;
-		gap: 1rem;
-		align-items: center;
-		cursor: pointer;
-		padding: 0.5rem 1rem;
+}
+.pageChat-option {
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 1rem;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
 
-		&:hover {
-			background: rgba(0,0,0,0.02);
-		}
-		&:focus {
-			background: rgba(0,0,0,0.05);
-		}
+	&:hover {
+		background: rgba(0,0,0,0.02);
+	}
+	&:focus {
+		background: rgba(0,0,0,0.05);
+	}
 
-		.pageChat-option-pfp,
-		.pageChat-option-quickAction {
-			width: 1em;
-			height: 100%;
-			aspect-ratio: 1;
-			border-radius: 50%;
-			border: none;
-			padding: 0.3rem;
-		}
-		.pageChat-option-pfp {
-			width: 4rem;
-			background: none;
-		}
+	.pageChat-option-pfp,
+	.pageChat-option-quickAction {
+		width: 1em;
+		height: 100%;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		border: none;
+		padding: 0.3rem;
+	}
+	.pageChat-option-pfp {
+		width: 4rem;
+		background: none;
+	}
 
-		.pageChat-option-main {
-			flex: 1;
-			padding: 0.3rem;
-			display: grid;
-		}
-		.pageChat-option-name {
-			font-size: 1rem;
-			margin-bottom: 0;
-			font-weight: initial;
-		}
-		.pageChat-option-lastMsg {
-			opacity: 0.7;
-			margin-bottom: 0;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
+	.pageChat-option-main {
+		flex: 1;
+		padding: 0.3rem;
+		display: grid;
+	}
+	.pageChat-option-name {
+		font-size: 1rem;
+		margin-bottom: 0;
+		font-weight: initial;
+	}
+	.pageChat-option-lastMsg {
+		opacity: 0.7;
+		margin-bottom: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
