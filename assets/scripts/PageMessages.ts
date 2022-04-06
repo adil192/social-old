@@ -28,17 +28,19 @@ export class PageMessages extends Page {
 
 		this.inputForm.addEventListener("submit", (e) => this.onInputFormSubmit(e));
 		this.input.addEventListener("keydown", () => {
-			setTimeout(() => {
-				// resize input based on content
-				this.input.style.height = 'auto';
-				this.input.style.height = this.input.scrollHeight + 'px';
-			}, 0);
+			setTimeout(() => this.autoSizeInput(), 0);
 		});
 
 		// if near the bottom, keep scroll position at the bottom
 		window.addEventListener("resize", () => {
 			if (this.isNearBottom()) this.scrollToBottom();
 		});
+	}
+
+	autoSizeInput() {
+		// resize input based on content
+		this.input.style.height = 'auto';
+		this.input.style.height = this.input.scrollHeight + 'px';
 	}
 
 	OnOpening() {
@@ -111,6 +113,7 @@ export class PageMessages extends Page {
 
 		// clear input and return focus
 		this.input.value = "";
+		this.autoSizeInput();
 		this.input.focus({
 			preventScroll: true
 		});
