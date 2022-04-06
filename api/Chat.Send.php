@@ -16,4 +16,4 @@ $stmt = $conn->prepare("INSERT INTO ChatMessage (ChatId, UserId, MessageText)
 VALUES (?, ?, ?)");
 $stmt->execute([$chatId, $_SESSION["userId"], $messageText]);
 
-respond($conn->lastInsertId("MessageId"), true);
+respond((int)$conn->lastInsertId("MessageId"), true);
