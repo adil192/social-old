@@ -109,7 +109,7 @@ export class PageMessages extends Page {
 		if (!this.input.value) return;
 
 		let timestamp: number = +new Date() / 1000;
-		let messageText = this.input.value;
+		let messageText = this.input.value.trim();
 
 		// clear input and return focus
 		this.input.value = "";
