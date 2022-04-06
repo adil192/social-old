@@ -47,9 +47,7 @@ window.addEventListener("load", function() {
 		rootMargin: '0px',
 		threshold: intersectionThreshold
 	});
-	observer.observe(Catalogue.PageFeed.pageElem);
-	observer.observe(Catalogue.PageCamera.pageElem);
-	observer.observe(Catalogue.PageChat.pageElem);
+	startObserver();
 });
 
 let bodyScrolledTimeout = null;
@@ -150,5 +148,21 @@ window.onhashchange = function () {
 		Catalogue.PageChat.pageElem.scrollIntoView({
 			behavior: "smooth"
 		});
+		stopObserver();
+	} else {
+		startObserver();
+	}
+}
+
+function startObserver() {
+	let allSwipingPages = Catalogue.AllSwipingPages;
+	for (let i in allSwipingPages) {
+		observer.observe(allSwipingPages[i].pageElem);
+	}
+}
+function stopObserver() {
+	let allSwipingPages = Catalogue.AllSwipingPages;
+	for (let i in allSwipingPages) {
+		observer.unobserve(allSwipingPages[i].pageElem);
 	}
 }
