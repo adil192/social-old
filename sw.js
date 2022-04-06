@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-06-0204";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-06-1711";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
 // Dexie (IndexedDB)
@@ -17,24 +17,21 @@ self.addEventListener('install', (evt) => {
 				apiCache: `hash, response`
 			});
 
-			// non-essential cache items (don't await)
-			caches.open(staticCacheName).then(cache => {
-				cache.addAll([
-					'/SocialMediaDemo/assets/images/icons/larr.svg',
-					'/SocialMediaDemo/assets/images/icons/uparr.svg',
-					'/SocialMediaDemo/assets/images/transparent.webp',
-					'/SocialMediaDemo/assets/images/unknown.webp',
-
-					'/favicon.ico',
-					'/maskable_icon_x128.png',
-					'/maskable_icon_x192.png',
-					'/maskable_icon_x512.png',
-					'/favicon_maskable.svg',
-				]);
-			})
-
-			// essential cache items
 			const cache = await caches.open(staticCacheName);
+			// non-essential cache items (don't await)
+			cache.addAll([
+				'/SocialMediaDemo/assets/images/icons/larr.svg',
+				'/SocialMediaDemo/assets/images/icons/uparr.svg',
+				'/SocialMediaDemo/assets/images/transparent.webp',
+				'/SocialMediaDemo/assets/images/unknown.webp',
+
+				'/favicon.ico',
+				'/maskable_icon_x128.png',
+				'/maskable_icon_x192.png',
+				'/maskable_icon_x512.png',
+				'/favicon_maskable.svg',
+			]).then();
+			// essential cache items
 			await cache.addAll([
 				'/SocialMediaDemo/',
 				'/SocialMediaDemo/index.php',
