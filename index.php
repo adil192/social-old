@@ -34,7 +34,7 @@ include_once "../global_tools.php";
     <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
     <div class="page-header">
         <h1></h1>
-        <a href="#pageOverlayProfile" class="icon-btn icon-btn-pfp">
+        <a href="#pageProfile" class="icon-btn icon-btn-pfp">
             <img src="assets/images/unknown.webp" alt="My profile">
         </a>
     </div>
