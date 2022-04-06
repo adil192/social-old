@@ -32,6 +32,12 @@ include_once "../global_tools.php";
     <canvas id="cameraSensor"></canvas>
     <video id="cameraViewfinder" autoplay playsinline></video>
     <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
+    <div class="page-header">
+        <h1></h1>
+        <a href="#pageCamera" class="icon-btn icon-btn-pfp">
+            <img src="assets/images/unknown.webp" alt="My profile">
+        </a>
+    </div>
     <button id="cameraTrigger" aria-label="Take a picture"></button>
 </div>
 <div class="page" id="pageChat">
@@ -60,7 +66,7 @@ include_once "../global_tools.php";
 
 <div class="page page-overlay" id="pageOverlayMessages">
     <div class="page-header">
-        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>Chat with <span class="pageMessages-chatDisplayName">PLACEHOLDER</span></h1>
     </div>
     <div class="portraitArea">
@@ -86,7 +92,7 @@ include_once "../global_tools.php";
 
 <div class="page page-overlay" id="pageOverlaySearch">
     <div class="page-header">
-        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <div class="input-group">
             <input id="pageSearchInput" aria-label="Search chats" placeholder="Search">
         </div>
