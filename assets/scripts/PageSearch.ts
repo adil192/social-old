@@ -22,8 +22,8 @@ export class PageSearch extends Page {
 		};
 	}
 
-	OnOpen() {
-		super.OnOpen();
+	OnOpening() {
+		super.OnOpening();
 
 		this.input.value = "";
 		this.input.focus({

@@ -54,6 +54,7 @@ window.addEventListener("load", function() {
 
 let bodyScrolledTimeout = null;
 let currentPageId: string = "pageCamera";
+let openCompleteTimeout: number = null;
 let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThreshold) {
@@ -137,8 +138,13 @@ window.onhashchange = function () {
 		});
 	}
 
+	clearTimeout(openCompleteTimeout);
+	openCompleteTimeout = setTimeout(() => {
+		(page.Page as Page).OnOpened();
+	}, 1000);
+
 	if (!!previousPage.Page) (page.Page as Page).OnClose();
-	if (!!page.Page) (page.Page as Page).OnOpen();
+	if (!!page.Page) (page.Page as Page).OnOpening();
 
 	if (isCurrentAnOverlay) {
 		Catalogue.PageChat.pageElem.scrollIntoView({

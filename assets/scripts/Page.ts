@@ -3,6 +3,7 @@
 export abstract class Page {
 	pageId: string;
 	pageElem: HTMLDivElement;
+	pageState: PageState;
 
 	protected constructor(pageId: string, elemId: string = null) {
 		this.pageId = pageId;
@@ -10,6 +11,22 @@ export abstract class Page {
 		this.pageElem.Page = this;
 	}
 
-	public OnOpen() {}
-	public OnClose() {}
+	public OnOpening() {
+		this.pageState = PageState.Opening;
+	}
+	public OnOpened() {
+		this.pageState = PageState.Opened;
+		this.pageElem.scrollIntoView({
+			behavior: "smooth"
+		});
+	}
+	public OnClose() {
+		this.pageState = PageState.Closed;
+	}
+}
+
+export enum PageState {
+	Closed,
+	Opening,
+	Opened
 }

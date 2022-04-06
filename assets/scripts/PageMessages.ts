@@ -41,8 +41,8 @@ export class PageMessages extends Page {
 		});
 	}
 
-	OnOpen() {
-		super.OnOpen();
+	OnOpening() {
+		super.OnOpening();
 		this.chatDisplayName.innerText = window.currentChat.name;
 		this.clearMessages();
 		this.loadMessages().then(() => {
