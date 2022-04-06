@@ -139,4 +139,10 @@ window.onhashchange = function () {
 
 	if (!!previousPage.Page) (page.Page as Page).OnClose();
 	if (!!page.Page) (page.Page as Page).OnOpen();
+
+	if (isCurrentAnOverlay) {
+		Catalogue.PageChat.pageElem.scrollIntoView({
+			behavior: "smooth"
+		});
+	}
 }
