@@ -76,8 +76,8 @@ export class PageMessages extends Page {
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
 			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, number ] = messages[i];
-			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
 			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
+			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
 			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);
 		}
 		if (messages.length && isNearBottom) this.scrollToBottom();
