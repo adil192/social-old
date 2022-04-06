@@ -44,12 +44,57 @@ let CustomAPICache: CustomAPICacheHandler = (function () {
 
 
 	let handlers: Record<string, CustomAPICacheHandler> = {
-		"Users.Search": {
-			async Save(apiCache: Dexie.Table, request: Request, request_hash: string, response: Response) {
-				// todo
+		"Chat.GetMessages": {
+			async Save(apiCache: Dexie.Table, request: Request, _: string, response: Response) {
+				let formData = await request.clone().formData();
+				let chatId: number = parseInt(<string>formData.get("chatId"));
+				let lastMessageId: number = parseInt(<string>formData.get("lastMessageId") ?? "0");
+				let hash = request.url + "#" + chatId;
+				console.log(hash, chatId, lastMessageId)
+
+				let cacheCollection = await apiCache.where("hash").equals(hash);
+				if (lastMessageId == 0 || !(await cacheCollection.count())) {
+					let serialized = await serializeResponse(response.clone());
+					apiCache.put({
+						hash: hash,
+						response: serialized
+					});
+				} else {
+					let cachedResponse: SerializedResponse = (await cacheCollection.toArray())[0].response;
+					let cachedMessages: any[][] = JSON.parse(cachedResponse.body).response;
+
+					let newResponse: SerializedResponse = await serializeResponse(response.clone());
+					let { meta: newMeta, response: newMessages } = JSON.parse(newResponse.body);
+
+					newResponse.body = JSON.stringify({
+						meta: newMeta,
+						response: cachedMessages.concat(newMessages)
+					});
+					console.log("concatenated messages:", cachedMessages.concat(newMessages))
+					apiCache.put({
+						hash: hash,
+						response: newResponse
+					});
+				}
 			},
 			async Load(apiCache: Dexie.Table, request: Request, request_hash: string): Promise<any> {
-				// todo
+				let formData = await request.clone().formData();
+				let chatId: number = parseInt(<string>formData.get("chatId"));
+				let lastMessageId: number = parseInt(<string>formData.get("lastMessageId") ?? "0");
+				let hash = request.url + "#" + chatId;
+
+				let cacheItems = await apiCache.where("hash").equals(hash).toArray();
+				if (!cacheItems.length) return null;
+
+				let cachedResponse: SerializedResponse = cacheItems[0].response;
+				let { meta: cachedMeta, response: cachedMessages } = JSON.parse(cachedResponse.body);
+
+				cachedResponse.body = JSON.stringify({
+					meta: cachedMeta,
+					response: cachedMessages.filter((row) => row[0] > lastMessageId)
+				});
+
+				return deserializeResponse(cachedResponse);
 			}
 		},
 		"default": {
@@ -64,7 +109,7 @@ let CustomAPICache: CustomAPICacheHandler = (function () {
 				});
 			},
 			async Load(apiCache: Dexie.Table, request: Request, request_hash: string): Promise<any> {
-				let cacheCollection = await apiCache.where("hash").equals(request_hash);
+				let cacheCollection = apiCache.where("hash").equals(request_hash);
 				let cacheItems = await cacheCollection.toArray();
 				if (cacheItems.length) return deserializeResponse(cacheItems[0].response);
 				else return null;
@@ -77,9 +122,9 @@ let CustomAPICache: CustomAPICacheHandler = (function () {
 			for (const url in handlers) {
 				if (getFileName(request) !== url) continue;
 
-				return await handlers[url].Save(apiCache, request, request_hash, response);
+				return await handlers[url].Save(apiCache, request, request_hash, response.clone());
 			}
-			return await handlers["default"].Save(apiCache, request, request_hash, response);
+			return await handlers["default"].Save(apiCache, request, request_hash, response.clone());
 
 		},
 		async Load(apiCache: Dexie.Table, request: Request, request_hash: string): Promise<any> {
