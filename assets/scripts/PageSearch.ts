@@ -6,6 +6,7 @@ export class PageSearch extends Page {
 	pageChatOptionTemplate: HTMLTemplateElement;
 
 	input: HTMLInputElement;
+	_pageChatInput: HTMLInputElement;
 	searchTimeoutMs: number = 300;
 	searchTimeoutId: number = null;
 
@@ -16,6 +17,10 @@ export class PageSearch extends Page {
 		this.pageChatOptionTemplate = document.querySelector("#pageChatOptionTemplate");
 
 		this.input = this.pageElem.querySelector("#pageSearchInput");
+		this._pageChatInput = document.querySelector("#pageChatSearch");
+		this._pageChatInput.addEventListener("keyup", () => {
+			this.input.value = this._pageChatInput.value;
+		})
 		this.input.onkeyup = () => {
 			clearTimeout(this.searchTimeoutId);
 			this.searchTimeoutId = setTimeout(() => this.onSearchTermChange(), this.searchTimeoutMs);
@@ -24,11 +29,19 @@ export class PageSearch extends Page {
 
 	OnOpening() {
 		super.OnOpening();
-
 		this.input.value = "";
+		this._pageChatInput.value = "";
+	}
+	OnOpened() {
+		super.OnOpened();
 		this.input.focus({
 			preventScroll: true
 		});
+	}
+	OnClose() {
+		super.OnClose();
+		this.input.value = "";
+		this._pageChatInput.value = "";
 	}
 
 	async onSearchTermChange() {
