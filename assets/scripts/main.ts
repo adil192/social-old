@@ -147,9 +147,6 @@ window.onhashchange = function () {
 	if (!!page.Page) (page.Page as Page).OnOpening();
 
 	if (isCurrentAnOverlay) {
-		Catalogue.PageChat.pageElem.scrollIntoView({
-			behavior: "smooth"
-		});
 		stopObserver();
 	} else {
 		startObserver();
