@@ -50,7 +50,6 @@ let CustomAPICache: CustomAPICacheHandler = (function () {
 				let chatId: number = parseInt(<string>formData.get("chatId"));
 				let lastMessageId: number = parseInt(<string>formData.get("lastMessageId") ?? "0");
 				let hash = request.url + "#" + chatId;
-				console.log(hash, chatId, lastMessageId)
 
 				let cacheCollection = await apiCache.where("hash").equals(hash);
 				if (lastMessageId == 0 || !(await cacheCollection.count())) {
@@ -70,7 +69,6 @@ let CustomAPICache: CustomAPICacheHandler = (function () {
 						meta: newMeta,
 						response: cachedMessages.concat(newMessages)
 					});
-					console.log("concatenated messages:", cachedMessages.concat(newMessages))
 					apiCache.put({
 						hash: hash,
 						response: newResponse
