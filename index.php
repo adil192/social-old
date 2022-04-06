@@ -34,7 +34,7 @@ include_once "../global_tools.php";
     <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
     <div class="page-header">
         <h1></h1>
-        <a href="#pageCamera" class="icon-btn icon-btn-pfp">
+        <a href="#pageOverlayProfile" class="icon-btn icon-btn-pfp">
             <img src="assets/images/unknown.webp" alt="My profile">
         </a>
     </div>
@@ -100,6 +100,15 @@ include_once "../global_tools.php";
     <div class="portraitArea">
         <ul id="pageSearchResults">
         </ul>
+    </div>
+</div>
+<div class="page page-overlay" id="pageOverlayProfile">
+    <div class="page-header">
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
+        <h1>Profile</h1>
+    </div>
+    <div class="portraitArea">
+        My profile
     </div>
 </div>
 

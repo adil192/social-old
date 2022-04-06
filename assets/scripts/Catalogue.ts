@@ -4,6 +4,7 @@ import {PageCamera} from "./PageCamera";
 import {PageChat} from "./PageChat";
 import {PageMessages} from "./PageMessages";
 import {PageSearch} from "./PageSearch";
+import {PageProfile} from "./PageProfile";
 
 class _Catalogue {
 	PageFeed: PageFeed;
@@ -12,15 +13,16 @@ class _Catalogue {
 
 	PageMessages: PageMessages;
 	PageSearch: PageSearch;
+	PageProfile: PageProfile;
 
 	get AllPages(): Page[] {
-		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageMessages, this.PageSearch ];
+		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageMessages, this.PageSearch, this.PageProfile ];
 	}
 	get AllSwipingPages(): Page[] {
 		return [ this.PageFeed, this.PageCamera, this.PageChat ];
 	}
 	get AllOverlayPages(): Page[] {
-		return [ this.PageMessages, this.PageSearch ];
+		return [ this.PageMessages, this.PageSearch, this.PageProfile ];
 	}
 }
 

@@ -1,13 +1,14 @@
 /// <reference path="./Extensions.ts"/>
-import { Catalogue } from "./Catalogue";
-import { Page } from "./Page";
-import { Session } from "./Session";
+import {Catalogue} from "./Catalogue";
+import {Page} from "./Page";
+import {Session} from "./Session";
 
-import { PageFeed } from "./PageFeed";
-import { PageCamera } from "./PageCamera";
-import { PageChat} from "./PageChat";
-import { PageMessages } from "./PageMessages";
-import { PageSearch } from "./PageSearch";
+import {PageFeed} from "./PageFeed";
+import {PageCamera} from "./PageCamera";
+import {PageChat} from "./PageChat";
+import {PageMessages} from "./PageMessages";
+import {PageSearch} from "./PageSearch";
+import {PageProfile} from "./PageProfile";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
@@ -35,6 +36,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageChat = new PageChat();
 	Catalogue.PageMessages = new PageMessages();
 	Catalogue.PageSearch = new PageSearch();
+	Catalogue.PageProfile = new PageProfile();
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {
