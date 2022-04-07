@@ -25,10 +25,14 @@ export class PageProfile extends Page {
 		await super.OnOpening();
 
 		// default to logged-in user (i.e. when opened from the camera page)
-		if (window.currentProfileId == null) {
+		if (window.currentProfileId == null || window.currentProfileId == Session.user.id) {
 			window.currentProfileId = Session.user.id;
 			this.nameElem.innerText = Session.user.name;
+			this.pageElem.classList.add("pageProfile-own");
+		} else {
+			this.pageElem.classList.remove("pageProfile-own");
 		}
+
 		// if the user hasn't changed, we don't need to change anything
 		if (window.currentProfileId == this.previousProfileId) return;
 
@@ -36,6 +40,7 @@ export class PageProfile extends Page {
 			UserId: window.currentProfileId
 		});
 		if (!meta.success) return;
+		this.previousProfileId = window.currentProfileId;
 		this.nameElem.innerText = response.Username;
 		this.pronounsElem.innerText = response.Pronouns;
 		this.bioElem.innerText = response.Bio;
