@@ -1,3 +1,17 @@
 #pageOverlayProfileEdit {
+	.portraitArea {
+		padding: 1rem;
+		> form > * {
+			margin-bottom: 1rem;
+		}
+	}
 
+	.pageProfileEdit-pronouns {
+		> label {
+			margin-bottom: 0;
+		}
+		#pageProfileEdit-pronouns-other {
+			margin-top: 0.65em;
+		}
+	}
 }

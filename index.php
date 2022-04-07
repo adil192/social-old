@@ -121,7 +121,7 @@ include_once "../global_tools.php";
             </div>
         </div>
         <div class="pageProfile-buttonRow">
-            <a href="#" id="pageProfileEditBtn" class="btn btn-primary">Edit profile</a>
+            <a href="#pageProfileEdit" id="pageProfileEditLink" class="btn btn-primary">Edit profile</a>
         </div>
     </div>
 </div>
@@ -131,7 +131,38 @@ include_once "../global_tools.php";
         <h1>Edit profile</h1>
     </div>
     <div class="portraitArea">
-        Edit profile
+        <form id="pageProfileEdit-form">
+            <div class="pageProfileEdit-name">
+                <label for="pageProfileEdit-name-input" class="form-label">Name</label>
+                <input type="text" class="form-control" id="pageProfileEdit-name-input" minlength="2" maxlength="30" pattern="[A-Za-z0-9]{2,30}">
+            </div>
+            <div class="pageProfileEdit-bio">
+                <label for="pageProfileEdit-bio-input" class="form-label">Bio</label>
+                <textarea class="form-control" id="pageProfileEdit-bio-input"></textarea>
+            </div>
+            <div class="pageProfileEdit-pronouns">
+                <label class="form-label">Pronouns</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pronouns" id="pageProfileEdit-pronouns-hehim" value="he/him">
+                    <label class="form-check-label" for="pageProfileEdit-pronouns-hehim">he/him</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pronouns" id="pageProfileEdit-pronouns-sheher" value="she/her">
+                    <label class="form-check-label" for="pageProfileEdit-pronouns-sheher">she/her</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pronouns" id="pageProfileEdit-pronouns-theythem" value="they/them">
+                    <label class="form-check-label" for="pageProfileEdit-pronouns-theythem">they/them</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pronouns" id="pageProfileEdit-pronouns-other" value="other">
+                    <label class="form-check-label" for="pageProfileEdit-pronouns-other">
+                        <input type="text" class="form-control" name="pronouns-other" id="pageProfileEdit-pronouns-other-input" placeholder="Other" maxlength="20">
+                    </label>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
