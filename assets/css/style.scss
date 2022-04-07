@@ -126,13 +126,15 @@ html, body, .page {
 @import "pageLogin";
 @import "pageMessages";
 @import "pageSearch";
+@import "pageProfile";
 
 @media screen and (prefers-color-scheme: dark) {
 	html, body, .page {
 		background: black;
 		color: white;
 	}
-	.icon-btn {
+	.icon-btn-left,
+	.icon-btn-right {
 		filter: brightness(0) invert(1);
 	}
 	input, textarea {

@@ -1,0 +1,31 @@
+#pageOverlayProfile {
+
+	.pageProfile-profile {
+		display: flex;
+		flex-flow: row nowrap;
+		padding: 1rem;
+		gap: 1rem;
+
+		.pageProfile-pfp {
+			width: 8em;
+			border-radius: 50%;
+
+			> img {
+				width: 100%;
+				border-radius: 50%;
+				aspect-ratio: 1;
+			}
+		}
+
+		.pageProfile-title {
+			font-size: 1.25em;
+			.pageProfile-pronouns {
+				opacity: 0.6;
+				padding-inline-start: 0.2em;
+			}
+		}
+		.pageProfile-bio {
+			white-space: pre-line;
+		}
+	}
+}

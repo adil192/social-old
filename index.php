@@ -105,10 +105,23 @@ include_once "../global_tools.php";
 <div class="page page-overlay" id="pageOverlayProfile">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
-        <h1>Profile</h1>
+        <h1>My profile</h1>
     </div>
     <div class="portraitArea">
-        My profile
+        <div class="pageProfile-profile">
+            <div class="pageProfile-pfp">
+                <img class="pageProfile-pfp-img" src="assets/images/unknown.webp" alt="My profile picture">
+            </div>
+            <div class="pageProfile-summary">
+                <h3 class="pageProfile-title">
+                    <span class="pageProfile-name">Name</span>
+                    <span class="pageProfile-pronouns">pro/nouns</span>
+                </h3>
+                <p class="pageProfile-bio">A really long sentence in the user's bio to test out how the text overflows with white-space: pre-line;
+                    - Example bullet points
+                    - More bio</p>
+            </div>
+        </div>
     </div>
 </div>
 
