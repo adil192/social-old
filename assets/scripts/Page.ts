@@ -5,6 +5,8 @@ export abstract class Page {
 	pageElem: HTMLDivElement;
 	pageState: PageState;
 
+	private hasBeenOpened: boolean = false;
+
 	protected constructor(pageId: string, elemId: string = null) {
 		this.pageId = pageId;
 		this.pageElem = document.getElementById(elemId ?? pageId) as HTMLDivElement;
@@ -13,6 +15,10 @@ export abstract class Page {
 
 	public async OnOpening() {
 		this.pageState = PageState.Opening;
+		if (!this.hasBeenOpened) await this.OnFirstOpen();
+	}
+	protected async OnFirstOpen() {
+		this.hasBeenOpened = true;
 	}
 	public async OnOpened() {
 		this.pageState = PageState.Opened;
