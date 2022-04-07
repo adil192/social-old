@@ -9,6 +9,7 @@ import {PageChat} from "./PageChat";
 import {PageMessages} from "./PageMessages";
 import {PageSearch} from "./PageSearch";
 import {PageProfile} from "./PageProfile";
+import {PageProfileEdit} from "./PageProfileEdit";
 
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
@@ -37,6 +38,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageMessages = new PageMessages();
 	Catalogue.PageSearch = new PageSearch();
 	Catalogue.PageProfile = new PageProfile();
+	Catalogue.PageProfileEdit = new PageProfileEdit();
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {

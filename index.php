@@ -125,6 +125,15 @@ include_once "../global_tools.php";
         </div>
     </div>
 </div>
+<div class="page page-overlay" id="pageOverlayProfileEdit">
+    <div class="page-header">
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
+        <h1>Edit profile</h1>
+    </div>
+    <div class="portraitArea">
+        Edit profile
+    </div>
+</div>
 
 
 <script>
