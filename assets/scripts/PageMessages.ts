@@ -50,6 +50,7 @@ export class PageMessages extends Page {
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
 
+			clearInterval(this.loadMessagesIntervalId);
 			this.loadMessagesIntervalId = setInterval(() => {
 				cancelAnimationFrame(this.loadMessagesFrame);
 				this.loadMessagesFrame = requestAnimationFrame(() => this.loadMessages());

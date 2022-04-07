@@ -143,7 +143,7 @@ window.onhashchange = function () {
 		(page.Page as Page).OnOpened();
 	}, 1000);
 
-	if (!!previousPage.Page) (page.Page as Page).OnClose();
+	if (!!previousPage.Page) (previousPage.Page as Page).OnClose();
 	if (!!page.Page) (page.Page as Page).OnOpening();
 
 	if (isCurrentAnOverlay) {
