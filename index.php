@@ -134,11 +134,11 @@ include_once "../global_tools.php";
         <form id="pageProfileEdit-form">
             <div class="pageProfileEdit-name">
                 <label for="pageProfileEdit-name-input" class="form-label">Name</label>
-                <input type="text" class="form-control" id="pageProfileEdit-name-input" minlength="2" maxlength="30" pattern="[A-Za-z0-9]{2,30}">
+                <input type="text" class="form-control" name="name" id="pageProfileEdit-name-input" minlength="2" maxlength="30" pattern="[A-Za-z0-9]{2,30}">
             </div>
             <div class="pageProfileEdit-bio">
                 <label for="pageProfileEdit-bio-input" class="form-label">Bio</label>
-                <textarea class="form-control" id="pageProfileEdit-bio-input"></textarea>
+                <textarea class="form-control" name="bio" id="pageProfileEdit-bio-input"></textarea>
             </div>
             <div class="pageProfileEdit-pronouns">
                 <label class="form-label">Pronouns</label><br>

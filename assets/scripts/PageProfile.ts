@@ -1,6 +1,7 @@
 import {Page} from "./Page";
 import {Session} from "./Session";
 import {Networker} from "./Networker";
+import {PageProfileEdit} from "./PageProfileEdit";
 
 export class PageProfile extends Page {
 	nameElem: HTMLSpanElement;
@@ -44,6 +45,11 @@ export class PageProfile extends Page {
 		this.nameElem.innerText = response.Username;
 		this.pronounsElem.innerText = response.Pronouns;
 		this.bioElem.innerText = response.Bio;
+
+		// save to window so we can populate the edit page
+		if (window.currentProfileId == Session.user.id) {
+			PageProfileEdit.populateFields(response);
+		}
 	}
 
 	async OnClose() {
