@@ -27,19 +27,19 @@ export class PageSearch extends Page {
 		};
 	}
 
-	OnOpening() {
-		super.OnOpening();
+	async OnOpening() {
+		await super.OnOpening();
 		this.input.value = "";
 		this._pageChatInput.value = "";
 	}
-	OnOpened() {
-		super.OnOpened();
+	async OnOpened() {
+		await super.OnOpened();
 		this.input.focus({
 			preventScroll: true
 		});
 	}
-	OnClose() {
-		super.OnClose();
+	async OnClose() {
+		await super.OnClose();
 		this.input.value = "";
 		this._pageChatInput.value = "";
 	}

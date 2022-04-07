@@ -43,8 +43,8 @@ export class PageMessages extends Page {
 		this.input.style.height = this.input.scrollHeight + 'px';
 	}
 
-	OnOpening() {
-		super.OnOpening();
+	async OnOpening() {
+		await super.OnOpening();
 		this.chatDisplayName.innerText = window.currentChat.name;
 		this.clearMessages();
 		this.loadMessages().then(() => {
@@ -57,8 +57,8 @@ export class PageMessages extends Page {
 			}, this.loadMessagesIntervalMs);
 		});
 	}
-	OnClose() {
-		super.OnClose();
+	async OnClose() {
+		await super.OnClose();
 		this.lastMessageId = 0;
 		this.excludedMessageIds = [];
 		clearInterval(this.loadMessagesIntervalId);

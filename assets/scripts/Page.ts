@@ -11,16 +11,16 @@ export abstract class Page {
 		this.pageElem.Page = this;
 	}
 
-	public OnOpening() {
+	public async OnOpening() {
 		this.pageState = PageState.Opening;
 	}
-	public OnOpened() {
+	public async OnOpened() {
 		this.pageState = PageState.Opened;
 		this.pageElem.scrollIntoView({
 			behavior: "smooth"
 		});
 	}
-	public OnClose() {
+	public async OnClose() {
 		this.pageState = PageState.Closed;
 	}
 }
