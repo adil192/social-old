@@ -1,9 +1,13 @@
 #pageOverlayProfile {
 
+	.portraitArea {
+		padding: 1rem;
+	}
+
 	.pageProfile-profile {
 		display: flex;
 		flex-flow: row nowrap;
-		padding: 1rem;
+		margin-bottom: 1rem;
 		gap: 1rem;
 
 		.pageProfile-pfp {
@@ -30,6 +34,8 @@
 	}
 
 	&.pageProfile-own {
-		
+		#pageProfileEditBtn {
+			display: inline-block;
+		}
 	}
 }

@@ -120,6 +120,9 @@ include_once "../global_tools.php";
                 <p class="pageProfile-bio"></p>
             </div>
         </div>
+        <div class="pageProfile-buttonRow">
+            <a href="#" id="pageProfileEditBtn" class="btn btn-primary">Edit profile</a>
+        </div>
     </div>
 </div>
 
