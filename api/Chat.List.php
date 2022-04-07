@@ -17,7 +17,7 @@ $chatIds = array_map(function ($row) {
 }, $stmt->fetchAll());
 $whereChatIds = implode(" OR ", $chatIds);
 
-// get
+// get chats' latest message
 $stmt = $conn->prepare("SELECT ChatId, Username, MessageText
 FROM (
     SELECT ChatUser.ChatId, User.Username, ChatMessage.MessageText,
