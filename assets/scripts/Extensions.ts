@@ -5,6 +5,8 @@ interface Window {
 		id: number;
 		name?: string;
 	};
+
+	currentProfileId?: number;
 }
 
 interface HTMLDivElement {

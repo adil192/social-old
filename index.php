@@ -114,12 +114,10 @@ include_once "../global_tools.php";
             </div>
             <div class="pageProfile-summary">
                 <h3 class="pageProfile-title">
-                    <span class="pageProfile-name">Name</span>
-                    <span class="pageProfile-pronouns">pro/nouns</span>
+                    <span class="pageProfile-name"></span>
+                    <span class="pageProfile-pronouns"></span>
                 </h3>
-                <p class="pageProfile-bio">A really long sentence in the user's bio to test out how the text overflows with white-space: pre-line;
-                    - Example bullet points
-                    - More bio</p>
+                <p class="pageProfile-bio"></p>
             </div>
         </div>
     </div>
