@@ -1,6 +1,8 @@
 /// <reference path="./Extensions.ts"/>
 
 export abstract class Page {
+	static Instance: Page;
+
 	pageId: string;
 	pageElem: HTMLDivElement;
 	pageState: PageState;
@@ -11,6 +13,7 @@ export abstract class Page {
 		this.pageId = pageId;
 		this.pageElem = document.getElementById(elemId ?? pageId) as HTMLDivElement;
 		this.pageElem.Page = this;
+		(<any>this.constructor).Instance = this;
 	}
 
 	public async OnOpening() {
