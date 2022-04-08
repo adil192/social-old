@@ -14,7 +14,8 @@ import {PageProfileEdit} from "./PageProfileEdit";
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
 
-const intersectionThreshold: number = 0.6;
+const intersectionThresholdOpening: number = 0.6;
+const intersectionThresholdOpened: number = 1;
 
 
 window.addEventListener("load", function() {
@@ -49,12 +50,11 @@ window.addEventListener("load", function() {
 	observer = new IntersectionObserver(bodyScrolled, {
 		root: body,
 		rootMargin: '0px',
-		threshold: intersectionThreshold
+		threshold: [intersectionThresholdOpening, intersectionThresholdOpened]
 	});
 	startObserver();
 });
 
-let bodyScrolledTimeout = null;
 let currentPageId: string = "Camera";
 
 let openCompleteHandler: Function = () => {};
@@ -62,16 +62,16 @@ let openCompleteTimeout: number = null;
 
 let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 	entries.forEach(entry => {
-		if (entry.intersectionRatio < intersectionThreshold) return;
+		if (entry.intersectionRatio < intersectionThresholdOpening) return;
 
-		// OnOpening
-		location.replace("#" + entry.target.id.substring(4));
 
-		clearTimeout(bodyScrolledTimeout);
-		bodyScrolledTimeout = setTimeout(function () {
+		if (entry.intersectionRatio < intersectionThresholdOpened) {
+			// OnOpening
+			location.replace("#" + entry.target.id.substring(4));
+		} else {
 			// OnOpened
 			openCompleteHandler();
-		}, 100);
+		}
 	});
 };
 

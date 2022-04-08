@@ -25,9 +25,6 @@ export abstract class Page {
 	}
 	public async OnOpened() {
 		this.pageState = PageState.Opened;
-		this.pageElem.scrollIntoView({
-			behavior: "smooth"
-		});
 	}
 	public async OnClose() {
 		this.pageState = PageState.Closed;
