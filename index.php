@@ -24,7 +24,7 @@ include_once "../global_tools.php";
 
 <div class="page" id="pageChat">
     <div class="page-header">
-        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <a href="#pageCamera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">
@@ -59,7 +59,7 @@ include_once "../global_tools.php";
 </div>
 <div class="page" id="pageFeed">
     <div class="page-header">
-        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <a href="#pageCamera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
         <h1>Feed</h1>
     </div>
 </div>
