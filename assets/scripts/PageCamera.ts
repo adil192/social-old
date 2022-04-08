@@ -1,4 +1,4 @@
-import { Page } from "./Page";
+import {Page} from "./Page";
 
 export class PageCamera extends Page {
 	readonly constraints: MediaStreamConstraints = {
@@ -26,6 +26,15 @@ export class PageCamera extends Page {
 		if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)) return;
 
 		this.cameraTrigger.onclick = this.takePicture;
+	}
+
+	async OnOpening() {
+		await super.OnOpening();
+		this.isCameraPaused = false;
+	}
+	async OnClose() {
+		await super.OnClose();
+		this.isCameraPaused = true;
 	}
 
 	private _isCameraPaused: boolean = true;

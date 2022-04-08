@@ -59,22 +59,12 @@ let currentPageId: string = "pageCamera";
 let openCompleteTimeout: number = null;
 let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 	entries.forEach(entry => {
-		if (entry.intersectionRatio < intersectionThreshold) {
-			if (entry.target.id == Catalogue.PageCamera.pageId) {
-				Catalogue.PageCamera.isCameraPaused = true;
-			}
-			return;
-		}
+		if (entry.intersectionRatio < intersectionThreshold) return;
 
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
 			let nextPageId = entry.target.id;
-			if (nextPageId == Catalogue.PageCamera.pageId) {
-				location.replace("#" + nextPageId);
-				Catalogue.PageCamera.isCameraPaused = false;
-			} else {
-				location.replace("#" + nextPageId);
-			}
+			location.replace("#" + nextPageId);
 		}, 100);
 	});
 };
