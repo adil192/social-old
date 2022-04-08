@@ -36,7 +36,10 @@ export class PageProfileEdit extends Page {
 			Bio: this.formBio.value,
 			Pronouns: pronouns
 		});
-		window.currentProfileChanged = true;
+		if (meta.success) {
+			Session.user.name = this.formName.value ?? Session.user.name;
+			window.currentProfileChanged = true;
+		}
 		history.back();
 	}
 
