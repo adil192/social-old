@@ -45,11 +45,22 @@
 		margin-bottom: 0;
 		font-weight: initial;
 	}
-	.pageChat-option-lastMsg {
+	.pageChat-option-lastMsg-container {
 		opacity: 0.7;
 		margin-bottom: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		white-space: nowrap;
+		display: flex;
+		gap: 0.3em;
+		overflow: hidden;
+
+		> .pageChat-option-lastMsg {
+			flex-shrink: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		> .pageChat-option-date {
+			flex-shrink: 0;
+			opacity: 0.7;
+		}
 	}
 }

@@ -43,17 +43,18 @@ export class PageChat extends Page {
 
 		for (let i in chats) {
 			let chat = chats[i];
-			this.createChatOption(chat[0], chat[1], chat[2]);
+			this.createChatOption(chat[0], chat[1], chat[2], chat[3]);
 		}
 	}
 
-	createChatOption(chatId: number, name: string, lastMsg: string = null, pfp: string = "assets/images/unknown.webp") {
+	createChatOption(chatId: number, name: string, lastMsg: string, timestamp: number, pfp: string = "assets/images/unknown.webp") {
 		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
 
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
-		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg ?? "Say hi!";
+		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg.trim();
+		optionElem.querySelector(".pageChat-option-date").textContent = new Date(timestamp * 1000).toLocaleDateString();
 		// todo: set alt text and aria-labels
 
 		optionElem.addEventListener("click", function () {

@@ -36,8 +36,11 @@ include_once "../global_tools.php";
                 <li class="pageChat-option">
                     <img class="pageChat-option-pfp" src="assets/images/unknown.webp" alt="Name's profile picture">
                     <div class="pageChat-option-main">
-                        <h2 class="pageChat-option-name">Name</h2>
-                        <p class="pageChat-option-lastMsg">Say hi!</p>
+                        <h2 class="pageChat-option-name"></h2>
+                        <p class="pageChat-option-lastMsg-container">
+                            <span class="pageChat-option-lastMsg"></span>
+                            <span class="pageChat-option-date"></span>
+                        </p>
                     </div>
                     <button class="icon-btn icon-btn-right pageChat-option-quickAction" aria-label="Send a picture to Name">&rarr;</button>
                 </li>

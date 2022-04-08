@@ -20,9 +20,9 @@ $chatIds = array_map(function ($row) {
 $whereChatIds = implode(" OR ", $chatIds);
 
 // get chats' latest message
-$stmt = $conn->prepare("SELECT ChatId, Username, MessageText
+$stmt = $conn->prepare("SELECT ChatId, Username, MessageText, Date
 FROM (
-    SELECT ChatUser.ChatId, User.Username, ChatMessage.MessageText,
+    SELECT ChatUser.ChatId, User.Username, ChatMessage.MessageText, ChatMessage.Date,
            DENSE_RANK() OVER (PARTITION BY ChatMessage.ChatId ORDER BY ChatMessage.MessageId DESC) AS n
 	FROM ChatUser, User, ChatMessage
 	WHERE ChatUser.UserId <> ? AND ($whereChatIds)
@@ -30,7 +30,9 @@ FROM (
 	  AND ChatMessage.ChatId = ChatUser.ChatId
 	GROUP BY ChatMessage.ChatId
 ) AS x
-WHERE n <= 1 LIMIT 50");
+WHERE n <= 1
+ORDER BY Date DESC
+LIMIT 50");
 $stmt->execute([$_SESSION["userId"]]);
 
 $results = [];
@@ -39,7 +41,8 @@ while ($row = $stmt->fetchObject()) {
 	$results[] = [
 		$row->ChatId,
 		$row->Username,
-		$row->MessageText
+		$row->MessageText,
+		strtotime($row->Date)
 	];
 }
 respond($results, true);
