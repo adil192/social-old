@@ -62,7 +62,8 @@ function isLoggedIn($conn = null): bool {
 
 	// now we'll check if the loginToken is valid in the database
 	if ($conn == null) $conn = getConn();
-	$stmt = $conn->prepare('SELECT UserId FROM UserSession WHERE LoginToken=? LIMIT 1');
+	$stmt = $conn->prepare('SELECT User.UserId, User.Username FROM User, UserSession
+WHERE LoginToken=? AND User.UserId=UserSession.UserId LIMIT 1');
 	$stmt->execute([$loginToken]);
 	$row = $stmt->fetchObject();
 	if (empty($row)) return false;
@@ -70,20 +71,12 @@ function isLoggedIn($conn = null): bool {
 	// save verified token to $_SESSION so we don't need to check the database every time
 	$_SESSION[loginTokenName] = $loginToken;
 	$_SESSION[loginTokenNameExpiry] = time() + 30 * 60; // re-verify login token after 30 minutes
-
-	loadSessionFromCookie();
+	// save other session variables
+	$_SESSION["isLoggedIn"] = true;
+	$_SESSION["userId"] = $row->UserId;
+	$_SESSION["userName"] = $row->Username;
 
 	return true;
-}
-
-function loadSessionFromCookie() {
-	$cookie = $_COOKIE["session"];
-	if (empty($cookie)) return;
-
-	$parsed = json_decode($cookie);
-	$_SESSION["isLoggedIn"] = $parsed->isLoggedIn;
-	$_SESSION["userId"] = $parsed->userId;
-	$_SESSION["userName"] = $parsed->userName;
 }
 
 function respond($response, $success) {
