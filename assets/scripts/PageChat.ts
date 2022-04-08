@@ -7,6 +7,8 @@ export class PageChat extends Page {
 	pageChatOptions: HTMLDivElement;
 	pageChatOptionTemplate: HTMLTemplateElement;
 
+	shouldUpdateChatList: boolean = true;
+
 	constructor() {
 		super("pageChat");
 
@@ -21,9 +23,25 @@ export class PageChat extends Page {
 		})
 	}
 
+	async OnOpening() {
+		await super.OnOpening();
+
+		await this.updateChatList();
+	}
+
 	async updateChatList() {
+		if (!this.shouldUpdateChatList) return;
+		this.shouldUpdateChatList = false;
+		setTimeout(() => {
+			this.shouldUpdateChatList = true;
+		}, 3000);
+
 		let [ meta, chats ] = await Networker.postApi("Chat.List");
-		if (meta.success) for (let i in chats) {
+		if (!meta.success) return;
+
+		this.pageChatOptions.querySelectorAll('li').forEach(e => e.remove());
+
+		for (let i in chats) {
 			let chat = chats[i];
 			this.createChatOption(chat[0], chat[1], chat[2]);
 		}
