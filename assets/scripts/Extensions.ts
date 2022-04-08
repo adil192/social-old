@@ -7,6 +7,7 @@ interface Window {
 	};
 
 	currentProfileId?: number;
+	currentProfileChanged?: boolean;
 }
 
 interface HTMLDivElement {

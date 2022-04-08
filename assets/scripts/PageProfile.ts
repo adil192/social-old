@@ -35,7 +35,8 @@ export class PageProfile extends Page {
 		}
 
 		// if the user hasn't changed, we don't need to change anything
-		if (window.currentProfileId == this.previousProfileId) return;
+		if (window.currentProfileId == this.previousProfileId && !window.currentProfileChanged) return;
+		window.currentProfileChanged = false;
 
 		let [ meta, response ] = await Networker.postApi("Users.GetProfile", {
 			UserId: window.currentProfileId

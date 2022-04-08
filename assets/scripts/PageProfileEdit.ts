@@ -1,4 +1,6 @@
 import {Page} from "./Page";
+import {Networker} from "./Networker";
+import {Session} from "./Session";
 
 export class PageProfileEdit extends Page {
 
@@ -18,6 +20,24 @@ export class PageProfileEdit extends Page {
 		this.formPronouns = this.form["pronouns"];
 		this.formPronounsOther = this.form.querySelector("#pageProfileEdit-pronouns-other-input");
 
+		this.form.onsubmit = async (e) => {
+			e.preventDefault();
+			await this.OnSubmit();
+		};
+	}
+
+	private async OnSubmit() {
+		let pronouns = this.formPronouns.value;
+		if (pronouns == "other") pronouns = this.formPronounsOther.value;
+
+		let [ meta, response ] = await Networker.postApi("Users.UpdateProfile", {
+			UserId: Session.user.id,
+			Username: this.formName.value,
+			Bio: this.formBio.value,
+			Pronouns: pronouns
+		});
+		window.currentProfileChanged = true;
+		history.back();
 	}
 
 	static populateFields(profile) {
