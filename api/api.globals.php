@@ -2,12 +2,18 @@
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 /** @noinspection PhpIllegalPsrClassPathInspection */
 
+@session_start();
 require_once "api.secrets.php";
-
-const URL_PREFIX = "https://adil.hanney.org/SocialMediaDemo/api";
 
 const loginTokenName = "loginToken";
 const loginTokenNameExpiry = "loginTokenExpiry";
+
+// increment this to reconfigure session variables if needed by a change in the api
+const API_VERSION = 1;
+if ($_SESSION["API_VERSION"] != API_VERSION) {
+	session_unset();
+	$_SESSION["API_VERSION"] = API_VERSION;
+}
 
 function getConn() {
 	global $secrets__password;
