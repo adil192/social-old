@@ -73,7 +73,7 @@ export class PageMessages extends Page {
 	}
 
 	clearMessages() {
-		this.messagesElem.querySelectorAll('.pageMessages-message').forEach(e => e.remove());
+		this.messagesElem.querySelectorAll('li').forEach(e => e.remove());
 	}
 
 	async loadMessages() {
