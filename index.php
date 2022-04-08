@@ -113,10 +113,10 @@ include_once "../global_tools.php";
                 <img class="pageProfile-pfp-img" src="assets/images/unknown.webp" alt="My profile picture">
             </div>
             <div class="pageProfile-summary">
-                <h3 class="pageProfile-title">
+                <b class="pageProfile-title">
                     <span class="pageProfile-name"></span>
                     <span class="pageProfile-pronouns"></span>
-                </h3>
+                </b>
                 <p class="pageProfile-bio"></p>
             </div>
         </div>
