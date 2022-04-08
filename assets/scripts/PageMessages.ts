@@ -7,11 +7,15 @@ export class PageMessages extends Page {
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
 	messageTemplate: HTMLTemplateElement;
+	daySeparatorTemplate: HTMLTemplateElement;
 
 	inputForm: HTMLFormElement;
 	input: HTMLTextAreaElement;
 
 	lastMessageId: number = 0;
+	lastMessageDay: string = "";
+	lastMessageTimestamp: number = 0;
+
 	excludedMessageIds: number[] = [];
 	loadMessagesIntervalId: number = null;
 	loadMessagesFrame: number = null;
@@ -22,6 +26,7 @@ export class PageMessages extends Page {
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
+		this.daySeparatorTemplate = this.pageElem.querySelector("#pageMessages-daySeparator-template");
 
 		this.inputForm = this.pageElem.querySelector("#pageMessagesInputForm");
 		this.input = this.pageElem.querySelector("#pageMessagesInput");
@@ -60,6 +65,8 @@ export class PageMessages extends Page {
 	async OnClose() {
 		await super.OnClose();
 		this.lastMessageId = 0;
+		this.lastMessageDay = "";
+		this.lastMessageTimestamp = 0;
 		this.excludedMessageIds = [];
 		clearInterval(this.loadMessagesIntervalId);
 		cancelAnimationFrame(this.loadMessagesFrame);
@@ -78,21 +85,28 @@ export class PageMessages extends Page {
 
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
-			let [ messageId, messageText, messageUsername, messageTime ]: [number, string, string, number ] = messages[i];
+			let [ messageId, messageText, messageUsername, messageTimestamp ]: [number, string, string, number ] = messages[i];
 			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
 			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
-			this.createMessageElem(messageId, messageText, messageUsername, messageTime, false);
+			this.createMessageElem(messageId, messageText, messageUsername, messageTimestamp, false);
 		}
 		if (messages.length && isNearBottom) this.scrollToBottom();
 	}
 
-	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTime: number, isGroupChat: boolean) {
+	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTimestamp: number, isGroupChat: boolean) {
+		let [ time, day ] = PageMessages.parseTimestamp(messageTimestamp);
+		if (day != this.lastMessageDay && messageTimestamp > this.lastMessageTimestamp) { // a new day
+			this.lastMessageDay = day;
+			this.createDaySeparatorElem(day);
+		}
+		this.lastMessageTimestamp = messageTimestamp;
+
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
 		messageElem.setAttribute("data-messageId", messageId + "");
 		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
-		messageElem.querySelector(".pageMessages-message-time").textContent = PageMessages.timestampToTime(messageTime);
+		messageElem.querySelector(".pageMessages-message-time").textContent = time;
 
 		if (!messageUsername || messageUsername == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
@@ -103,6 +117,15 @@ export class PageMessages extends Page {
 		}
 
 		this.messagesElem.append(messageElemFragment);
+	}
+
+	private createDaySeparatorElem(day: string) {
+		let daySeparatorFragment: DocumentFragment = this.daySeparatorTemplate.content.cloneNode(true) as DocumentFragment;
+		let daySeparator: HTMLLIElement = daySeparatorFragment.querySelector("li");
+
+		daySeparator.innerText = day;
+
+		this.messagesElem.append(daySeparatorFragment);
 	}
 
 	private async onInputFormSubmit(e: SubmitEvent) {
@@ -143,11 +166,32 @@ export class PageMessages extends Page {
 		return this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset;
 	}
 
-	private static timestampToTime(timestamp: number): string {
-		return new Date(timestamp * 1000).toLocaleTimeString("en-GB", {
+	private static parseTimestamp(timestamp: number): [string, string] {
+		let date = new Date(timestamp * 1000);
+
+		let time = date.toLocaleTimeString("en-GB", {
 			hour12: false,
 			hour: "2-digit",
 			minute: "2-digit",
 		});
+
+		let day;
+		let daysSinceDate: number =
+			Math.round((new Date().setHours(0, 0, 0, 0) - date.setHours(0, 0, 0, 0)) / 86400000);
+
+		if (daysSinceDate == 0) {
+			day = "Today";
+		} else if (daysSinceDate == 1) {
+			day = "Yesterday";
+		} else if (daysSinceDate < 7) {
+			// use the day of the week e.g. Friday
+			day = date.toLocaleString(
+				'default', {weekday: 'long'}
+			);
+		} else {
+			day = date.toLocaleDateString("en-GB");
+		}
+
+		return [ time, day ];
 	}
 }
