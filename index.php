@@ -22,24 +22,6 @@ include_once "../global_tools.php";
 </head>
 <body>
 
-<div class="page" id="pageFeed">
-    <div class="page-header">
-        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
-        <h1>Feed</h1>
-    </div>
-</div>
-<div class="page" id="pageCamera">
-    <canvas id="cameraSensor"></canvas>
-    <video id="cameraViewfinder" autoplay playsinline></video>
-    <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
-    <div class="page-header">
-        <h1></h1>
-        <a href="#pageProfile" class="icon-btn icon-btn-pfp">
-            <img src="assets/images/unknown.webp" alt="My profile">
-        </a>
-    </div>
-    <button id="cameraTrigger" aria-label="Take a picture"></button>
-</div>
 <div class="page" id="pageChat">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
@@ -61,6 +43,24 @@ include_once "../global_tools.php";
                 </li>
             </template>
         </ul>
+    </div>
+</div>
+<div class="page" id="pageCamera">
+    <canvas id="cameraSensor"></canvas>
+    <video id="cameraViewfinder" autoplay playsinline></video>
+    <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
+    <div class="page-header">
+        <h1></h1>
+        <a href="#pageProfile" class="icon-btn icon-btn-pfp">
+            <img src="assets/images/unknown.webp" alt="My profile">
+        </a>
+    </div>
+    <button id="cameraTrigger" aria-label="Take a picture"></button>
+</div>
+<div class="page" id="pageFeed">
+    <div class="page-header">
+        <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back to camera">&larr;</button>
+        <h1>Feed</h1>
     </div>
 </div>
 
