@@ -1,23 +1,4 @@
 #pageCamera {
-	.page-header {
-		display: flex;
-		flex-flow: row nowrap;
-		z-index: 1;
-		> h1 {
-			flex: 1;
-		}
-
-		.icon-btn-pfp {
-			border-radius: 50%;
-			> img {
-				height: 1.5em;
-				margin: -0.25em;
-				border-radius: 50%;
-				aspect-ratio: 1;
-			}
-		}
-	}
-
 	#cameraSensor, #cameraViewfinder, #cameraOutput {
 		width: 100%;
 		height: 100%;

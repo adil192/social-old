@@ -20,7 +20,7 @@ html, body, .page {
 	opacity: 0.5;
 	transition: opacity 0.2s;
 	&:hover, &:focus {
-		opacity: 1;
+		opacity: 0.99;
 	}
 
 	&.icon-btn-left, &.icon-btn-right {
@@ -31,6 +31,16 @@ html, body, .page {
 	}
 	&.icon-btn-right {
 		transform: rotate(180deg);
+	}
+
+	&.icon-btn-pfp {
+		border-radius: 50%;
+		> img {
+			height: 1.5em;
+			margin: -0.25em;
+			border-radius: 50%;
+			aspect-ratio: 1;
+		}
 	}
 }
 .page {
@@ -67,6 +77,9 @@ html, body, .page {
 			font-size: calc(1.375rem + 1vw);
 			margin-bottom: 0;
 			line-height: 100%;
+		}
+		> h1 {
+			flex: 1;
 		}
 	}
 	> .portraitArea {
