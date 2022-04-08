@@ -14,7 +14,7 @@ import {PageProfileEdit} from "./PageProfileEdit";
 let body: HTMLBodyElement;
 let observer: IntersectionObserver;
 
-const intersectionThreshold: number = 0.9;
+const intersectionThreshold: number = 0.6;
 
 
 window.addEventListener("load", function() {
@@ -56,15 +56,21 @@ window.addEventListener("load", function() {
 
 let bodyScrolledTimeout = null;
 let currentPageId: string = "pageCamera";
+
+let openCompleteHandler: Function = () => {};
 let openCompleteTimeout: number = null;
+
 let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThreshold) return;
 
+		// OnOpening
+		location.replace("#" + entry.target.id);
+
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
-			let nextPageId = entry.target.id;
-			location.replace("#" + nextPageId);
+			// OnOpened
+			openCompleteHandler();
 		}, 100);
 	});
 };
@@ -113,23 +119,19 @@ window.onhashchange = function () {
 		let overlayPage: Page = overlayPages[i];
 		if (overlayPage.pageId == currentPageId) {
 			isCurrentAnOverlay = true;
+			page.classList.add("page-overlay-show");
 		} else {
 			overlayPage.pageElem.classList.remove("page-overlay-show");
 		}
 	}
 
-	if (isCurrentAnOverlay) {
-		page.classList.add("page-overlay-show");
-	} else {
-		page.scrollIntoView({
-			behavior: "smooth"
-		});
-	}
-
-	clearTimeout(openCompleteTimeout);
-	openCompleteTimeout = setTimeout(() => {
+	openCompleteHandler = () => {
+		clearTimeout(openCompleteTimeout);
+		openCompleteHandler = () => {};
 		(page.Page as Page).OnOpened();
-	}, 1000);
+	};
+	clearTimeout(openCompleteTimeout);
+	openCompleteTimeout = setTimeout(openCompleteHandler, 1000);
 
 	if (!!previousPage.Page) (previousPage.Page as Page).OnClose();
 	if (!!page.Page) (page.Page as Page).OnOpening();
