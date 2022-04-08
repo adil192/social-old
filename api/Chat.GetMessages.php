@@ -23,7 +23,7 @@ while ($row = $stmt->fetchObject()) {
 	$results[] = [
 		(int)$row->MessageId,
 		$row->MessageText,
-		$row->Username,
+		($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
 		strtotime($row->Date)
 	];
 }

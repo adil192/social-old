@@ -17,4 +17,6 @@ $pronouns = $_POST["Pronouns"] ?? "";
 $stmt = $conn->prepare("UPDATE User SET Username=?, Bio=?, Pronouns=? WHERE UserId=?");
 $stmt->execute([$username, $bio, $pronouns, $_SESSION["userId"]]);
 
+$_SESSION["userName"] = $username;
+
 respond(1, true);
