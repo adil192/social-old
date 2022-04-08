@@ -64,7 +64,6 @@ let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThresholdOpening) return;
 
-
 		if (entry.intersectionRatio < intersectionThresholdOpened) {
 			// OnOpening
 			location.replace("#" + entry.target.id.substring(4));

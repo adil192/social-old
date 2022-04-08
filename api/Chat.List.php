@@ -12,6 +12,8 @@ FROM ChatUser
 WHERE UserId=?
 LIMIT 50");
 $stmt->execute([$_SESSION["userId"]]);
+if ($stmt->rowCount() == 0) respond([], true); // no chats found
+
 $chatIds = array_map(function ($row) {
 	return "ChatUser.ChatId=" . (int)$row["ChatId"];
 }, $stmt->fetchAll());
