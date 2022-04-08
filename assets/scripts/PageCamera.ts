@@ -17,7 +17,7 @@ export class PageCamera extends Page {
 	isPictureTaken: boolean = false;
 
 	constructor() {
-		super("pageCamera");
+		super("Camera", false);
 		this.cameraViewfinder = this.pageElem.querySelector("#cameraViewfinder");
 		this.cameraOutput = this.pageElem.querySelector("#cameraOutput");
 		this.cameraSensor = this.pageElem.querySelector("#cameraSensor");

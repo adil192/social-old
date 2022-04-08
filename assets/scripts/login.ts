@@ -14,7 +14,7 @@ class PageLogin extends Page {
 	signupPasswordInput2: HTMLInputElement;
 
 	constructor() {
-		super("pageLogin");
+		super("Login", false);
 
 		if (Session.isLoggedIn) {
 			PageLogin.goToIndex();

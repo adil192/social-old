@@ -12,7 +12,7 @@ export class PageProfileEdit extends Page {
 	formPronounsOther: HTMLInputElement;
 
 	constructor() {
-		super("pageProfileEdit", "pageOverlayProfileEdit");
+		super("ProfileEdit", true);
 
 		this.form = document.querySelector("#pageProfileEdit-form");
 		this.formName = this.form.querySelector("#pageProfileEdit-name-input");

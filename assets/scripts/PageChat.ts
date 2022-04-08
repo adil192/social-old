@@ -10,7 +10,7 @@ export class PageChat extends Page {
 	shouldUpdateChatList: boolean = true;
 
 	constructor() {
-		super("pageChat");
+		super("Chat", false);
 
 		this.pageChatSearch = this.pageElem.querySelector("#pageChatSearch");
 		this.pageChatOptions = this.pageElem.querySelector("#pageChatOptions");
@@ -19,7 +19,7 @@ export class PageChat extends Page {
 		this.updateChatList().then();
 
 		this.pageChatSearch.addEventListener("click", function() {
-			window.openPage("pageSearch");
+			window.openPage("Search");
 		})
 	}
 
@@ -61,7 +61,7 @@ export class PageChat extends Page {
 				id: chatId,
 				name: name
 			};
-			window.openPage("pageMessages")
+			window.openPage("Messages")
 		});
 
 		this.pageChatOptions.append(optionElemFragment);

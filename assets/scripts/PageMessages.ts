@@ -22,7 +22,7 @@ export class PageMessages extends Page {
 	readonly loadMessagesIntervalMs: number = 1000;
 
 	constructor() {
-		super("pageMessages", "pageOverlayMessages");
+		super("Messages", true);
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");

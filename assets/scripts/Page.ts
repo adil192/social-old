@@ -9,9 +9,9 @@ export abstract class Page {
 
 	private hasBeenOpened: boolean = false;
 
-	protected constructor(pageId: string, elemId: string = null) {
+	protected constructor(pageId: string, isOverlay: boolean) {
 		this.pageId = pageId;
-		this.pageElem = document.getElementById(elemId ?? pageId) as HTMLDivElement;
+		this.pageElem = document.getElementById("page" + pageId) as HTMLDivElement;
 		this.pageElem.Page = this;
 		(<any>this.constructor).Instance = this;
 	}

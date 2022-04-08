@@ -55,7 +55,7 @@ window.addEventListener("load", function() {
 });
 
 let bodyScrolledTimeout = null;
-let currentPageId: string = "pageCamera";
+let currentPageId: string = "Camera";
 
 let openCompleteHandler: Function = () => {};
 let openCompleteTimeout: number = null;
@@ -65,7 +65,7 @@ let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 		if (entry.intersectionRatio < intersectionThreshold) return;
 
 		// OnOpening
-		location.replace("#" + entry.target.id);
+		location.replace("#" + entry.target.id.substring(4));
 
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
@@ -76,7 +76,7 @@ let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 };
 
 function isOnCameraPage(): boolean {
-	return location.hash.length <= 1 || location.hash == "#" + Catalogue.PageCamera.pageId;
+	return location.hash.length <= 1 || location.hash == "#Camera";
 }
 
 window.addEventListener("resize", function () {
@@ -85,6 +85,7 @@ window.addEventListener("resize", function () {
 });
 
 window.openPage = function (id: string) {
+	if (id.substring(0, 4) == "page") id = id.substring(4);
 	location.hash = id;
 };
 
@@ -92,24 +93,15 @@ window.onhashchange = function () {
 	if (location.hash == "#" + currentPageId) return;
 
 	let previousPageId: string = currentPageId;
-	let previousPage: HTMLDivElement = document.querySelector("#" + previousPageId);
-	if (previousPage == null) {
-		previousPage = document.querySelector("#pageOverlay" + previousPageId.substring(4));
-	}
+	let previousPage: HTMLDivElement = document.querySelector("#page" + previousPageId);
 
 	let page: HTMLDivElement;
 	currentPageId = location.hash.substring(1);
-	let currentPageElemId = currentPageId;
 	if (location.hash.length <= 1) {
-		page = Catalogue.PageCamera.pageElem;
 		currentPageId = Catalogue.PageCamera.pageId;
-		currentPageElemId = currentPageId;
+		page = Catalogue.PageCamera.pageElem;
 	} else {
-		page = document.querySelector(location.hash);
-		if (page == null) {
-			currentPageElemId = "pageOverlay" + location.hash.substring(5);
-			page = document.querySelector("#" + currentPageElemId);
-		}
+		page = document.querySelector("#page" + currentPageId);
 	}
 
 	// hide all other page overlays

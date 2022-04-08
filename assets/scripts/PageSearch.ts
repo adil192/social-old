@@ -11,7 +11,7 @@ export class PageSearch extends Page {
 	searchTimeoutId: number = null;
 
 	constructor() {
-		super("pageSearch", "pageOverlaySearch");
+		super("Search", true);
 
 		this.pageSearchResults = this.pageElem.querySelector("#pageSearchResults");
 		this.pageChatOptionTemplate = document.querySelector("#pageChatOptionTemplate");
@@ -90,6 +90,6 @@ export class PageSearch extends Page {
 			id: response,
 			name: username
 		};
-		window.openPage("pageMessages");
+		window.openPage("Messages");
 	}
 }

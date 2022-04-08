@@ -11,7 +11,7 @@ export class PageProfile extends Page {
 	previousProfileId: number = null;
 
 	constructor() {
-		super("pageProfile", "pageOverlayProfile");
+		super("Profile", true);
 
 		this.nameElem = document.querySelector(".pageProfile-name");
 		this.pronounsElem = document.querySelector(".pageProfile-pronouns");

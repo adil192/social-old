@@ -24,7 +24,7 @@ include_once "../global_tools.php";
 
 <div class="page" id="pageChat">
     <div class="page-header">
-        <a href="#pageCamera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
+        <a href="#Camera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
         <h1>Chat</h1>
     </div>
     <div class="portraitArea">
@@ -51,7 +51,7 @@ include_once "../global_tools.php";
     <img src="assets/images/transparent.webp" alt="" id="cameraOutput">
     <div class="page-header">
         <h1></h1>
-        <a href="#pageProfile" class="icon-btn icon-btn-pfp">
+        <a href="#Profile" class="icon-btn icon-btn-pfp">
             <img src="assets/images/unknown.webp" alt="My profile">
         </a>
     </div>
@@ -59,12 +59,12 @@ include_once "../global_tools.php";
 </div>
 <div class="page" id="pageFeed">
     <div class="page-header">
-        <a href="#pageCamera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
+        <a href="#Camera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
         <h1>Feed</h1>
     </div>
 </div>
 
-<div class="page page-overlay" id="pageOverlayMessages">
+<div class="page page-overlay" id="pageMessages">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>Chat with <span class="pageMessages-chatDisplayName">PLACEHOLDER</span></h1>
@@ -93,7 +93,7 @@ include_once "../global_tools.php";
     </div>
 </div>
 
-<div class="page page-overlay" id="pageOverlaySearch">
+<div class="page page-overlay" id="pageSearch">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <div class="input-group">
@@ -105,7 +105,7 @@ include_once "../global_tools.php";
         </ul>
     </div>
 </div>
-<div class="page page-overlay" id="pageOverlayProfile">
+<div class="page page-overlay" id="pageProfile">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>My profile</h1>
@@ -124,11 +124,11 @@ include_once "../global_tools.php";
             </div>
         </div>
         <div class="pageProfile-buttonRow">
-            <a href="#pageProfileEdit" id="pageProfileEditLink" class="btn btn-primary">Edit profile</a>
+            <a href="#ProfileEdit" id="pageProfileEditLink" class="btn btn-primary">Edit profile</a>
         </div>
     </div>
 </div>
-<div class="page page-overlay" id="pageOverlayProfileEdit">
+<div class="page page-overlay" id="pageProfileEdit">
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>Edit profile</h1>
