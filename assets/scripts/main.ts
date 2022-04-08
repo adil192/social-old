@@ -57,7 +57,7 @@ window.addEventListener("load", function() {
 let bodyScrolledTimeout = null;
 let currentPageId: string = "pageCamera";
 let openCompleteTimeout: number = null;
-let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
+let bodyScrolled = (entries: IntersectionObserverEntry[]) => {
 	entries.forEach(entry => {
 		if (entry.intersectionRatio < intersectionThreshold) {
 			if (entry.target.id == Catalogue.PageCamera.pageId) {
@@ -68,16 +68,12 @@ let bodyScrolled = (entries: IntersectionObserverEntry[], observer: any) => {
 
 		clearTimeout(bodyScrolledTimeout);
 		bodyScrolledTimeout = setTimeout(function () {
-			currentPageId = entry.target.id;
-			if (currentPageId == Catalogue.PageCamera.pageId) {
-				location.replace("#" + currentPageId);
+			let nextPageId = entry.target.id;
+			if (nextPageId == Catalogue.PageCamera.pageId) {
+				location.replace("#" + nextPageId);
 				Catalogue.PageCamera.isCameraPaused = false;
 			} else {
-				if (isOnCameraPage()) {
-					location.hash = currentPageId; // add new hash to history
-				} else {
-					location.replace("#" + currentPageId); // don't add to history, just replace
-				}
+				location.replace("#" + nextPageId);
 			}
 		}, 100);
 	});
