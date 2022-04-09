@@ -54,7 +54,7 @@ export class PageChat extends Page {
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
 		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg.trim();
-		optionElem.querySelector(".pageChat-option-date").textContent = new Date(timestamp * 1000).toLocaleDateString();
+		optionElem.querySelector(".pageChat-option-date").textContent = PageChat.parseTimestamp(timestamp);
 		// todo: set alt text and aria-labels
 
 		optionElem.addEventListener("click", function () {
@@ -66,6 +66,23 @@ export class PageChat extends Page {
 		});
 
 		this.pageChatOptions.append(optionElemFragment);
+	}
+
+	static parseTimestamp(timestamp: number): string {
+		let date = new Date(timestamp * 1000);
+		let now = new Date();
+
+		let mins = (+now - +date) / 1000 / 60,
+			hours = mins / 60;
+
+		if (mins < 1) return "Now";
+		if (hours < 1) return Math.round(mins) + " m";
+		if (hours < 24) return Math.round(hours) + " h";
+
+		let days = Math.round((now.setHours(0, 0, 0, 0) - date.setHours(0, 0, 0, 0)) / 1000 / 60 / 60 / 24);
+
+		if (days < 7) return days + " d";
+		return Math.floor(days/7) + " w";
 	}
 
 }
