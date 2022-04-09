@@ -28,7 +28,6 @@ FROM (
 	WHERE ChatUser.UserId <> ? AND ($whereChatIds)
 	  AND ChatUser.UserId = User.UserId
 	  AND ChatMessage.ChatId = ChatUser.ChatId
-	GROUP BY ChatMessage.ChatId
 ) AS x
 WHERE n <= 1
 ORDER BY Date DESC
