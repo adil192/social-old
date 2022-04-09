@@ -50,13 +50,18 @@
 		margin-bottom: 0;
 		white-space: nowrap;
 		display: flex;
-		gap: 0.3em;
 		overflow: hidden;
 
 		> .pageChat-option-lastMsg {
 			flex-shrink: 1;
 			overflow: hidden;
 			text-overflow: ellipsis;
+
+			&::after {
+				content: " • ";
+				white-space: pre;
+				font-weight: 200;
+			}
 		}
 		> .pageChat-option-date {
 			flex-shrink: 0;
