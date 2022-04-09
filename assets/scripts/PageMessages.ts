@@ -94,10 +94,10 @@ export class PageMessages extends Page {
 	}
 
 	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTimestamp: number, isGroupChat: boolean) {
-		let [ time, day ] = PageMessages.parseTimestamp(messageTimestamp);
+		let [ time, day, full_date ] = PageMessages.parseTimestamp(messageTimestamp);
 		if (day != this.lastMessageDay && messageTimestamp > this.lastMessageTimestamp) { // a new day
 			this.lastMessageDay = day;
-			this.createDaySeparatorElem(day);
+			this.createDaySeparatorElem(day, full_date);
 		}
 		this.lastMessageTimestamp = messageTimestamp;
 
@@ -119,11 +119,12 @@ export class PageMessages extends Page {
 		this.messagesElem.append(messageElemFragment);
 	}
 
-	private createDaySeparatorElem(day: string) {
+	private createDaySeparatorElem(day: string, full_date: string) {
 		let daySeparatorFragment: DocumentFragment = this.daySeparatorTemplate.content.cloneNode(true) as DocumentFragment;
 		let daySeparator: HTMLLIElement = daySeparatorFragment.querySelector("li");
 
 		daySeparator.innerText = day;
+		daySeparator.title = full_date;
 
 		this.messagesElem.append(daySeparatorFragment);
 	}
@@ -166,7 +167,7 @@ export class PageMessages extends Page {
 		return this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset;
 	}
 
-	private static parseTimestamp(timestamp: number): [string, string] {
+	private static parseTimestamp(timestamp: number): [string, string, string] {
 		let date = new Date(timestamp * 1000);
 
 		let time = date.toLocaleTimeString("en-GB", {
@@ -192,6 +193,6 @@ export class PageMessages extends Page {
 			day = date.toLocaleDateString("en-GB");
 		}
 
-		return [ time, day ];
+		return [ time, day, date.toLocaleDateString("en-GB") ];
 	}
 }
