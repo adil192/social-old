@@ -9,7 +9,7 @@ if (!isLoggedIn($conn)) {
 $chatId = $_POST["chatId"];
 if (empty($chatId) || !is_numeric($chatId)) respond("No chat selected", false);
 
-$lastMessageId = $_POST["lastMessageId"] ?? 0;
+$lastMessageId = (int)$_POST["lastMessageId"] ?? 0;
 
 $stmt = $conn->prepare("SELECT ChatMessage.MessageId, ChatMessage.MessageText, ChatMessage.Date, User.Username
 FROM ChatMessage, User
@@ -17,9 +17,14 @@ WHERE ChatMessage.ChatId=? AND ChatMessage.MessageId>? AND ChatMessage.UserId = 
 ORDER BY MessageId DESC LIMIT 50");
 $stmt->execute([$chatId, $lastMessageId]);
 
-$results = [];
+if ($stmt->rowCount() == 0) respond([], true);
 
+$results = [];
 while ($row = $stmt->fetchObject()) {
+	if ((int)$row->MessageId > $lastMessageId) {
+		$lastMessageId = $row->MessageId;
+	}
+
 	$results[] = [
 		(int)$row->MessageId,
 		$row->MessageText,
@@ -27,4 +32,9 @@ while ($row = $stmt->fetchObject()) {
 		strtotime($row->Date)
 	];
 }
+
+// update last read in db
+$stmt = $conn->prepare("UPDATE ChatUser SET LastMessageId=? WHERE ChatId=? AND UserId=?");
+$stmt->execute([$lastMessageId, $chatId, $_SESSION["userId"]]);
+
 respond(array_reverse($results), true);

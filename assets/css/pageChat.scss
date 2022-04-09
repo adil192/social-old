@@ -66,6 +66,17 @@
 		> .pageChat-option-date {
 			flex-shrink: 0;
 			opacity: 0.8;
+			font-weight: initial;
+		}
+	}
+
+	&.pageChat-option-unread {
+		.pageChat-option-name {
+			font-weight: 500;
+		}
+		.pageChat-option-lastMsg-container {
+			opacity: 1;
+			font-weight: 500;
 		}
 	}
 }

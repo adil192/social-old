@@ -43,14 +43,15 @@ export class PageChat extends Page {
 
 		for (let i in chats) {
 			let chat = chats[i];
-			this.createChatOption(chat[0], chat[1], chat[2], chat[3]);
+			this.createChatOption(chat[0], chat[1], chat[2], chat[3], chat[4]);
 		}
 	}
 
-	createChatOption(chatId: number, name: string, lastMsg: string, timestamp: number, pfp: string = "assets/images/unknown.webp") {
+	createChatOption(chatId: number, name: string, lastMsg: string, timestamp: number, unread: boolean, pfp: string = "assets/images/unknown.webp") {
 		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
 
+		if (unread) optionElem.classList.add("pageChat-option-unread");
 		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
 		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg.trim();
