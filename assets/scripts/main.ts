@@ -80,7 +80,7 @@ function isOnCameraPage(): boolean {
 
 window.addEventListener("resize", function () {
 	if (Catalogue.AllSwipingPages.filter(page => page.pageId == currentPageId).length > 0)
-		document.getElementById(currentPageId).scrollIntoView();
+		document.getElementById("page" + currentPageId).scrollIntoView();
 });
 
 window.openPage = function (id: string) {
