@@ -3,6 +3,7 @@ import {Page} from "./Page";
 import {Networker} from "./Networker";
 
 export class PageChat extends Page {
+	pageChatRefreshBtn: HTMLButtonElement;
 	pageChatSearch: HTMLInputElement;
 	pageChatOptions: HTMLDivElement;
 	pageChatOptionTemplate: HTMLTemplateElement;
@@ -12,12 +13,17 @@ export class PageChat extends Page {
 	constructor() {
 		super("Chat", false);
 
+		this.pageChatRefreshBtn = this.pageElem.querySelector(".pageChat-refreshBtn");
 		this.pageChatSearch = this.pageElem.querySelector("#pageChatSearch");
 		this.pageChatOptions = this.pageElem.querySelector("#pageChatOptions");
 		this.pageChatOptionTemplate = this.pageElem.querySelector("#pageChatOptionTemplate");
 
 		this.updateChatList().then();
 
+		this.pageChatRefreshBtn.addEventListener("click", async () => {
+			this.shouldUpdateChatList = true;
+			await this.updateChatList();
+		})
 		this.pageChatSearch.addEventListener("click", function() {
 			window.openPage("Search");
 		})
