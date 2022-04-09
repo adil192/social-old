@@ -26,6 +26,7 @@ include_once "../global_tools.php";
     <div class="page-header">
         <a href="#Camera" class="icon-btn icon-btn-left" aria-label="Back to camera">&larr;</a>
         <h1>Chat</h1>
+        <button class="icon-btn icon-btn-refresh page-header-backBtn" aria-label="Refresh"></button>
     </div>
     <div class="portraitArea">
         <div class="input-group">
