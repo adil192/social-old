@@ -40,7 +40,7 @@ export class PageChat extends Page {
 		this.shouldUpdateChatList = false;
 		setTimeout(() => {
 			this.shouldUpdateChatList = true;
-		}, 3000);
+		}, 1000);
 
 		let [ meta, chats ] = await Networker.postApi("Chat.List");
 		if (!meta.success) return;
