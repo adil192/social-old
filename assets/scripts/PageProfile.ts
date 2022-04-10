@@ -7,6 +7,7 @@ export class PageProfile extends Page {
 	nameElem: HTMLSpanElement;
 	pronounsElem: HTMLSpanElement;
 	bioElem: HTMLParagraphElement;
+	logoutBtn: HTMLButtonElement;
 
 	previousProfileId: number = null;
 
@@ -16,10 +17,15 @@ export class PageProfile extends Page {
 		this.nameElem = document.querySelector(".pageProfile-name");
 		this.pronounsElem = document.querySelector(".pageProfile-pronouns");
 		this.bioElem = document.querySelector(".pageProfile-bio");
+		this.logoutBtn = document.querySelector(".pageProfile-logoutBtn");
 
 		this.nameElem.innerText = "";
 		this.pronounsElem.innerText = "";
 		this.bioElem.innerText = "";
+
+		this.logoutBtn.addEventListener("click", async () => {
+			await this.Logout();
+		});
 	}
 
 	async OnOpening() {
@@ -57,5 +63,20 @@ export class PageProfile extends Page {
 		await super.OnClose();
 
 		window.currentProfileId = null;
+	}
+
+	async Logout() {
+		let [ meta, response ] = await Networker.postApi("Auth.Logout", {
+			UserId: Session.user.id
+		});
+		if (!meta.success) return;
+
+		Session.user.id = null;
+		Session.user.name = null;
+		Session.user.loginToken = null;
+		Session.isLoggedIn = false;
+		Session.saveNowIfNeeded();
+
+		location.href = "login.php";
 	}
 }

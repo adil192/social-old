@@ -113,6 +113,7 @@ include_once "../global_tools.php";
     <div class="page-header">
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>My profile</h1>
+        <button class="icon-btn icon-btn-logout pageProfile-logoutBtn" aria-label="Logout">&larr;</button>
     </div>
     <div class="portraitArea">
         <div class="pageProfile-profile">

@@ -23,7 +23,7 @@ html, body, .page {
 		opacity: 0.99;
 	}
 
-	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh {
+	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout {
 		min-width: 1em;
 		background: url("/SocialMediaDemo/assets/images/icons/larr.svg") no-repeat center center;
 		background-size: contain;
@@ -35,6 +35,10 @@ html, body, .page {
 	}
 	&.icon-btn-refresh {
 		background-image: url("/SocialMediaDemo/assets/images/icons/refresh.svg");
+		height: 75%;
+	}
+	&.icon-btn-logout {
+		background-image: url("/SocialMediaDemo/assets/images/icons/logout.svg");
 		height: 75%;
 	}
 
