@@ -91,7 +91,8 @@ include_once "../global_tools.php";
         <form method="post" id="pageMessagesInputForm">
             <div class="input-group">
                 <textarea id="pageMessagesInput" aria-label="Send a message..." placeholder="Send a message..." rows="1" required minlength="1"></textarea>
-                <button type="submit" class="pageMessagesInput--valid">Send</button>
+                <button type="button" class="icon-btn icon-btn-upload pageMessagesInput--invalid" aria-label="Send a picture"></button>
+                <button type="submit" class="pageMessagesInput--valid" aria-label="Send message">Send</button>
             </div>
         </form>
     </div>

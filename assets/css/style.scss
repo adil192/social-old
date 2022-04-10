@@ -23,7 +23,7 @@ html, body, .page {
 		opacity: 0.99;
 	}
 
-	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout {
+	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout, &.icon-btn-upload {
 		min-width: 1em;
 		background: url("/SocialMediaDemo/assets/images/icons/larr.svg") no-repeat center center;
 		background-size: contain;
@@ -39,6 +39,10 @@ html, body, .page {
 	}
 	&.icon-btn-logout {
 		background-image: url("/SocialMediaDemo/assets/images/icons/logout.svg");
+		height: 75%;
+	}
+	&.icon-btn-upload {
+		background-image: url("/SocialMediaDemo/assets/images/icons/upload.svg");
 		height: 75%;
 	}
 
