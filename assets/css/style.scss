@@ -111,8 +111,9 @@ html, body, .page {
 
 .input-group {
 	display: flex;
+	gap: 0.3rem;
+	padding: 1rem 2.5rem;
 	position: relative;
-	padding: 1rem;
 
 	input, textarea {
 		flex: 1;
@@ -139,12 +140,6 @@ html, body, .page {
 		background: transparent;
 		padding: 0.4rem;
 		border: none;
-	}
-	> :nth-child(1) {
-		padding-left: 1.5rem;
-	}
-	> :nth-last-child(1) {
-		padding-right: 1.5rem;
 	}
 }
 
