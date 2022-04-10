@@ -54,6 +54,22 @@
 		}
 	}
 
+	.pageMessagesInput--valid {
+		display: block;
+	}
+	.pageMessagesInput--invalid {
+		display: none;
+	}
+	#pageMessagesInput:placeholder-shown,
+	#pageMessagesInput:invalid {
+		~ .pageMessagesInput--valid {
+			display: none;
+		}
+		~ .pageMessagesInput--invalid {
+			display: block;
+		}
+	}
+
 	@media (prefers-color-scheme: dark) {
 		ul#pageMessages-messages {
 			li.pageMessages-message {
