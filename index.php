@@ -180,13 +180,17 @@ include_once "../global_tools.php";
 
 
 <script>
-    // set default page
-    if (location.hash.length > 1) {
+    // stay on swiping pages, otherwise go to camera page
+    let previousHash = location.hash.substring(1);
+    if (previousHash === "Chat" || previousHash === "Feed") {
         // we need to have pageCamera in the history so we can go back to it later
-        let previousHash = location.hash.substring(1);
         location.replace("#"); // replace first history item with pageCamera
         location.hash = previousHash; // now re-add previousHash as the second history item
+        document.getElementById("page" + previousHash).scrollIntoView();
     } else {
+        if (previousHash.length && previousHash !== "Camera") {
+            location.replace("#");
+        }
         document.getElementById("pageCamera").scrollIntoView();
     }
 </script>
