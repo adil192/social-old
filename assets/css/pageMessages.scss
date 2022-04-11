@@ -62,7 +62,9 @@
 				img {
 					margin: -0.7rem -0.7rem 0 -0.7rem;
 					width: calc(100% + 1.4rem);
-					max-height: 40vh;
+					max-height: 30vh;
+					min-width: 11rem;
+					object-fit: cover;
 				}
 				.pageMessages-message-footer {
 					margin-top: -0.05rem;
