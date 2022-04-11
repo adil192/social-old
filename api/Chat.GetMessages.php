@@ -18,7 +18,7 @@ if ($lastMessageId > $_SESSION["lastMessageId"] ?? 0) {
 	$stmt->execute([$lastMessageId, $chatId, $_SESSION["userId"]]);
 }
 
-$stmt = $conn->prepare("SELECT ChatMessage.MessageId, ChatMessage.MessageText, ChatMessage.Date, User.Username
+$stmt = $conn->prepare("SELECT MessageId, MessageText, MessageUrl, Type, Username, Date
 FROM ChatMessage, User
 WHERE ChatMessage.ChatId=? AND ChatMessage.MessageId>? AND ChatMessage.UserId = User.UserId
 ORDER BY MessageId DESC LIMIT 50");
@@ -31,6 +31,8 @@ while ($row = $stmt->fetchObject()) {
 	$results[] = [
 		(int)$row->MessageId,
 		$row->MessageText,
+		$row->MessageUrl,
+		$row->Type,
 		($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
 		strtotime($row->Date)
 	];

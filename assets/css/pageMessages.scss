@@ -21,20 +21,26 @@
 		li.pageMessages-message {
 			background: rgba(0,0,0,0.01);
 			box-shadow: rgba(0,0,0,0.1) 0.1rem 0.1rem 0.1rem;
-			border-radius: 1rem;
 			padding: 0.7rem;
 			margin-bottom: 0.5rem;
+			&, img {
+				border-radius: 1rem;
+			}
 
 			display: table; // hack to get messages to autosize
 			max-width: min(max(75%, 20rem), 90%);
 
 			&:not(.pageMessages-message-own) {
-				border-bottom-left-radius: 0;
+				&, img {
+					border-bottom-left-radius: 0;
+				}
 			}
 			&.pageMessages-message-own {
-				background: rgba(0,0,0,0.05);
-				border-bottom-right-radius: 0;
+				background: rgba(0, 0, 0, 0.05);
 				margin-inline-start: auto;
+				&, img {
+					border-bottom-right-radius: 0;
+				}
 			}
 
 			.pageMessages-message-footer {
@@ -49,6 +55,17 @@
 				}
 				.pageMessages-message-time:empty {
 					display: none;
+				}
+			}
+
+			&.pageMessages-image {
+				img {
+					margin: -0.7rem -0.7rem 0 -0.7rem;
+					width: calc(100% + 1.4rem);
+				}
+				.pageMessages-message-footer {
+					margin-top: -0.05rem;
+					margin-bottom: -0.8rem;
 				}
 			}
 		}

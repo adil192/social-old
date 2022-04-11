@@ -84,6 +84,15 @@ include_once "../global_tools.php";
                     </div>
                 </li>
             </template>
+            <template id="pageMessages-image-template">
+                <li class="pageMessages-message pageMessages-image">
+                    <img>
+                    <div class="pageMessages-message-footer">
+                        <span class="pageMessages-message-sender"></span>
+                        <span class="pageMessages-message-time"></span>
+                    </div>
+                </li>
+            </template>
             <template id="pageMessages-daySeparator-template">
                 <li class="pageMessages-daySeparator"></li>
             </template>
@@ -91,7 +100,10 @@ include_once "../global_tools.php";
         <form method="post" id="pageMessagesInputForm">
             <div class="input-group">
                 <textarea id="pageMessagesInput" aria-label="Send a message..." placeholder="Send a message..." rows="1" required minlength="1"></textarea>
-                <button type="button" class="icon-btn icon-btn-upload pageMessagesInput--invalid" aria-label="Send a picture"></button>
+
+                <label role="button" class="icon-btn icon-btn-upload pageMessagesInput--invalid" aria-label="Send a picture">
+                    <input type="file" accept="image/*" name="file" id="pageMessagesFile" hidden="hidden">
+                </label>
                 <button type="submit" class="pageMessagesInput--valid" aria-label="Send message">Send</button>
             </div>
         </form>

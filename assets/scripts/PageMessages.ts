@@ -7,10 +7,12 @@ export class PageMessages extends Page {
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
 	messageTemplate: HTMLTemplateElement;
+	imageTemplate: HTMLTemplateElement;
 	daySeparatorTemplate: HTMLTemplateElement;
 
 	inputForm: HTMLFormElement;
 	input: HTMLTextAreaElement;
+	mediaInput: HTMLInputElement;
 
 	lastMessageId: number = 0;
 	lastMessageDay: string = "";
@@ -26,14 +28,19 @@ export class PageMessages extends Page {
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
+		this.imageTemplate = this.pageElem.querySelector("#pageMessages-image-template");
 		this.daySeparatorTemplate = this.pageElem.querySelector("#pageMessages-daySeparator-template");
 
 		this.inputForm = this.pageElem.querySelector("#pageMessagesInputForm");
 		this.input = this.pageElem.querySelector("#pageMessagesInput");
+		this.mediaInput = this.pageElem.querySelector("#pageMessagesFile");
 
 		this.inputForm.addEventListener("submit", (e) => this.onInputFormSubmit(e));
 		this.input.addEventListener("keydown", () => {
 			setTimeout(() => this.autoSizeInput(), 0);
+		});
+		this.mediaInput.addEventListener("change", async () => {
+			await this.onMediaUpload();
 		});
 
 		// if near the bottom, keep scroll position at the bottom
@@ -85,15 +92,16 @@ export class PageMessages extends Page {
 
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
-			let [ messageId, messageText, messageUsername, messageTimestamp ]: [number, string, string, number ] = messages[i];
+			let [ messageId, messageText, messageUrl, messageType, messageUsername, messageTimestamp ]: [number, string, string, string, string, number ] = messages[i];
 			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
 			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
-			this.createMessageElem(messageId, messageText, messageUsername, messageTimestamp, false);
+			this.createMessageElem(messageId, messageText, messageUrl, messageType, messageUsername, messageTimestamp);
 		}
 		if (messages.length && isNearBottom) this.scrollToBottom();
 	}
 
-	private createMessageElem(messageId: number, messageText: string, messageUsername: string, messageTimestamp: number, isGroupChat: boolean) {
+	private createMessageElem(messageId: number, messageText: string, messageUrl: string, messageType: string,
+	                          messageUsername: string, messageTimestamp: number, isGroupChat: boolean = false) {
 		let [ time, day, full_date ] = PageMessages.parseTimestamp(messageTimestamp);
 		if (day != this.lastMessageDay && messageTimestamp > this.lastMessageTimestamp) { // a new day
 			this.lastMessageDay = day;
@@ -101,12 +109,41 @@ export class PageMessages extends Page {
 		}
 		this.lastMessageTimestamp = messageTimestamp;
 
+		switch (messageType) {
+			case "Image":
+				this._createMessageElem_Image(messageId, messageUrl, messageUsername, time, isGroupChat);
+				break;
+			default:
+				this._createMessageElem_Text(messageId, messageText, messageUsername, time, isGroupChat);
+		}
+	}
+	private _createMessageElem_Text(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
 		messageElem.setAttribute("data-messageId", messageId + "");
 		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
-		messageElem.querySelector(".pageMessages-message-time").textContent = time;
+		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
+
+		if (!messageUsername || messageUsername == Session.user.name) {
+			messageElem.classList.add("pageMessages-message-own");
+		} else {
+			if (isGroupChat) {
+				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(messageUsername);
+			}
+		}
+
+		this.messagesElem.append(messageElemFragment);
+	}
+	private _createMessageElem_Image(messageId: number, messageUrl: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
+		let messageElemFragment: DocumentFragment = this.imageTemplate.content.cloneNode(true) as DocumentFragment;
+		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
+
+		messageElem.setAttribute("data-messageId", messageId + "");
+		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
+
+		let img: HTMLImageElement = messageElem.querySelector("img");
+		img.src = messageUrl;
 
 		if (!messageUsername || messageUsername == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
@@ -143,13 +180,30 @@ export class PageMessages extends Page {
 			preventScroll: true
 		});
 
-		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
+		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.SendMedia", {
 			chatId: window.currentChat.id + "",
-			messageText: messageText
+			messageText: messageText,
+			file: this.mediaInput.files[0]
 		});
 		if (meta.success) {
-			this.createMessageElem(newId, messageText, Session.user.name, timestamp, false);
+			this.createMessageElem(newId, messageText, "", "Text", Session.user.name, timestamp);
 			this.excludedMessageIds.push(newId);
+			this.scrollToBottom();
+		}
+	}
+
+	private async onMediaUpload() {
+		if (this.mediaInput.files.length == 0) return;
+
+		let timestamp: number = +new Date() / 1000;
+
+		let [ meta, response ] = await Networker.postApi("Chat.SendMedia", {
+			chatId: window.currentChat.id + "",
+			file: this.mediaInput.files[0]
+		});
+		if (meta.success) {
+			this.createMessageElem(response.id, "Image", response.url, "Image", Session.user.name, timestamp);
+			this.excludedMessageIds.push(response.id);
 			this.scrollToBottom();
 		}
 	}

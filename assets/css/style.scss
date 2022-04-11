@@ -156,9 +156,7 @@ html, body, .page {
 		background: black;
 		color: white;
 	}
-	.icon-btn-left,
-	.icon-btn-right,
-	.icon-btn-refresh {
+	.icon-btn-left, .icon-btn-right, .icon-btn-refresh, .icon-btn-logout, .icon-btn-upload {
 		filter: brightness(0) invert(1);
 	}
 	input, textarea {
