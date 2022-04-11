@@ -78,8 +78,8 @@ export class PageMessages extends Page {
 
 	async loadMessages() {
 		let [ meta, messages ] = await Networker.postApi("Chat.GetMessages", {
-			chatId: window.currentChat.id,
-			lastMessageId: this.lastMessageId
+			chatId: window.currentChat.id + "",
+			lastMessageId: this.lastMessageId + ""
 		});
 		if (!meta.success) return;
 
@@ -144,7 +144,7 @@ export class PageMessages extends Page {
 		});
 
 		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
-			chatId: window.currentChat.id,
+			chatId: window.currentChat.id + "",
 			messageText: messageText
 		});
 		if (meta.success) {

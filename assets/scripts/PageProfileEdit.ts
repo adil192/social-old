@@ -31,7 +31,7 @@ export class PageProfileEdit extends Page {
 		if (pronouns == "other") pronouns = this.formPronounsOther.value;
 
 		let [ meta, response ] = await Networker.postApi("Users.UpdateProfile", {
-			UserId: Session.user.id,
+			UserId: Session.user.id + "",
 			Username: this.formName.value,
 			Bio: this.formBio.value,
 			Pronouns: pronouns

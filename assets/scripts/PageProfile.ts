@@ -45,7 +45,7 @@ export class PageProfile extends Page {
 		window.currentProfileChanged = false;
 
 		let [ meta, response ] = await Networker.postApi("Users.GetProfile", {
-			UserId: window.currentProfileId
+			UserId: window.currentProfileId + ""
 		});
 		if (!meta.success) return;
 		this.previousProfileId = window.currentProfileId;
@@ -67,7 +67,7 @@ export class PageProfile extends Page {
 
 	async Logout() {
 		let [ meta, response ] = await Networker.postApi("Auth.Logout", {
-			UserId: Session.user.id
+			UserId: Session.user.id + ""
 		});
 		if (!meta.success) return;
 
