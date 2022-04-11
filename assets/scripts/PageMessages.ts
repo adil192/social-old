@@ -180,10 +180,9 @@ export class PageMessages extends Page {
 			preventScroll: true
 		});
 
-		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.SendMedia", {
+		let [ meta, newId ]: [ Meta, number ] = await Networker.postApi("Chat.Send", {
 			chatId: window.currentChat.id + "",
-			messageText: messageText,
-			file: this.mediaInput.files[0]
+			messageText: messageText
 		});
 		if (meta.success) {
 			this.createMessageElem(newId, messageText, "", "Text", Session.user.name, timestamp);
