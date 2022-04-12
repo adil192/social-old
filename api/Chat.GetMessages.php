@@ -28,13 +28,13 @@ if ($stmt->rowCount() == 0) respond([], true);
 
 $results = [];
 while ($row = $stmt->fetchObject()) {
-	$results[] = [
-		(int)$row->MessageId,
-		$row->MessageText,
-		$row->MessageUrl,
-		$row->Type,
-		($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
-		strtotime($row->Date)
-	];
+	$results[] = array(
+		"type" => $row->Type,
+		"id" => (int)$row->MessageId,
+		"text" => $row->MessageText,
+		"url" => $row->MessageUrl,
+		"username" => ($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
+		"timestamp" => strtotime($row->Date)
+	);
 }
 respond(array_reverse($results), true);

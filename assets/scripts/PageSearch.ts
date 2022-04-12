@@ -88,7 +88,8 @@ export class PageSearch extends Page {
 
 		window.currentChat = {
 			id: response,
-			name: username
+			name: username,
+			isGroupChat: false
 		};
 		window.openPage("Messages");
 	}

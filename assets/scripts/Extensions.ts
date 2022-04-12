@@ -4,6 +4,7 @@ interface Window {
 	currentChat?: {
 		id: number;
 		name?: string;
+		isGroupChat: boolean;
 	};
 
 	currentProfileId?: number;

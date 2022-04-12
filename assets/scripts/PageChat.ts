@@ -67,7 +67,8 @@ export class PageChat extends Page {
 		optionElem.addEventListener("click", function () {
 			window.currentChat = {
 				id: chatId,
-				name: name
+				name: name,
+				isGroupChat: false
 			};
 			window.openPage("Messages")
 		});

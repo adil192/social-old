@@ -2,6 +2,26 @@ import {Page} from "./Page";
 import {Meta, Networker} from "./Networker";
 import {Session} from "./Session";
 
+
+class BaseMessage {
+	type: string;
+	id: number;
+	username?: string;
+	timestamp: number;
+
+	text?: string;
+	url?: string;
+}
+class TextMessage extends BaseMessage {
+	type: string = "Text";
+	text: string;
+}
+class ImageMessage extends BaseMessage {
+	type: string = "Image";
+	url: string;
+}
+
+
 export class PageMessages extends Page {
 
 	chatDisplayName: HTMLSpanElement;
@@ -92,64 +112,64 @@ export class PageMessages extends Page {
 
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
-			let [ messageId, messageText, messageUrl, messageType, messageUsername, messageTimestamp ]: [number, string, string, string, string, number ] = messages[i];
-			if (messageId > this.lastMessageId) this.lastMessageId = messageId;
-			if (this.excludedMessageIds.indexOf(messageId) !== -1) continue;
-			this.createMessageElem(messageId, messageText, messageUrl, messageType, messageUsername, messageTimestamp);
+			let message: BaseMessage = messages[i];
+			if (message.id > this.lastMessageId) this.lastMessageId = message.id;
+			if (this.excludedMessageIds.indexOf(message.id) !== -1) continue;
+			this.createMessageElem(message);
 		}
 		if (messages.length && isNearBottom) this.scrollToBottom();
 	}
 
-	private createMessageElem(messageId: number, messageText: string, messageUrl: string, messageType: string,
-	                          messageUsername: string, messageTimestamp: number, isGroupChat: boolean = false) {
-		let [ time, day, full_date ] = PageMessages.parseTimestamp(messageTimestamp);
-		if (day != this.lastMessageDay && messageTimestamp > this.lastMessageTimestamp) { // a new day
+	private createMessageElem(message: BaseMessage) {
+		let [ time, day, full_date ] = PageMessages.parseTimestamp(message.timestamp);
+		if (day != this.lastMessageDay && message.timestamp > this.lastMessageTimestamp) { // a new day
 			this.lastMessageDay = day;
 			this.createDaySeparatorElem(day, full_date);
 		}
-		this.lastMessageTimestamp = messageTimestamp;
+		this.lastMessageTimestamp = message.timestamp;
 
-		switch (messageType) {
+		switch (message.type) {
 			case "Image":
-				this._createMessageElem_Image(messageId, messageUrl, messageUsername, time, isGroupChat);
+				this._createMessageElem_Image(message as ImageMessage, time);
 				break;
 			default:
-				this._createMessageElem_Text(messageId, messageText, messageUsername, time, isGroupChat);
+				this._createMessageElem_Text(message as TextMessage, time);
+				break;
 		}
 	}
-	private _createMessageElem_Text(messageId: number, messageText: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
+	private _createMessageElem_Text(message: TextMessage, messageTime: string) {
 		let messageElemFragment: DocumentFragment = this.messageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
-		messageElem.setAttribute("data-messageId", messageId + "");
-		messageElem.querySelector(".pageMessages-message-text").innerText = messageText;
+		messageElem.setAttribute("data-messageId", message.id + "");
+		messageElem.querySelector(".pageMessages-message-text").innerText = message.text;
 		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
 
-		if (!messageUsername || messageUsername == Session.user.name) {
+		if (!message.username || message.username == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
 		} else {
-			if (isGroupChat) {
-				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(messageUsername);
+			if (window.currentChat.isGroupChat) {
+				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(message.username);
 			}
 		}
 
 		this.messagesElem.append(messageElemFragment);
 	}
-	private _createMessageElem_Image(messageId: number, messageUrl: string, messageUsername: string, messageTime: string, isGroupChat: boolean) {
+	private _createMessageElem_Image(message: ImageMessage, messageTime: string) {
 		let messageElemFragment: DocumentFragment = this.imageTemplate.content.cloneNode(true) as DocumentFragment;
 		let messageElem: HTMLLIElement = messageElemFragment.querySelector("li");
 
-		messageElem.setAttribute("data-messageId", messageId + "");
+		messageElem.setAttribute("data-messageId", message.id + "");
 		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
 
 		let img: HTMLImageElement = messageElem.querySelector("img");
-		img.src = messageUrl;
+		img.src = message.url;
 
-		if (!messageUsername || messageUsername == Session.user.name) {
+		if (!message.username || message.username == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
 		} else {
-			if (isGroupChat) {
-				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(messageUsername);
+			if (window.currentChat.isGroupChat) {
+				messageElem.querySelector(".pageMessages-message-sender").textContent = PageMessages.formatUsername(message.username);
 			}
 		}
 
@@ -185,7 +205,13 @@ export class PageMessages extends Page {
 			messageText: messageText
 		});
 		if (meta.success) {
-			this.createMessageElem(newId, messageText, "", "Text", Session.user.name, timestamp);
+			this.createMessageElem(<TextMessage>{
+				id: newId,
+				type: "Text",
+				text: messageText,
+				username: Session.user.name,
+				timestamp: timestamp
+			})
 			this.excludedMessageIds.push(newId);
 			this.scrollToBottom();
 		}
@@ -201,7 +227,13 @@ export class PageMessages extends Page {
 			file: this.mediaInput.files[0]
 		});
 		if (meta.success) {
-			this.createMessageElem(response.id, "Image", response.url, "Image", Session.user.name, timestamp);
+			this.createMessageElem(<ImageMessage>{
+				id: response.id,
+				type: "Image",
+				url: response.url,
+				username: Session.user.name,
+				timestamp: timestamp
+			})
 			this.excludedMessageIds.push(response.id);
 			this.scrollToBottom();
 		}
