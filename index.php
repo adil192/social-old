@@ -11,7 +11,8 @@ include_once "../global_tools.php";
 		null,
 		"2022-03-17",
 		"InteractiveResource",
-		false
+		false,
+		"viewport-fit=cover"
 	); ?>
 
     <link href="../assets/ext/bootstrap.5.1.3.min.css" rel="stylesheet">
@@ -19,6 +20,7 @@ include_once "../global_tools.php";
 
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="apple-touch-icon" href="/maskable_icon_x192.png">
+    <link rel="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
