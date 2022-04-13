@@ -37,12 +37,12 @@
     {
       "name": "Open camera",
       "short_name": "Camera",
-      "url": "/SocialMediaDemo/#pageCamera"
+      "url": "/SocialMediaDemo/#Camera"
     },
     {
       "name": "Open chats",
       "short_name": "Chats",
-      "url": "/SocialMediaDemo/#pageChat"
+      "url": "/SocialMediaDemo/#Chat"
     }
   ]
 }
