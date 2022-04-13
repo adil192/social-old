@@ -85,12 +85,13 @@ WHERE LoginToken=? AND User.UserId=UserSession.UserId LIMIT 1');
 	return true;
 }
 
-function respond($response, $success) {
+function respond($response, $success, array $meta = null) {
+	$meta ??= array();
+	$meta["success"] = $success;
+
 	header('Content-Type: application/json');
 	echo json_encode([
-		"meta" => array(
-			"success" => $success,
-		),
+		"meta" => $meta,
 		"response" => $response
 	]);
 	die;

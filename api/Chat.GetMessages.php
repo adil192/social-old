@@ -17,6 +17,24 @@ if ($lastMessageId > $_SESSION["lastMessageId"] ?? 0) {
 	$stmt = $conn->prepare("UPDATE ChatUser SET LastMessageId=? WHERE ChatId=? AND UserId=?");
 	$stmt->execute([$lastMessageId, $chatId, $_SESSION["userId"]]);
 }
+// get others' last read
+$stmt = $conn->prepare("SELECT LastMessageId, GROUP_CONCAT(Username SEPARATOR ';') AS Usernames
+FROM ChatUser, User
+WHERE ChatId=? AND User.UserId<>? AND ChatUser.UserId=User.UserId
+GROUP BY LastMessageId
+ORDER BY LastMessageId DESC LIMIT 1");
+$stmt->execute([$chatId, $_SESSION["userId"]]);
+if ($row = $stmt->fetchObject()) {
+	$lastRead = array(
+		"LastMessageId" => $row->LastMessageId,
+		"Usernames" => explode(';', $row->Usernames)
+	);
+} else {
+	$lastRead = array(
+		"LastMessageId" => 0,
+		"Usernames" => []
+	);
+}
 
 $stmt = $conn->prepare("SELECT MessageId, MessageText, MessageUrl, Type, Username, Date, Width, Height
 FROM ChatMessage, User
@@ -39,4 +57,6 @@ while ($row = $stmt->fetchObject()) {
 		"height" => (int)$row->Height
 	);
 }
-respond(array_reverse($results), true);
+respond(array_reverse($results), true, array(
+	"LastRead" => $lastRead
+));
