@@ -11,6 +11,8 @@ class BaseMessage {
 
 	text?: string;
 	url?: string;
+	width?: number;
+	height?: number;
 }
 class TextMessage extends BaseMessage {
 	type: string = "Text";
@@ -19,6 +21,8 @@ class TextMessage extends BaseMessage {
 class ImageMessage extends BaseMessage {
 	type: string = "Image";
 	url: string;
+	width: number;
+	height: number;
 }
 
 
@@ -164,6 +168,8 @@ export class PageMessages extends Page {
 
 		let img: HTMLImageElement = messageElem.querySelector("img");
 		img.src = message.url;
+		img.width = message.width;
+		img.height = message.height;
 
 		if (!message.username || message.username == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");
@@ -205,13 +211,14 @@ export class PageMessages extends Page {
 			messageText: messageText
 		});
 		if (meta.success) {
-			this.createMessageElem(<TextMessage>{
+			let message: TextMessage = {
 				id: newId,
 				type: "Text",
 				text: messageText,
 				username: Session.user.name,
 				timestamp: timestamp
-			})
+			};
+			this.createMessageElem(message);
 			this.excludedMessageIds.push(newId);
 			this.scrollToBottom();
 		}
@@ -227,13 +234,16 @@ export class PageMessages extends Page {
 			file: this.mediaInput.files[0]
 		});
 		if (meta.success) {
-			this.createMessageElem(<ImageMessage>{
+			let message: ImageMessage = {
 				id: response.id,
 				type: "Image",
 				url: response.url,
 				username: Session.user.name,
-				timestamp: timestamp
-			})
+				timestamp: timestamp,
+				width: response.width,
+				height: response.height
+			};
+			this.createMessageElem(message);
 			this.excludedMessageIds.push(response.id);
 			this.scrollToBottom();
 		}

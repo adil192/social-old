@@ -18,7 +18,7 @@ if ($lastMessageId > $_SESSION["lastMessageId"] ?? 0) {
 	$stmt->execute([$lastMessageId, $chatId, $_SESSION["userId"]]);
 }
 
-$stmt = $conn->prepare("SELECT MessageId, MessageText, MessageUrl, Type, Username, Date
+$stmt = $conn->prepare("SELECT MessageId, MessageText, MessageUrl, Type, Username, Date, Width, Height
 FROM ChatMessage, User
 WHERE ChatMessage.ChatId=? AND ChatMessage.MessageId>? AND ChatMessage.UserId = User.UserId
 ORDER BY MessageId DESC LIMIT 50");
@@ -31,10 +31,12 @@ while ($row = $stmt->fetchObject()) {
 	$results[] = array(
 		"type" => $row->Type,
 		"id" => (int)$row->MessageId,
+		"username" => ($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
+		"timestamp" => strtotime($row->Date),
 		"text" => $row->MessageText,
 		"url" => $row->MessageUrl,
-		"username" => ($row->Username == $_SESSION["userName"]) ? "" : $row->Username,
-		"timestamp" => strtotime($row->Date)
+		"width" => (int)$row->Width,
+		"height" => (int)$row->Height
 	);
 }
 respond(array_reverse($results), true);

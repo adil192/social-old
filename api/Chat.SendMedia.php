@@ -17,13 +17,20 @@ $tempnam = tempnam("/home/guidedre/adil.hanney.org/SocialMediaDemo/assets/images
 $filename = "$tempnam.$fileType";
 move_uploaded_file($_FILES['file']['tmp_name'], $filename);
 
+$fileSize = getimagesize($filename);
+if ($fileSize === false) respond("Failed to parse image", false);
+$width = $fileSize[0];
+$height = $fileSize[1];
+
 $public_url = "https://adil.hanney.org/SocialMediaDemo/assets/images/user-media/" . pathinfo($filename, PATHINFO_BASENAME);
 
-$stmt = $conn->prepare("INSERT INTO ChatMessage (ChatId, UserId, MessageText, MessageUrl, Type) 
-VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$chatId, $_SESSION["userId"], "Image", $public_url, "Image"]);
+$stmt = $conn->prepare("INSERT INTO ChatMessage (ChatId, UserId, MessageText, MessageUrl, Type, Width, Height) 
+VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->execute([$chatId, $_SESSION["userId"], "Image", $public_url, "Image", $width, $height]);
 
 respond(array(
-        "id" => (int)$conn->lastInsertId("MessageId"),
-        "url" => $public_url
+	"id" => (int)$conn->lastInsertId("MessageId"),
+	"url" => $public_url,
+	"width" => $width,
+	"height" => $height
 ), true);
