@@ -121,7 +121,9 @@ export class PageMessages extends Page {
 			if (this.excludedMessageIds.indexOf(message.id) !== -1) continue;
 			this.createMessageElem(message);
 		}
-		if (messages.length && isNearBottom) this.scrollToBottom();
+		if (messages.length && isNearBottom) {
+			setTimeout(() => this.scrollToBottom(), 1)
+		}
 	}
 
 	private createMessageElem(message: BaseMessage) {
@@ -167,9 +169,10 @@ export class PageMessages extends Page {
 		messageElem.querySelector(".pageMessages-message-time").textContent = messageTime;
 
 		let img: HTMLImageElement = messageElem.querySelector("img");
-		img.src = message.url;
 		img.width = message.width;
 		img.height = message.height;
+		img.style.width = message.width + "px";
+		img.src = message.url;
 
 		if (!message.username || message.username == Session.user.name) {
 			messageElem.classList.add("pageMessages-message-own");

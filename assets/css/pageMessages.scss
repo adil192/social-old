@@ -61,10 +61,11 @@
 			&.pageMessages-image {
 				img {
 					margin: -0.7rem -0.7rem 0 -0.7rem;
-					width: calc(100% + 1.4rem);
 					height: auto;
 					max-height: 30vh;
+					width: 30vh;
 					min-width: 11rem;
+					max-width: calc(100% + 1.4rem);
 					object-fit: cover;
 				}
 				.pageMessages-message-footer {
