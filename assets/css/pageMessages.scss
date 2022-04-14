@@ -12,6 +12,20 @@
 		padding: 1rem;
 		margin-bottom: 0;
 
+		.lastRead-text {
+			width: 100%;
+			white-space: nowrap;
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+			text-align: end;
+
+			transform: scaleY(0);
+			transition: transform 50ms;
+		}
+		&.lastRead-enabled .lastRead-text {
+			transform: scaleY(1);
+		}
+
 		li.pageMessages-daySeparator {
 			background: transparent;
 			text-align: center;

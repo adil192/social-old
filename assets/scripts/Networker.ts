@@ -1,6 +1,11 @@
 
 export type Meta = {
 	success: boolean;
+
+	LastRead?: {
+		LastMessageId: number,
+		Usernames: string[]
+	};
 }
 
 export class Networker {

@@ -98,6 +98,8 @@ include_once "../global_tools.php";
             <template id="pageMessages-daySeparator-template">
                 <li class="pageMessages-daySeparator"></li>
             </template>
+
+            <li class="lastRead-text">Read</li>
         </ul>
         <form method="post" id="pageMessagesInputForm">
             <div class="input-group">

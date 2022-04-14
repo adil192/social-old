@@ -30,6 +30,7 @@ export class PageMessages extends Page {
 
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
+	lastReadText: HTMLLIElement;
 	messageTemplate: HTMLTemplateElement;
 	imageTemplate: HTMLTemplateElement;
 	daySeparatorTemplate: HTMLTemplateElement;
@@ -51,6 +52,7 @@ export class PageMessages extends Page {
 		super("Messages", true);
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
+		this.lastReadText = this.pageElem.querySelector(".lastRead-text");
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
 		this.imageTemplate = this.pageElem.querySelector("#pageMessages-image-template");
 		this.daySeparatorTemplate = this.pageElem.querySelector("#pageMessages-daySeparator-template");
@@ -104,7 +106,7 @@ export class PageMessages extends Page {
 	}
 
 	clearMessages() {
-		this.messagesElem.querySelectorAll('li').forEach(e => e.remove());
+		this.messagesElem.querySelectorAll('li:not(.lastRead-text)').forEach(e => e.remove());
 	}
 
 	async loadMessages() {
@@ -123,6 +125,12 @@ export class PageMessages extends Page {
 		}
 		if (messages.length && isNearBottom) {
 			setTimeout(() => this.scrollToBottom(), 1)
+		}
+
+		if (meta.LastRead.LastMessageId >= this.lastMessageId) {
+			this.messagesElem.classList.add("lastRead-enabled");
+		} else {
+			this.messagesElem.classList.remove("lastRead-enabled");
 		}
 	}
 
@@ -159,7 +167,7 @@ export class PageMessages extends Page {
 			}
 		}
 
-		this.messagesElem.append(messageElemFragment);
+		this.messagesElem.insertBefore(messageElemFragment, this.lastReadText);
 	}
 	private _createMessageElem_Image(message: ImageMessage, messageTime: string) {
 		let messageElemFragment: DocumentFragment = this.imageTemplate.content.cloneNode(true) as DocumentFragment;
@@ -182,7 +190,7 @@ export class PageMessages extends Page {
 			}
 		}
 
-		this.messagesElem.append(messageElemFragment);
+		this.messagesElem.insertBefore(messageElemFragment, this.lastReadText);
 	}
 
 	private createDaySeparatorElem(day: string, full_date: string) {
@@ -192,7 +200,7 @@ export class PageMessages extends Page {
 		daySeparator.innerText = day;
 		daySeparator.title = full_date;
 
-		this.messagesElem.append(daySeparatorFragment);
+		this.messagesElem.insertBefore(daySeparatorFragment, this.lastReadText);
 	}
 
 	private async onInputFormSubmit(e: SubmitEvent) {

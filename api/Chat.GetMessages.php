@@ -26,7 +26,7 @@ ORDER BY LastMessageId DESC LIMIT 1");
 $stmt->execute([$chatId, $_SESSION["userId"]]);
 if ($row = $stmt->fetchObject()) {
 	$lastRead = array(
-		"LastMessageId" => $row->LastMessageId,
+		"LastMessageId" => (int)$row->LastMessageId,
 		"Usernames" => explode(';', $row->Usernames)
 	);
 } else {
@@ -42,7 +42,9 @@ WHERE ChatMessage.ChatId=? AND ChatMessage.MessageId>? AND ChatMessage.UserId = 
 ORDER BY MessageId DESC LIMIT 50");
 $stmt->execute([$chatId, $lastMessageId]);
 
-if ($stmt->rowCount() == 0) respond([], true);
+if ($stmt->rowCount() == 0) respond([], true, array(
+	"LastRead" => $lastRead
+));
 
 $results = [];
 while ($row = $stmt->fetchObject()) {
