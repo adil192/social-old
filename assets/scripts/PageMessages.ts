@@ -39,6 +39,7 @@ export class PageMessages extends Page {
 	input: HTMLTextAreaElement;
 	mediaInput: HTMLInputElement;
 
+	isLastMessageMine: boolean = false;
 	lastMessageId: number = 0;
 	lastMessageDay: string = "";
 	lastMessageTimestamp: number = 0;
@@ -110,7 +111,7 @@ export class PageMessages extends Page {
 	}
 
 	async loadMessages() {
-		let [ meta, messages ] = await Networker.postApi("Chat.GetMessages", {
+		let [ meta, messages ]: [Meta, BaseMessage[]] = await Networker.postApi("Chat.GetMessages", {
 			chatId: window.currentChat.id + "",
 			lastMessageId: this.lastMessageId + ""
 		});
@@ -118,7 +119,7 @@ export class PageMessages extends Page {
 
 		let isNearBottom = this.isNearBottom(0.1);
 		for (let i = 0; i < messages.length; ++i) {
-			let message: BaseMessage = messages[i];
+			let message = messages[i];
 			if (message.id > this.lastMessageId) this.lastMessageId = message.id;
 			if (this.excludedMessageIds.indexOf(message.id) !== -1) continue;
 			this.createMessageElem(message);
@@ -127,7 +128,7 @@ export class PageMessages extends Page {
 			setTimeout(() => this.scrollToBottom(), 1)
 		}
 
-		if (meta.LastRead.LastMessageId >= this.lastMessageId) {
+		if (meta.LastRead.LastMessageId >= this.lastMessageId && this.isLastMessageMine) {
 			this.messagesElem.classList.add("lastRead-enabled");
 		} else {
 			this.messagesElem.classList.remove("lastRead-enabled");
@@ -141,6 +142,8 @@ export class PageMessages extends Page {
 			this.createDaySeparatorElem(day, full_date);
 		}
 		this.lastMessageTimestamp = message.timestamp;
+
+		this.isLastMessageMine = message.username == Session.user.name;
 
 		switch (message.type) {
 			case "Image":
