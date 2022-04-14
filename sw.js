@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-06-1906";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-14-1835";
 const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
 
 // Dexie (IndexedDB)
@@ -133,8 +133,11 @@ async function digestMessage(message) {
 }
 async function hashRequest(url, request) {
 	let formData = {};
-	for (let pair of (await request.formData()).entries()) {
-		formData[pair[0]] = pair[1];
+	try {
+		formData = await request.formData();
+	} catch (e) {
+		// request.formData() fails in Chrome when using multipart/form-data, just ignore
+		console.log("request.formData() failed for url:", url)
 	}
 	return await digestMessage(JSON.stringify(formData) + "|" + url);
 }
