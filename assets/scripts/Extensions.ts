@@ -12,5 +12,5 @@ interface Window {
 }
 
 interface HTMLDivElement {
-	Page;
+	Page: unknown;
 }

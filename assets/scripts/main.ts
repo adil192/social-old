@@ -120,6 +120,10 @@ window.onhashchange = function () {
 		clearTimeout(openCompleteTimeout);
 		openCompleteHandler = () => {};
 		(page.Page as Page).OnOpened();
+
+		if (!isCurrentAnOverlay) {
+			startObserver();
+		}
 	};
 	clearTimeout(openCompleteTimeout);
 	openCompleteTimeout = setTimeout(openCompleteHandler, 1000);
@@ -130,7 +134,13 @@ window.onhashchange = function () {
 	if (isCurrentAnOverlay) {
 		stopObserver();
 	} else {
-		startObserver();
+		let isPreviousAnOverlay = Catalogue.AllSwipingPages.indexOf(previousPage.Page as Page) === -1;
+		if (!isPreviousAnOverlay) { // swiping page to swiping page transition
+			stopObserver(); // observer is re-enabled after openCompleteTimeout
+			page.scrollIntoView({
+				behavior: "smooth"
+			});
+		}
 	}
 }
 
