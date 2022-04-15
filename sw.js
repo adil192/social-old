@@ -4,8 +4,9 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-14-1835";
-const apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-15-2321";
+const localUrlPrefix = "https://adil.hanney.org/SocialMediaDemo";
+const apiUrlPrefix = localUrlPrefix + "/api";
 
 // Dexie (IndexedDB)
 let db = new Dexie("APICache");
@@ -132,12 +133,23 @@ async function digestMessage(message) {
 	return byteArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 async function hashRequest(url, request) {
+	// get FormData if it exists
 	let formData = {};
+	let isFormDataBlank = true;
 	try {
 		formData = await request.formData();
+		isFormDataBlank = [...formData.entries()].length === 0;
 	} catch (e) {
 		// request.formData() fails in Chrome when using multipart/form-data, just ignore
 		console.log("request.formData() failed for url:", url)
 	}
-	return await digestMessage(JSON.stringify(formData) + "|" + url);
+
+	// shorten url if it starts with localUrlPrefix
+	let i = url.indexOf(localUrlPrefix);
+	if (i === 0) {
+		url = url.substring(localUrlPrefix.length);
+	}
+
+	if (isFormDataBlank) return url;
+	else return url + "|" + await digestMessage(JSON.stringify(formData));
 }
