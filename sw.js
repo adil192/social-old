@@ -4,9 +4,12 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-15-2321";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-15-2352";
+const userMediaCacheName = "SocialMediaDemo-user-media-cache";
+
 const localUrlPrefix = "https://adil.hanney.org/SocialMediaDemo";
 const apiUrlPrefix = localUrlPrefix + "/api";
+const userMediaUrlPrefix = localUrlPrefix + "/assets/images/user-media";
 
 // Dexie (IndexedDB)
 let db = new Dexie("APICache");
@@ -69,7 +72,7 @@ self.addEventListener('activate', event => {
 			let cacheNames = await caches.keys();
 			await Promise.all(cacheNames
 				.filter((cacheName) => {
-					return staticCacheName.indexOf(cacheName) === -1;
+					return cacheName !== staticCacheName && cacheName !== userMediaCacheName;
 				})
 				.map((cacheName) => {
 					return caches.delete(cacheName);
@@ -84,6 +87,8 @@ self.addEventListener('fetch', function(event) {
 		(async () => {
 			if (event.request.method === "POST" || event.request.url.startsWith(apiUrlPrefix)) {
 				return await fetchApi(event);
+			} else if (event.request.url.startsWith(userMediaUrlPrefix)) {
+				return await fetchUserMedia(event);
 			} else {
 				return await fetchStatic(event);
 			}
@@ -107,6 +112,23 @@ async function fetchApi(event) {
 
 	// if internet fetch worked, cache the new response for later (don't await)
 	CustomAPICache.Save(db.apiCache, event.request.clone(), hash, response).then();
+
+	return response;
+}
+
+async function fetchUserMedia(event) {
+	console.log("fetchUserMedia:", event.request.url)
+
+	// first try user-media cache
+	let cache = await caches.open(userMediaCacheName);
+	let response = await cache.match(event.request.url);
+	if (!!response) return response;
+
+	// next try internet
+	response = await fetch(event.request.clone()); // will throw exception if fails
+
+	// if internet fetch worked, save to cache (don't await)
+	cache.put(event.request.url, response.clone()).then();
 
 	return response;
 }
