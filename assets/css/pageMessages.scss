@@ -18,12 +18,13 @@
 			overflow-x: hidden;
 			text-overflow: ellipsis;
 			text-align: end;
+			opacity: 0.9;
 
 			transform: scaleY(0);
-			transition: transform 50ms;
 		}
 		&.lastRead-enabled .lastRead-text {
 			transform: scaleY(1);
+			transition: transform 50ms;
 		}
 
 		li.pageMessages-daySeparator {

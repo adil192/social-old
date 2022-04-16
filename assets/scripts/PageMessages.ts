@@ -144,6 +144,7 @@ export class PageMessages extends Page {
 		this.lastMessageTimestamp = message.timestamp;
 
 		this.isLastMessageMine = !message.username || message.username == Session.user.name;
+		this.messagesElem.classList.remove("lastRead-enabled");
 
 		switch (message.type) {
 			case "Image":
