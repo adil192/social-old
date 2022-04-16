@@ -88,7 +88,7 @@ include_once "../global_tools.php";
             </template>
             <template id="pageMessages-image-template">
                 <li class="pageMessages-message pageMessages-image">
-                    <img width="1000" height="1000">
+                    <img width="1000" height="1000" loading="lazy" onclick="window.pageMessages.expandImage(this);">
                     <div class="pageMessages-message-footer">
                         <span class="pageMessages-message-sender"></span>
                         <span class="pageMessages-message-time"></span>

@@ -39,6 +39,8 @@ export class PageMessages extends Page {
 	input: HTMLTextAreaElement;
 	mediaInput: HTMLInputElement;
 
+	expandedImage: HTMLImageElement;
+
 	isLastMessageMine: boolean = false;
 	lastMessageId: number = 0;
 	lastMessageDay: string = "";
@@ -74,12 +76,26 @@ export class PageMessages extends Page {
 		window.addEventListener("resize", () => {
 			if (this.isNearBottom()) this.scrollToBottom();
 		});
+
+		window.pageMessages = {
+			expandImage: (image: HTMLImageElement) => this.expandImage(image)
+		}
 	}
 
 	autoSizeInput() {
 		// resize input based on content
 		this.input.style.height = 'auto';
 		this.input.style.height = this.input.scrollHeight + 'px';
+	}
+	expandImage(image: HTMLImageElement) {
+		if (image.classList.contains("expand")) {
+			image.classList.remove("expand");
+			this.expandedImage = null;
+		} else {
+			if (!!this.expandedImage) this.expandedImage.classList.remove("expand");
+			image.classList.add("expand");
+			this.expandedImage = image;
+		}
 	}
 
 	async OnOpening() {

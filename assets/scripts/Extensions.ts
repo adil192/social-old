@@ -9,6 +9,10 @@ interface Window {
 
 	currentProfileId?: number;
 	currentProfileChanged?: boolean;
+
+	pageMessages: {
+		expandImage(image: HTMLImageElement): void;
+	}
 }
 
 interface HTMLDivElement {
