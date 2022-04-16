@@ -143,7 +143,7 @@ export class PageMessages extends Page {
 		}
 		this.lastMessageTimestamp = message.timestamp;
 
-		this.isLastMessageMine = message.username == Session.user.name;
+		this.isLastMessageMine = !message.username || message.username == Session.user.name;
 
 		switch (message.type) {
 			case "Image":
