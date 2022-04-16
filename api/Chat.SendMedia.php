@@ -26,7 +26,9 @@ function imageCreateFromFile(string $filename, string $extension) {
 }
 
 function resizeImage(string $tempnam, string $extension, int $maxSize = 1000): array {
-	$original = imageCreateFromFile("$tempnam.$extension", $extension);
+	$originalFilename = "$tempnam.$extension";
+	$original = imageCreateFromFile($originalFilename, $extension);
+	unlink($originalFilename); // delete the original file
 	if ($original === false) respond("Failed to parse image", false);
 
 	$originalWidth = imagesx($original);
@@ -53,7 +55,6 @@ function resizeImage(string $tempnam, string $extension, int $maxSize = 1000): a
 			imagecolorallocatealpha($resized, 0, 0, 0, 127));
 
 		imagecopyresized($resized, $original, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
-
 
 		imagewebp($resized, "$tempnam.webp");
 	} else {
