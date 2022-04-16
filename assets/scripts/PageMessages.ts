@@ -89,13 +89,41 @@ export class PageMessages extends Page {
 	}
 	expandImage(image: HTMLImageElement) {
 		if (image.classList.contains("expand")) {
-			image.classList.remove("expand");
 			this.expandedImage = null;
+
+			image.classList.remove("expand");
+			image.style.transform = null;
 		} else {
-			if (!!this.expandedImage) this.expandedImage.classList.remove("expand");
-			image.classList.add("expand");
+			if (!!this.expandedImage) {
+				this.expandedImage.classList.remove("expand");
+				this.expandedImage.style.transform = null;
+			}
 			this.expandedImage = image;
+
+			image.classList.add("pre-expand");
+			image.style.transitionDuration = "0s";
+
+			image.style.transform = this._getExpandTransform(image);
+
+			image.classList.remove("pre-expand");
+			image.style.transitionDuration = null;
+			image.classList.add("expand");
 		}
+	}
+	private _getExpandTransform(image: HTMLImageElement): string {
+		let imageRect: DOMRect = image.getBoundingClientRect();
+		let messagesRect: DOMRect = this.messagesElem.getBoundingClientRect();
+		//let bodyRect: DOMRect = document.body.getBoundingClientRect();
+
+		let dx = (messagesRect.left + messagesRect.width / 2) - (imageRect.left + imageRect.width / 2);
+		let dy = (messagesRect.top + messagesRect.height / 2) - (imageRect.top + imageRect.height / 2);
+
+		let scale = Math.min(
+			messagesRect.width / imageRect.width,
+			messagesRect.height / imageRect.height
+		);
+
+		return `translate(${dx}px, ${dy}px) scale(${scale})`;
 	}
 
 	async OnOpening() {

@@ -78,25 +78,28 @@
 					height: auto;
 					width: 30vh;
 					object-fit: cover;
-				}
-				img:not(.expand) {
+
 					min-height: 3rem;
 					max-height: 30vh;
 					min-width: 11rem;
 					max-width: calc(100% + 1.4rem);
-
 					margin: -0.7rem -0.7rem 0 -0.7rem;
+
+					transition: 0.3s ease;
+					transition-property: transform, border-radius, max-width, max-height;
 				}
 				img.expand {
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					width: 100vw !important;
-					height: 100%;
-					transform: translate(-50%, -50%);
+					margin: 0;
+					max-width: 100%;
+					max-height: 100%;
+
 					border-radius: 0;
-					background: rgba(0,0,0,0.9);
-					object-fit: contain;
+					transform: translate(0, 0) scale(1);
+				}
+				img.pre-expand {
+					margin: 0;
+					max-width: 100%;
+					max-height: 100%;
 				}
 				.pageMessages-message-footer {
 					margin-top: -0.05rem;
