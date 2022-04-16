@@ -132,6 +132,7 @@ html, body, .page {
 	max-width: max(50vh, 700px);
 	height: 100%;
 	margin: auto;
+	overflow-x: hidden;
 	overflow-y: auto;
 }
 
