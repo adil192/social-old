@@ -125,6 +125,22 @@ html, body, .page {
 	> .portraitArea {
 		flex: 1;
 	}
+
+	.page-backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: transparent;
+		pointer-events: none;
+		transition: background-color 0.3s ease;
+
+		&.page-backdrop-show {
+			background-color: black;
+			pointer-events: initial;
+		}
+	}
 }
 
 .portraitArea {

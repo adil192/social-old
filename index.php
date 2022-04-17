@@ -75,6 +75,7 @@ include_once "../global_tools.php";
         <button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
         <h1>Chat with <span class="pageMessages-chatDisplayName">PLACEHOLDER</span></h1>
     </div>
+    <div class="page-backdrop"></div>
     <div class="portraitArea">
         <ul id="pageMessages-messages">
             <template id="pageMessages-message-template">

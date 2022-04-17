@@ -28,6 +28,7 @@ class ImageMessage extends BaseMessage {
 
 export class PageMessages extends Page {
 
+	backdrop: HTMLDivElement;
 	chatDisplayName: HTMLSpanElement;
 	messagesElem: HTMLUListElement;
 	lastReadText: HTMLLIElement;
@@ -54,6 +55,7 @@ export class PageMessages extends Page {
 
 	constructor() {
 		super("Messages", true);
+		this.backdrop = this.pageElem.querySelector(".page-backdrop");
 		this.chatDisplayName = this.pageElem.querySelector(".pageMessages-chatDisplayName");
 		this.messagesElem = this.pageElem.querySelector("#pageMessages-messages");
 		this.lastReadText = this.pageElem.querySelector(".lastRead-text");
@@ -95,6 +97,7 @@ export class PageMessages extends Page {
 
 			image.classList.remove("pre-expand", "expand", "post-expand");
 			image.style.transform = null;
+			this.backdrop.classList.remove("page-backdrop-show");
 		} else {
 			if (!!this.expandedImage) {
 				this.expandedImage.classList.remove("pre-expand", "expand", "post-expand");
@@ -110,6 +113,7 @@ export class PageMessages extends Page {
 			image.classList.remove("pre-expand");
 			image.style.transitionDuration = null;
 			image.classList.add("expand");
+			this.backdrop.classList.add("page-backdrop-show");
 
 			this.expandImageTimeout = setTimeout(() => {
 				image.style.transform = null;
@@ -155,6 +159,7 @@ export class PageMessages extends Page {
 		this.excludedMessageIds = [];
 		clearInterval(this.loadMessagesIntervalId);
 		cancelAnimationFrame(this.loadMessagesFrame);
+		this.backdrop.classList.remove("page-backdrop-show");
 	}
 
 	clearMessages() {
