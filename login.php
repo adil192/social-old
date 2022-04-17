@@ -15,7 +15,7 @@ include_once "../global_tools.php";
         "viewport-fit=cover"
 	); ?>
 
-    <link href="../assets/ext/bootstrap.5.1.3.min.css" rel="stylesheet">
+    <link href="/assets/ext/bootstrap.5.1.3.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
 
 	<link rel="manifest" href="manifest.webmanifest">
@@ -78,7 +78,7 @@ include_once "../global_tools.php";
 </div>
 
 
-<script src="../assets/ext/bootstrap.bundle.5.1.3.min.js"></script>
+<script src="/assets/ext/bootstrap.bundle.5.1.3.min.js"></script>
 <script src="assets/scripts/login.js" type="module"></script>
 
 </body>
