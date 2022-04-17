@@ -40,6 +40,7 @@ export class PageMessages extends Page {
 	mediaInput: HTMLInputElement;
 
 	expandedImage: HTMLImageElement;
+	expandImageTimeout: number;
 
 	isLastMessageMine: boolean = false;
 	lastMessageId: number = 0;
@@ -88,14 +89,15 @@ export class PageMessages extends Page {
 		this.input.style.height = this.input.scrollHeight + 'px';
 	}
 	expandImage(image: HTMLImageElement) {
+		clearTimeout(this.expandImageTimeout);
 		if (image.classList.contains("expand")) {
 			this.expandedImage = null;
 
-			image.classList.remove("expand");
+			image.classList.remove("pre-expand", "expand", "post-expand");
 			image.style.transform = null;
 		} else {
 			if (!!this.expandedImage) {
-				this.expandedImage.classList.remove("expand");
+				this.expandedImage.classList.remove("pre-expand", "expand", "post-expand");
 				this.expandedImage.style.transform = null;
 			}
 			this.expandedImage = image;
@@ -108,19 +110,24 @@ export class PageMessages extends Page {
 			image.classList.remove("pre-expand");
 			image.style.transitionDuration = null;
 			image.classList.add("expand");
+
+			this.expandImageTimeout = setTimeout(() => {
+				image.style.transform = null;
+				image.classList.add("post-expand");
+			}, 300);
 		}
 	}
 	private _getExpandTransform(image: HTMLImageElement): string {
 		let imageRect: DOMRect = image.getBoundingClientRect();
 		let messagesRect: DOMRect = this.messagesElem.getBoundingClientRect();
-		//let bodyRect: DOMRect = document.body.getBoundingClientRect();
+		let bodyRect: DOMRect = document.body.getBoundingClientRect();
 
 		let dx = (messagesRect.left + messagesRect.width / 2) - (imageRect.left + imageRect.width / 2);
 		let dy = (messagesRect.top + messagesRect.height / 2) - (imageRect.top + imageRect.height / 2);
 
 		let scale = Math.min(
-			messagesRect.width / imageRect.width,
-			messagesRect.height / imageRect.height
+			bodyRect.width / imageRect.width,
+			bodyRect.height / imageRect.height
 		);
 
 		return `translate(${dx}px, ${dy}px) scale(${scale})`;
