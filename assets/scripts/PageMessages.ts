@@ -43,6 +43,8 @@ export class PageMessages extends Page {
 	expandedImage: HTMLImageElement;
 	expandedImageTransform: string;
 	expandImageTimeout: number;
+	unfreezeImageTimeout: number;
+	frozenImage: HTMLImageElement;
 
 	isLastMessageMine: boolean = false;
 	lastMessageId: number = 0;
@@ -105,12 +107,28 @@ export class PageMessages extends Page {
 				image.style.transform = null;
 			});
 			this.backdrop.classList.remove("page-backdrop-show");
+
+			if (this.frozenImage != null) {
+				clearTimeout(this.unfreezeImageTimeout);
+				this.frozenImage.parentElement.style.width = null;
+				this.frozenImage.parentElement.style.height = null;
+			}
+			this.frozenImage = image;
+			this.unfreezeImageTimeout = setTimeout(() => {
+				image.parentElement.style.width = null;
+				image.parentElement.style.height = null;
+				this.frozenImage = null;
+			}, 300);
 		} else {
 			if (!!this.expandedImage) {
 				this.expandedImage.classList.remove("pre-expand", "expand", "post-expand");
 				this.expandedImage.style.transform = null;
 			}
 			this.expandedImage = image;
+
+			// freeze parent's size so the page doesn't reposition
+			image.parentElement.style.width = image.parentElement.offsetWidth + "px";
+			image.parentElement.style.height = image.parentElement.offsetHeight + "px";
 
 			image.classList.add("pre-expand");
 			image.style.transitionDuration = "0s";
