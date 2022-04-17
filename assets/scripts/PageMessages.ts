@@ -41,6 +41,7 @@ export class PageMessages extends Page {
 	mediaInput: HTMLInputElement;
 
 	expandedImage: HTMLImageElement;
+	expandedImageTransform: string;
 	expandImageTimeout: number;
 
 	isLastMessageMine: boolean = false;
@@ -95,8 +96,14 @@ export class PageMessages extends Page {
 		if (image.classList.contains("expand")) {
 			this.expandedImage = null;
 
-			image.classList.remove("pre-expand", "expand", "post-expand");
-			image.style.transform = null;
+			image.style.transitionDuration = "0s";
+			image.style.transform = this.expandedImageTransform;
+			image.classList.remove("post-expand");
+			setTimeout(() => {
+				image.style.transitionDuration = null;
+				image.classList.remove("pre-expand", "expand");
+				image.style.transform = null;
+			});
 			this.backdrop.classList.remove("page-backdrop-show");
 		} else {
 			if (!!this.expandedImage) {
@@ -108,7 +115,8 @@ export class PageMessages extends Page {
 			image.classList.add("pre-expand");
 			image.style.transitionDuration = "0s";
 
-			image.style.transform = this._getExpandTransform(image);
+			this.expandedImageTransform = this._getExpandTransform(image);
+			image.style.transform = this.expandedImageTransform;
 
 			image.classList.remove("pre-expand");
 			image.style.transitionDuration = null;
@@ -116,6 +124,7 @@ export class PageMessages extends Page {
 			this.backdrop.classList.add("page-backdrop-show");
 
 			this.expandImageTimeout = setTimeout(() => {
+				image.style.transitionDuration = "0s";
 				image.style.transform = null;
 				image.classList.add("post-expand");
 			}, 300);
