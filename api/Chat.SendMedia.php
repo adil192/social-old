@@ -1,9 +1,6 @@
 <?php
 require_once "api.globals.php";
 require_once "api.images.php";
-/**
- * @var string[] $acceptedImageExtensions
- */
 
 $conn = getConn();
 if (!isLoggedIn($conn)) respond(ErrorMessages::$NotLoggedIn, false);
