@@ -1,6 +1,12 @@
 RewriteEngine On
 
-# add .js extension if omitted (in imports)
+# add .php extension if omitted (in imports)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ $1.php [L]
+
+# block access to include files (e.g. api.globals.php)
+<FilesMatch "^api\..*\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
