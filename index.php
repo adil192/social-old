@@ -150,6 +150,9 @@ include_once "../global_tools.php";
             <a href="#ProfileEdit" id="pageProfileEditLink" class="btn btn-primary">Edit profile</a>
         </div>
     </div>
+    <div class="page-footer">
+        For image and icon attributions, see <a href="assets/images/">Attributions</a>.
+    </div>
 </div>
 <div class="page page-overlay" id="pageProfileEdit">
     <div class="page-header">
