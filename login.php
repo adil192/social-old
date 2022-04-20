@@ -1,5 +1,5 @@
 <?php
-include_once "../global_tools.php";
+include_once "global_tools.php";
 ?>
 <!doctype html>
 <html lang="en">
