@@ -47,7 +47,7 @@ html, body, .page {
 
 	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout, &.icon-btn-upload {
 		min-width: 1em;
-		background: url("/SocialMediaDemo/assets/images/icons/larr.svg") no-repeat center center;
+		background: url("/assets/images/icons/larr.svg") no-repeat center center;
 		background-size: contain;
 		color: transparent;
 		align-self: center;
@@ -56,15 +56,15 @@ html, body, .page {
 		transform: rotate(180deg);
 	}
 	&.icon-btn-refresh {
-		background-image: url("/SocialMediaDemo/assets/images/icons/refresh.svg");
+		background-image: url("/assets/images/icons/refresh.svg");
 		height: 75%;
 	}
 	&.icon-btn-logout {
-		background-image: url("/SocialMediaDemo/assets/images/icons/logout.svg");
+		background-image: url("/assets/images/icons/logout.svg");
 		height: 75%;
 	}
 	&.icon-btn-upload {
-		background-image: url("/SocialMediaDemo/assets/images/icons/upload.svg");
+		background-image: url("/assets/images/icons/upload.svg");
 		height: 75%;
 	}
 

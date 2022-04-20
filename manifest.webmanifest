@@ -1,12 +1,12 @@
 {
   "name": "SocialMediaDemo - Adil Hanney",
-  "short_name": "SocialMediaDemo",
+  "short_name": "Social",
   "description": "A demo layout for a hypothetical social media, made to try out recreating a native-like app on the web.",
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "https://adil.hanney.org/SocialMediaDemo/",
-  "start_url": "https://adil.hanney.org/SocialMediaDemo/",
+  "scope": "https://social.adil.hanney.org/",
+  "start_url": "/",
   "icons": [
     {
       "src": "/maskable_icon_x128.png",
@@ -37,12 +37,12 @@
     {
       "name": "Open camera",
       "short_name": "Camera",
-      "url": "/SocialMediaDemo/#Camera"
+      "url": "/#Camera"
     },
     {
       "name": "Open chats",
       "short_name": "Chats",
-      "url": "/SocialMediaDemo/#Chat"
+      "url": "/#Chat"
     }
   ]
 }

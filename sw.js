@@ -7,7 +7,7 @@ importScripts(
 const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-15-2352";
 const userMediaCacheName = "SocialMediaDemo-user-media-cache";
 
-const localUrlPrefix = "https://adil.hanney.org/SocialMediaDemo";
+const localUrlPrefix = "https://social.adil.hanney.org";
 const apiUrlPrefix = localUrlPrefix + "/api";
 const userMediaUrlPrefix = localUrlPrefix + "/assets/images/user-media";
 
@@ -24,10 +24,10 @@ self.addEventListener('install', (evt) => {
 			const cache = await caches.open(staticCacheName);
 			// non-essential cache items (don't await)
 			cache.addAll([
-				'/SocialMediaDemo/assets/images/icons/larr.svg',
-				'/SocialMediaDemo/assets/images/icons/uparr.svg',
-				'/SocialMediaDemo/assets/images/transparent.webp',
-				'/SocialMediaDemo/assets/images/unknown.webp',
+				'/assets/images/icons/larr.svg',
+				'/assets/images/icons/uparr.svg',
+				'/assets/images/transparent.webp',
+				'/assets/images/unknown.webp',
 
 				'/favicon.ico',
 				'/maskable_icon_x128.png',
@@ -37,30 +37,30 @@ self.addEventListener('install', (evt) => {
 			]).then();
 			// essential cache items
 			await cache.addAll([
-				'/SocialMediaDemo/',
-				'/SocialMediaDemo/index.php',
-				'/SocialMediaDemo/login.php',
+				'/',
+				'/index.php',
+				'/login.php',
 
-				'/SocialMediaDemo/manifest.webmanifest',
+				'/manifest.webmanifest',
 
 				'/assets/ext/bootstrap.5.1.3.min.css',
 				'/assets/ext/bootstrap.bundle.5.1.3.min.js',
 				'/assets/ext/dexie.3.2.1.js',
 
-				'/SocialMediaDemo/assets/css/style.css',
+				'/assets/css/style.css',
 
-				'/SocialMediaDemo/assets/scripts/sw/CustomAPICache.js',
-				'/SocialMediaDemo/assets/scripts/Catalogue',
-				'/SocialMediaDemo/assets/scripts/login.js',
-				'/SocialMediaDemo/assets/scripts/main.js',
-				'/SocialMediaDemo/assets/scripts/Networker',
-				'/SocialMediaDemo/assets/scripts/Page',
-				'/SocialMediaDemo/assets/scripts/PageCamera',
-				'/SocialMediaDemo/assets/scripts/PageChat',
-				'/SocialMediaDemo/assets/scripts/PageFeed',
-				'/SocialMediaDemo/assets/scripts/PageMessages',
-				'/SocialMediaDemo/assets/scripts/PageSearch',
-				'/SocialMediaDemo/assets/scripts/Session',
+				'/assets/scripts/sw/CustomAPICache.js',
+				'/assets/scripts/Catalogue',
+				'/assets/scripts/login.js',
+				'/assets/scripts/main.js',
+				'/assets/scripts/Networker',
+				'/assets/scripts/Page',
+				'/assets/scripts/PageCamera',
+				'/assets/scripts/PageChat',
+				'/assets/scripts/PageFeed',
+				'/assets/scripts/PageMessages',
+				'/assets/scripts/PageSearch',
+				'/assets/scripts/Session',
 			]);
 		})()
 	);

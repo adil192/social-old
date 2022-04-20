@@ -9,7 +9,7 @@ export type Meta = {
 }
 
 export class Networker {
-	static apiUrlPrefix = "https://adil.hanney.org/SocialMediaDemo/api";
+	static apiUrlPrefix = "https://social.adil.hanney.org/api";
 
 	static async postApi(url: string, data: Record<string, string | Blob> = {}): Promise<[Meta, any]> {
 		if (!url.startsWith("http")) {
