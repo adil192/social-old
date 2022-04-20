@@ -1,6 +1,6 @@
 importScripts(
-	"../assets/ext/dexie.3.2.1.js", // https://unpkg.com/dexie/dist/dexie.js
-	"./assets/scripts/sw/CustomAPICache.js"
+	"/assets/ext/dexie.3.2.1.js", // https://unpkg.com/dexie/dist/dexie.js
+	"/assets/scripts/sw/CustomAPICache.js"
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
