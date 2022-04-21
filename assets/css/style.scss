@@ -6,16 +6,35 @@
 		filter: brightness(0) invert(1);
 	}
 	input, textarea {
+		background-color: rgba(255,255,255,0.15);
 		color: white;
+		border-color: rgba(255,255,255,0.1);
+		transition: background-color 0.1s;
+
+		&:focus {
+			background-color: rgba(255,255,255,0.2);
+			color: white;
+			border-color: rgba(255,255,255,0.1);
+		}
 	}
 
 	.input-group {
 		color: white;
 		&::before {
-			background: rgba(255,255,255,0.15);
+			background-color: rgba(255,255,255,0.15);
 		}
 		> * {
+			background-color: transparent;
 			color: white;
+		}
+
+		&:focus-within {
+			&::before {
+				background-color: rgba(255,255,255,0.2);
+			}
+			> * {
+				background-color: transparent;
+			}
 		}
 	}
 
@@ -120,7 +139,6 @@ html, body, .page {
 			font-size: calc(1.375rem + 1vw);
 			margin-bottom: 0;
 			line-height: 100%;
-			padding: 0;
 		}
 		> h1 {
 			flex: 1;
