@@ -33,15 +33,6 @@ window.addEventListener("load", function() {
 
 	body = document.querySelector("body");
 
-	Catalogue.PageFeed = new PageFeed();
-	Catalogue.PageCamera = new PageCamera();
-	Catalogue.PageChat = new PageChat();
-	Catalogue.PageMessages = new PageMessages();
-	Catalogue.PageSearch = new PageSearch();
-	Catalogue.PageProfile = new PageProfile();
-	Catalogue.PageProfileEdit = new PageProfileEdit();
-	Catalogue.PageAttributions = new Page("Attributions", true);
-
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {
 			history.back();

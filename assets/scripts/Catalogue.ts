@@ -18,6 +18,17 @@ class _Catalogue {
 	PageProfileEdit: PageProfileEdit;
 	PageAttributions: Page;
 
+	constructor() {
+		this.PageFeed = new PageFeed();
+		this.PageCamera = new PageCamera();
+		this.PageChat = new PageChat();
+		this.PageMessages = new PageMessages();
+		this.PageSearch = new PageSearch();
+		this.PageProfile = new PageProfile();
+		this.PageProfileEdit = new PageProfileEdit();
+		this.PageAttributions = new Page("Attributions", true);
+	}
+
 	get AllPages(): Page[] {
 		return [ this.PageFeed, this.PageCamera, this.PageChat,
 			this.PageMessages, this.PageSearch, this.PageProfile,
