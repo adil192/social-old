@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="pageProfile-buttonRow">
-			<a href="#ProfileEdit" id="pageProfileEditLink" class="btn btn-primary">Edit profile</a>
+			<a href="#ProfileEdit" class="btn btn-primary pageProfile-own-only">Edit profile</a>
 		</div>
 	</div>
 	<div class="page-footer">

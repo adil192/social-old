@@ -37,9 +37,9 @@
 		}
 	}
 
-	&.pageProfile-own {
-		#pageProfileEditLink {
-			display: inline-block;
+	&:not(.pageProfile-own) {
+		.pageProfile-own-only {
+			display: none;
 		}
 	}
 }
