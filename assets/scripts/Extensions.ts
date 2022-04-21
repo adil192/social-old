@@ -5,6 +5,7 @@ interface Window {
 		id: number;
 		name?: string;
 		isGroupChat: boolean;
+		userId?: number;
 	};
 
 	currentProfileId?: number;

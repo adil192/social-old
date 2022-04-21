@@ -1,4 +1,9 @@
 #pageMessages {
+	.page-header a {
+		color: inherit;
+		text-decoration: none;
+	}
+
 	.portraitArea {
 		display: flex;
 		flex-flow: column nowrap;

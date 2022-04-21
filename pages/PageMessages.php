@@ -1,7 +1,7 @@
 <div class="page page-overlay" id="pageMessages">
 	<div class="page-header">
 		<button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
-		<h1>Chat with <span class="pageMessages-chatDisplayName">PLACEHOLDER</span></h1>
+		<h1><a href="#Profile" class="pageMessages-chatDisplayName">Chat</a></h1>
 	</div>
 	<div class="page-backdrop"></div>
 	<div class="portraitArea">

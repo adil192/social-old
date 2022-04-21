@@ -49,11 +49,11 @@ export class PageChat extends Page {
 
 		for (let i in chats) {
 			let chat = chats[i];
-			this.createChatOption(chat[0], chat[1], chat[2], chat[3], chat[4]);
+			this.createChatOption(chat[0], chat[1], chat[2], chat[3], chat[4], chat[5]);
 		}
 	}
 
-	createChatOption(chatId: number, name: string, lastMsg: string, timestamp: number, unread: boolean, pfp: string = "assets/images/unknown.webp") {
+	createChatOption(chatId: number, userId: number, name: string, lastMsg: string, timestamp: number, unread: boolean, pfp: string = "assets/images/unknown.webp") {
 		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
 
@@ -68,7 +68,8 @@ export class PageChat extends Page {
 			window.currentChat = {
 				id: chatId,
 				name: name,
-				isGroupChat: false
+				isGroupChat: false,
+				userId: userId
 			};
 			window.openPage("Messages")
 		});

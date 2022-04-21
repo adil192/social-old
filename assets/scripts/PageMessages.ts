@@ -29,7 +29,7 @@ class ImageMessage extends BaseMessage {
 export class PageMessages extends Page {
 
 	backdrop: HTMLDivElement;
-	chatDisplayName: HTMLSpanElement;
+	chatDisplayName: HTMLAnchorElement;
 	messagesElem: HTMLUListElement;
 	lastReadText: HTMLLIElement;
 	messageTemplate: HTMLTemplateElement;
@@ -166,7 +166,16 @@ export class PageMessages extends Page {
 
 	async OnOpening() {
 		await super.OnOpening();
+
+		// fill header info
 		this.chatDisplayName.innerText = window.currentChat.name;
+		if (!window.currentChat.isGroupChat) {
+			this.chatDisplayName.onclick = function () {
+				window.currentProfileId = window.currentChat.userId;
+			}
+		}
+
+		// load messages
 		this.clearMessages();
 		this.loadMessages().then(() => {
 			this.scrollToBottom();
