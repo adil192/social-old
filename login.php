@@ -45,6 +45,8 @@ include_once "global_tools.php";
             <p class="form-error"></p>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <br>
+        <p>Don't have an account? Swipe right to sign up!</p>
     </div>
 </div>
 <div class="page" id="pageSignup">
