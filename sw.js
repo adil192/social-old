@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-15-2352";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-21-1612";
 const userMediaCacheName = "SocialMediaDemo-user-media-cache";
 
 const localUrlPrefix = "https://social.adil.hanney.org";
@@ -101,6 +101,12 @@ async function fetchApi(event) {
 	let hash = await hashRequest(url, event.request.clone()); // hash post data for caching purposes
 	console.log("fetchApi:", url, "hash:", hash)
 
+	// special handling for Auth requests
+	if (getFilename(url).startsWith("Auth.")) {
+		await db.apiCache.clear();
+		return await fetch(event.request.clone());
+	}
+
 	// try internet first
 	let response = null;
 	try {
@@ -174,4 +180,8 @@ async function hashRequest(url, request) {
 
 	if (isFormDataBlank) return url;
 	else return url + "|" + await digestMessage(JSON.stringify(formData));
+}
+
+function getFilename(url) {
+	return url.split("/").pop();
 }
