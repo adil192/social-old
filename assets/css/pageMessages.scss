@@ -1,7 +1,13 @@
 #pageMessages {
-	.page-header a {
-		color: inherit;
-		text-decoration: none;
+	.page-header  {
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.pageMessages-pfp {
+			height: calc(1.375rem + 1vw);
+		}
 	}
 
 	.portraitArea {

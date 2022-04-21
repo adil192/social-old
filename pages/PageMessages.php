@@ -1,6 +1,7 @@
 <div class="page page-overlay" id="pageMessages">
 	<div class="page-header">
 		<button class="icon-btn icon-btn-left page-header-backBtn" aria-label="Back">&larr;</button>
+        <img class="pageMessages-pfp" src="/assets/images/unknown.webp" alt="Profile picture">
 		<h1><a href="#Profile" class="pageMessages-chatDisplayName">Chat</a></h1>
 	</div>
 	<div class="page-backdrop"></div>
