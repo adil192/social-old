@@ -4,6 +4,7 @@ import {Networker} from "./Networker";
 import {PageProfileEdit} from "./PageProfileEdit";
 
 export class PageProfile extends Page {
+	headerElem: HTMLHeadingElement;
 	nameElem: HTMLSpanElement;
 	pronounsElem: HTMLSpanElement;
 	bioElem: HTMLParagraphElement;
@@ -14,6 +15,7 @@ export class PageProfile extends Page {
 	constructor() {
 		super("Profile", true);
 
+		this.headerElem = document.querySelector(".pageProfile-header");
 		this.nameElem = document.querySelector(".pageProfile-name");
 		this.pronounsElem = document.querySelector(".pageProfile-pronouns");
 		this.bioElem = document.querySelector(".pageProfile-bio");
@@ -35,9 +37,12 @@ export class PageProfile extends Page {
 		if (window.currentProfileId == null || window.currentProfileId == Session.user.id) {
 			window.currentProfileId = Session.user.id;
 			this.nameElem.innerText = Session.user.name;
+			
 			this.pageElem.classList.add("pageProfile-own");
+			this.headerElem.innerText = "My profile";
 		} else {
 			this.pageElem.classList.remove("pageProfile-own");
+			this.headerElem.innerText = "";
 		}
 
 		// if the user hasn't changed, we don't need to change anything
@@ -49,6 +54,7 @@ export class PageProfile extends Page {
 		});
 		if (!meta.success) return;
 		this.previousProfileId = window.currentProfileId;
+		this.headerElem.innerText = response.Username;
 		this.nameElem.innerText = response.Username;
 		this.pronounsElem.innerText = response.Pronouns;
 		this.bioElem.innerText = response.Bio;
