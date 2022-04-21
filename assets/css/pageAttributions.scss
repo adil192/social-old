@@ -1,0 +1,17 @@
+#pageAttributions {
+	.portraitArea {
+		text-align: center;
+	}
+	img {
+		max-height: 15vh;
+		max-width: 25vw;
+		padding: 1rem;
+		object-fit: contain;
+	}
+	.card {
+		display: inline-block;
+		width: 45%;
+		min-width: 10rem;
+		margin-bottom: 0.3rem;
+	}
+}

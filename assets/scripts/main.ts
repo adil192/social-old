@@ -40,6 +40,7 @@ window.addEventListener("load", function() {
 	Catalogue.PageSearch = new PageSearch();
 	Catalogue.PageProfile = new PageProfile();
 	Catalogue.PageProfileEdit = new PageProfileEdit();
+	Catalogue.PageAttributions = new Page("Attributions", true);
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
 		backBtn.addEventListener("click", function () {

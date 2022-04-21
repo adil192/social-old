@@ -16,15 +16,19 @@ class _Catalogue {
 	PageSearch: PageSearch;
 	PageProfile: PageProfile;
 	PageProfileEdit: PageProfileEdit;
+	PageAttributions: Page;
 
 	get AllPages(): Page[] {
-		return [ this.PageFeed, this.PageCamera, this.PageChat, this.PageMessages, this.PageSearch, this.PageProfile, this.PageProfileEdit ];
+		return [ this.PageFeed, this.PageCamera, this.PageChat,
+			this.PageMessages, this.PageSearch, this.PageProfile,
+			this.PageProfileEdit, this.PageAttributions ];
 	}
 	get AllSwipingPages(): Page[] {
 		return [ this.PageFeed, this.PageCamera, this.PageChat ];
 	}
 	get AllOverlayPages(): Page[] {
-		return [ this.PageMessages, this.PageSearch, this.PageProfile, this.PageProfileEdit ];
+		return [ this.PageMessages, this.PageSearch, this.PageProfile,
+			this.PageProfileEdit, this.PageAttributions ];
 	}
 }
 

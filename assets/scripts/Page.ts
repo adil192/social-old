@@ -1,6 +1,6 @@
 /// <reference path="./Extensions.ts"/>
 
-export abstract class Page {
+export class Page {
 	static Instance: Page;
 
 	pageId: string;
@@ -9,7 +9,7 @@ export abstract class Page {
 
 	private hasBeenOpened: boolean = false;
 
-	protected constructor(pageId: string, isOverlay: boolean) {
+	constructor(pageId: string, isOverlay: boolean) {
 		this.pageId = pageId;
 		this.pageElem = document.getElementById("page" + pageId) as HTMLDivElement;
 		this.pageElem.Page = this;
