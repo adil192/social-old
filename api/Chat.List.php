@@ -40,13 +40,13 @@ $stmt->execute([$_SESSION["userId"]]);
 $results = [];
 
 while ($row = $stmt->fetchObject()) {
-	$results[] = [
-		(int)$row->ChatId,
-		(int)$row->UserId,
-		$row->Username,
-		$row->MessageText,
-		strtotime($row->Date),
-		(int)$row->MessageId > $lastReadIds[(int)$row->ChatId]
-	];
+	$results[] = array(
+		"ChatId" => (int)$row->ChatId,
+		"UserId" => (int)$row->UserId,
+		"Username" => $row->Username,
+		"MessageText" => $row->MessageText,
+		"Timestamp" => strtotime($row->Date),
+		"Unread" => (int)$row->MessageId > $lastReadIds[(int)$row->ChatId]
+	);
 }
 respond($results, true);

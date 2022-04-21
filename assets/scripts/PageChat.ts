@@ -48,8 +48,8 @@ export class PageChat extends Page {
 		this.pageChatOptions.querySelectorAll('li').forEach(e => e.remove());
 
 		for (let i in chats) {
-			let chat = chats[i];
-			this.createChatOption(chat[0], chat[1], chat[2], chat[3], chat[4], chat[5]);
+			let {ChatId, UserId, Username, MessageText, Timestamp, Unread} = chats[i];
+			this.createChatOption(ChatId, UserId, Username, MessageText, Timestamp, Unread);
 		}
 	}
 
