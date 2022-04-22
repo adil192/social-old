@@ -67,7 +67,7 @@ function resizeImage(string $tempnam, string $extension, int $maxSize): array {
 		imagefilledrectangle($resized, 0, 0, $width, $height,
 			imagecolorallocatealpha($resized, 0, 0, 0, 127));
 
-		imagecopyresized($resized, $original, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
+		imagecopyresampled($resized, $original, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
 
 		imagewebp($resized, "$tempnam.webp");
 	} else {
