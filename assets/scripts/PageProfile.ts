@@ -5,6 +5,8 @@ import {PageProfileEdit} from "./PageProfileEdit";
 
 export class PageProfile extends Page {
 	headerElem: HTMLHeadingElement;
+
+	pfpElem: HTMLImageElement;
 	nameElem: HTMLSpanElement;
 	pronounsElem: HTMLSpanElement;
 	bioElem: HTMLParagraphElement;
@@ -16,6 +18,8 @@ export class PageProfile extends Page {
 		super("Profile", true);
 
 		this.headerElem = document.querySelector(".pageProfile-header");
+
+		this.pfpElem = document.querySelector(".pageProfile-pfp-img");
 		this.nameElem = document.querySelector(".pageProfile-name");
 		this.pronounsElem = document.querySelector(".pageProfile-pronouns");
 		this.bioElem = document.querySelector(".pageProfile-bio");
@@ -48,16 +52,26 @@ export class PageProfile extends Page {
 		// if the user hasn't changed, we don't need to change anything
 		if (window.currentProfileId == this.previousProfileId && !window.currentProfileChanged) return;
 		window.currentProfileChanged = false;
+		this.pfpElem.src = "/assets/images/transparent.webp";
+		this.pfpElem.alt = "";
 
 		let [ meta, response ] = await Networker.postApi("Users.GetProfile", {
 			UserId: window.currentProfileId + ""
 		});
 		if (!meta.success) return;
+
 		this.previousProfileId = window.currentProfileId;
 		this.headerElem.innerText = response.Username;
 		this.nameElem.innerText = response.Username;
 		this.pronounsElem.innerText = response.Pronouns;
 		this.bioElem.innerText = response.Bio;
+
+		if (!!response.Pfp) {
+			this.pfpElem.src = response.Pfp;
+		} else {
+			this.pfpElem.src = "/assets/images/unknown.webp";
+		}
+		this.pfpElem.alt = response.Username + "'s profile picture";
 
 		// save to window so we can populate the edit page
 		if (window.currentProfileId == Session.user.id) {
