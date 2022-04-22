@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-21-1612";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-22-1835";
 const userMediaCacheName = "SocialMediaDemo-user-media-cache";
 
 const localUrlPrefix = "https://social.adil.hanney.org";
@@ -12,14 +12,18 @@ const apiUrlPrefix = localUrlPrefix + "/api";
 const userMediaUrlPrefix = localUrlPrefix + "/assets/images/user-media";
 
 // Dexie (IndexedDB)
+function setupApiCache() {
+	db.version(1).stores({
+		apiCache: `hash, response`
+	});
+}
 let db = new Dexie("APICache");
+setupApiCache();
 
 self.addEventListener('install', (evt) => {
 	evt.waitUntil(
 		(async () => {
-			db.version(1).stores({
-				apiCache: `hash, response`
-			});
+			setupApiCache();
 
 			const cache = await caches.open(staticCacheName);
 			// non-essential cache items (don't await)
@@ -69,6 +73,8 @@ self.addEventListener('install', (evt) => {
 self.addEventListener('activate', event => {
 	event.waitUntil(
 		(async () => {
+			setupApiCache();
+			
 			let cacheNames = await caches.keys();
 			await Promise.all(cacheNames
 				.filter((cacheName) => {
