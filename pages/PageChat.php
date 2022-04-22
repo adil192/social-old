@@ -11,7 +11,7 @@
 		<ul id="pageChatOptions">
 			<template id="pageChatOptionTemplate">
 				<li class="pageChat-option">
-					<img class="pageChat-option-pfp" src="/assets/images/unknown.webp" alt="Name's profile picture">
+					<img class="pageChat-option-pfp" src="/assets/images/unknown.webp" alt="Profile picture">
 					<div class="pageChat-option-main">
 						<h2 class="pageChat-option-name"></h2>
 						<p class="pageChat-option-lastMsg-container">

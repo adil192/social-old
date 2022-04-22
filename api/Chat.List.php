@@ -23,9 +23,10 @@ while ($row = $stmt->fetchObject()) {
 $whereChatIds = implode(" OR ", $chatIds);
 
 // get chats' latest message
-$stmt = $conn->prepare("SELECT ChatId, UserId, Username, MessageId, MessageText, Date
+$stmt = $conn->prepare("SELECT ChatId, UserId, Username, Pfp, MessageId, MessageText, Date
 FROM (
-    SELECT ChatUser.ChatId, User.UserId, User.Username, ChatMessage.MessageId, ChatMessage.MessageText, ChatMessage.Date,
+    SELECT ChatUser.ChatId, User.UserId, User.Username, User.Pfp,
+           ChatMessage.MessageId, ChatMessage.MessageText, ChatMessage.Date,
            DENSE_RANK() OVER (PARTITION BY ChatMessage.ChatId ORDER BY ChatMessage.MessageId DESC) AS n
 	FROM ChatUser, User, ChatMessage
 	WHERE ChatUser.UserId <> ? AND ($whereChatIds)
@@ -44,6 +45,7 @@ while ($row = $stmt->fetchObject()) {
 		"ChatId" => (int)$row->ChatId,
 		"UserId" => (int)$row->UserId,
 		"Username" => $row->Username,
+		"Pfp" => $row->Pfp ?? "",
 		"MessageText" => $row->MessageText,
 		"Timestamp" => strtotime($row->Date),
 		"Unread" => (int)$row->MessageId > $lastReadIds[(int)$row->ChatId]

@@ -48,21 +48,24 @@ export class PageChat extends Page {
 		this.pageChatOptions.querySelectorAll('li').forEach(e => e.remove());
 
 		for (let i in chats) {
-			let {ChatId, UserId, Username, MessageText, Timestamp, Unread} = chats[i];
-			this.createChatOption(ChatId, UserId, Username, MessageText, Timestamp, Unread);
+			let {ChatId, UserId, Username, Pfp, MessageText, Timestamp, Unread} = chats[i];
+			this.createChatOption(ChatId, UserId, Username, Pfp, MessageText, Timestamp, Unread);
 		}
 	}
 
-	createChatOption(chatId: number, userId: number, name: string, lastMsg: string, timestamp: number, unread: boolean, pfp: string = "assets/images/unknown.webp") {
+	createChatOption(chatId: number, userId: number, name: string, pfp: string, lastMsg: string, timestamp: number, unread: boolean) {
 		let optionElemFragment: DocumentFragment = this.pageChatOptionTemplate.content.cloneNode(true) as DocumentFragment;
 		let optionElem: HTMLLIElement = optionElemFragment.querySelector("li");
 
 		if (unread) optionElem.classList.add("pageChat-option-unread");
-		(<HTMLImageElement>optionElem.querySelector(".pageChat-option-pfp")).src = pfp;
 		optionElem.querySelector(".pageChat-option-name").textContent = name;
 		optionElem.querySelector(".pageChat-option-lastMsg").textContent = lastMsg.trim();
 		optionElem.querySelector(".pageChat-option-date").textContent = PageChat.parseTimestamp(timestamp);
-		// todo: set alt text and aria-labels
+
+		let pfpElem: HTMLImageElement = optionElem.querySelector(".pageChat-option-pfp");
+		if (!!pfp) pfpElem.src = pfp;
+		else pfpElem.src = "/assets/images/unknown.webp";
+		pfpElem.alt = name + "'s profile picture";
 
 		optionElem.addEventListener("click", function () {
 			window.currentChat = {
