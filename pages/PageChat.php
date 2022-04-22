@@ -19,7 +19,7 @@
 							<span class="pageChat-option-date"></span>
 						</p>
 					</div>
-					<button class="icon-btn icon-btn-right pageChat-option-quickAction" aria-label="Send a picture to Name">&rarr;</button>
+					<button class="icon-btn icon-btn-right pageChat-option-quickAction" aria-hidden="true" tabindex="-1">&rarr;</button>
 				</li>
 			</template>
 		</ul>
