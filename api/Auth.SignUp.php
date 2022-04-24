@@ -7,6 +7,10 @@ $password2 = $_POST["password2"];
 
 if (empty($email) || empty($password))
 	respond("Email or password missing", false);
+if (strlen($email) > 50)
+	respond("Email too long", false);
+if (strlen($password) < 8)
+	respond("Password too short", false);
 if (!empty($password2) && $password != $password2)
 	respond("Passwords do not match", false);
 

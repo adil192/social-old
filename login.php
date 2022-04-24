@@ -58,19 +58,19 @@ include_once "global_tools.php";
             <div class="mb-3">
                 <label for="signupEmailInput" class="form-label">Email address</label>
                 <input class="form-control"
-                       type="email" required
+                       type="email" required maxlength="50"
                        id="signupEmailInput" name="email">
             </div>
             <div class="mb-3">
                 <label for="signupPasswordInput" class="form-label">Password</label>
                 <input class="form-control"
-                       type="password" required
+                       type="password" required minlength="8"
                        id="signupPasswordInput" name="password">
             </div>
             <div class="mb-3">
                 <label for="signupPasswordInput2" class="form-label">Password (again)</label>
                 <input class="form-control"
-                       type="password" required
+                       type="password" required minlength="8"
                        id="signupPasswordInput2" name="password2">
             </div>
             <p class="form-error"></p>
