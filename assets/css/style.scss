@@ -170,13 +170,16 @@ html, body, .page {
 	}
 }
 
-.portraitArea {
+.portraitArea,
+.page-footer {
 	width: 100%;
 	max-width: max(50vh, 700px);
-	height: 100%;
 	margin: auto;
 	overflow-x: hidden;
+}
+.portraitArea {
 	overflow-y: auto;
+	height: 100%;
 }
 
 .input-group {
