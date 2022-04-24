@@ -46,7 +46,10 @@ include_once "global_tools.php";
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <br>
-        <p>Don't have an account? Swipe right to sign up!</p>
+        <p>
+            Don't have an account? Swipe right to sign up!
+            <a href="#pageSignup" class="icon-btn icon-btn-inline icon-btn-right">&rarr;</a>
+        </p>
     </div>
 </div>
 <div class="page" id="pageSignup">

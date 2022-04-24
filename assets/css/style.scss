@@ -68,6 +68,11 @@ html, body, .page {
 		opacity: 0.99;
 	}
 
+	&.icon-btn-inline {
+		font-size: inherit;
+		display: inline-block; // inline-block enables rotation
+	}
+
 	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout, &.icon-btn-upload {
 		min-width: 1em;
 		background: url("/assets/images/icons/larr.svg") no-repeat center center;
