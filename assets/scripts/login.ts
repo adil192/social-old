@@ -7,7 +7,9 @@ class PageLogin extends Page {
 	loginForm: HTMLFormElement;
 	loginEmailInput: HTMLInputElement;
 	loginPasswordInput: HTMLInputElement;
+	loginArrow: HTMLAnchorElement;
 
+	signupPage: HTMLDivElement;
 	signupForm: HTMLFormElement;
 	signupEmailInput: HTMLInputElement;
 	signupPasswordInput: HTMLInputElement;
@@ -24,7 +26,9 @@ class PageLogin extends Page {
 		this.loginForm = document.querySelector("#loginForm");
 		this.loginEmailInput = document.querySelector("#loginEmailInput");
 		this.loginPasswordInput = document.querySelector("#loginPasswordInput");
+		this.loginArrow = document.querySelector("#loginArrow");
 
+		this.signupPage = document.querySelector("#pageSignup");
 		this.signupForm = document.querySelector("#signupForm");
 		this.signupEmailInput = document.querySelector("#signupEmailInput");
 		this.signupPasswordInput = document.querySelector("#signupPasswordInput");
@@ -42,6 +46,13 @@ class PageLogin extends Page {
 			e.preventDefault();
 			this.submitForm(this.signupForm);
 		}
+
+		this.loginArrow.addEventListener("click", (e) => {
+			e.preventDefault();
+			this.signupPage.scrollIntoView({
+				behavior: "smooth"
+			});
+		})
 	}
 
 	doSignupPasswordsMatch() {

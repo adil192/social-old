@@ -48,7 +48,7 @@ include_once "global_tools.php";
         <br>
         <p>
             Don't have an account? Swipe right to sign up!
-            <a href="#pageSignup" class="icon-btn icon-btn-inline icon-btn-right">&rarr;</a>
+            <a href="#pageSignup" class="icon-btn icon-btn-inline icon-btn-right" id="loginArrow">&rarr;</a>
         </p>
     </div>
 </div>
