@@ -14,6 +14,10 @@ $username = $_POST["Username"] ?? $_SESSION["userName"];
 $bio = $_POST["Bio"] ?? "";
 $pronouns = $_POST["Pronouns"] ?? "";
 
+// validation
+if (!preg_match("/[a-z0-9.\-_]{2,30}/i", $username)) respond("Invalid username", false);
+if (strlen($pronouns) > 20) respond("Pronouns too long", false);
+
 $stmt = $conn->prepare("UPDATE User SET Username=?, Bio=?, Pronouns=? WHERE UserId=?");
 $stmt->execute([$username, $bio, $pronouns, $_SESSION["userId"]]);
 
