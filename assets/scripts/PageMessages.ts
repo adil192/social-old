@@ -366,7 +366,8 @@ export class PageMessages extends Page {
 	}
 	private isNearBottom(ratio: number = 0.3) {
 		let maxOffset = Math.max(this.messagesElem.offsetHeight * ratio, 350);
-		return this.messagesElem.scrollHeight - this.messagesElem.scrollTop > maxOffset;
+		let scrollHeightUnderViewport = this.messagesElem.scrollHeight - this.messagesElem.scrollTop - this.messagesElem.offsetHeight;
+		return scrollHeightUnderViewport < maxOffset;
 	}
 
 	private static parseTimestamp(timestamp: number): [string, string, string] {
