@@ -73,14 +73,17 @@ html, body, .page {
 		display: inline-block; // inline-block enables rotation
 	}
 
-	&.icon-btn-left, &.icon-btn-right, &.icon-btn-refresh, &.icon-btn-logout, &.icon-btn-upload {
+	&.icon-btn-left, &.icon-btn-right, &.icon-btn-up, &.icon-btn-down, &.icon-btn-refresh, &.icon-btn-logout, &.icon-btn-upload {
 		min-width: 1em;
 		background: url("/assets/images/icons/larr.svg") no-repeat center center;
 		background-size: contain;
 		color: transparent;
 		align-self: center;
 	}
-	&.icon-btn-right {
+	&.icon-btn-up, &.icon-btn-down {
+		background: url("/assets/images/icons/uparr.svg") no-repeat center center;
+	}
+	&.icon-btn-right, &.icon-btn-down {
 		transform: rotate(180deg);
 	}
 	&.icon-btn-refresh {
