@@ -32,6 +32,7 @@
 
                 <li class="lastRead-text">Read</li>
             </ul>
+            <button class="icon-btn icon-btn-down scrollToBottomIndicator">&nbsp;</button>
         </div>
 		<form method="post" id="pageMessagesInputForm">
 			<div class="input-group">

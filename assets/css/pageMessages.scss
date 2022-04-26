@@ -19,6 +19,20 @@
 		flex: 1;
 		overflow: hidden;
 		position: relative;
+
+		.scrollToBottomIndicator {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			opacity: 0;
+			transform: translateX(-50%) rotate(180deg);
+			pointer-events: none;
+
+			&.show {
+				opacity: initial;
+				pointer-events: initial;
+			}
+		}
 	}
 	ul#pageMessages-messages {
 		height: 100%;

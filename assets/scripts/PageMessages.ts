@@ -1,4 +1,4 @@
-import {Page} from "./Page";
+import {Page, PageState} from "./Page";
 import {Meta, Networker} from "./Networker";
 import {Session} from "./Session";
 
@@ -35,6 +35,7 @@ export class PageMessages extends Page {
 	messageTemplate: HTMLTemplateElement;
 	imageTemplate: HTMLTemplateElement;
 	daySeparatorTemplate: HTMLTemplateElement;
+	scrollToBottomIndicator: HTMLDivElement;
 
 	inputForm: HTMLFormElement;
 	input: HTMLTextAreaElement;
@@ -65,6 +66,7 @@ export class PageMessages extends Page {
 		this.messageTemplate = this.pageElem.querySelector("#pageMessages-message-template");
 		this.imageTemplate = this.pageElem.querySelector("#pageMessages-image-template");
 		this.daySeparatorTemplate = this.pageElem.querySelector("#pageMessages-daySeparator-template");
+		this.scrollToBottomIndicator = this.pageElem.querySelector(".scrollToBottomIndicator");
 
 		this.inputForm = this.pageElem.querySelector("#pageMessagesInputForm");
 		this.input = this.pageElem.querySelector("#pageMessagesInput");
@@ -78,9 +80,15 @@ export class PageMessages extends Page {
 			await this.onMediaUpload();
 		});
 
-		// if near the bottom, keep scroll position at the bottom
 		window.addEventListener("resize", () => {
+			// if near the bottom, keep scroll position at the bottom
 			if (this.isNearBottom()) this.scrollToBottom();
+		});
+		this.messagesElem.addEventListener("scroll", () => {
+			this.updateScrollToBottomIndicator();
+		});
+		this.scrollToBottomIndicator.addEventListener("click", () => {
+			this.scrollToBottom();
 		});
 
 		window.pageMessages = {
@@ -356,6 +364,14 @@ export class PageMessages extends Page {
 		}
 	}
 
+	private updateScrollToBottomIndicator() {
+		if (this.needsScrollToBottomIndicator()) {
+			this.scrollToBottomIndicator.classList.add("show");
+		} else {
+			this.scrollToBottomIndicator.classList.remove("show");
+		}
+	}
+
 	private static formatUsername(username: string): string {
 		if (username.length > 15) return username.substring(0, 13) + "...";
 		return username;
@@ -364,10 +380,16 @@ export class PageMessages extends Page {
 	private scrollToBottom() {
 		this.messagesElem.scrollTo(0, this.messagesElem.scrollHeight);
 	}
+	private scrollHeightUnderViewport() {
+		return this.messagesElem.scrollHeight - this.messagesElem.scrollTop - this.messagesElem.offsetHeight;
+	}
 	private isNearBottom(ratio: number = 0.3) {
-		let maxOffset = Math.max(this.messagesElem.offsetHeight * ratio, 350);
-		let scrollHeightUnderViewport = this.messagesElem.scrollHeight - this.messagesElem.scrollTop - this.messagesElem.offsetHeight;
-		return scrollHeightUnderViewport < maxOffset;
+		const maxOffset = Math.max(this.messagesElem.offsetHeight * ratio, 350);
+		return this.scrollHeightUnderViewport() < maxOffset;
+	}
+	private needsScrollToBottomIndicator() {
+		const minOffset = Math.max(this.messagesElem.offsetHeight, 350);
+		return this.scrollHeightUnderViewport() > minOffset && this.pageState == PageState.Opened;
 	}
 
 	private static parseTimestamp(timestamp: number): [string, string, string] {
