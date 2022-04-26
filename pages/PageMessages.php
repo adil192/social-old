@@ -6,31 +6,33 @@
 	</div>
 	<div class="page-backdrop"></div>
 	<div class="portraitArea">
-		<ul id="pageMessages-messages">
-			<template id="pageMessages-message-template">
-				<li class="pageMessages-clearable pageMessages-message">
-					<span class="pageMessages-message-text"></span>
-					<div class="pageMessages-message-footer">
-						<span class="pageMessages-message-sender"></span>
-						<span class="pageMessages-message-time"></span>
-					</div>
-				</li>
-			</template>
-			<template id="pageMessages-image-template">
-				<li class="pageMessages-clearable pageMessages-message pageMessages-image">
-					<img width="1000" height="1000" loading="lazy" onclick="window.pageMessages.expandImage(this);">
-					<div class="pageMessages-message-footer">
-						<span class="pageMessages-message-sender"></span>
-						<span class="pageMessages-message-time"></span>
-					</div>
-				</li>
-			</template>
-			<template id="pageMessages-daySeparator-template">
-				<li class="pageMessages-clearable pageMessages-daySeparator"></li>
-			</template>
+        <div class="pageMessages-messages-parent">
+            <ul id="pageMessages-messages">
+                <template id="pageMessages-message-template">
+                    <li class="pageMessages-clearable pageMessages-message">
+                        <span class="pageMessages-message-text"></span>
+                        <div class="pageMessages-message-footer">
+                            <span class="pageMessages-message-sender"></span>
+                            <span class="pageMessages-message-time"></span>
+                        </div>
+                    </li>
+                </template>
+                <template id="pageMessages-image-template">
+                    <li class="pageMessages-clearable pageMessages-message pageMessages-image">
+                        <img width="1000" height="1000" loading="lazy" onclick="window.pageMessages.expandImage(this);">
+                        <div class="pageMessages-message-footer">
+                            <span class="pageMessages-message-sender"></span>
+                            <span class="pageMessages-message-time"></span>
+                        </div>
+                    </li>
+                </template>
+                <template id="pageMessages-daySeparator-template">
+                    <li class="pageMessages-clearable pageMessages-daySeparator"></li>
+                </template>
 
-			<li class="lastRead-text">Read</li>
-		</ul>
+                <li class="lastRead-text">Read</li>
+            </ul>
+        </div>
 		<form method="post" id="pageMessagesInputForm">
 			<div class="input-group">
 				<textarea id="pageMessagesInput" aria-label="Send a message..." placeholder="Send a message..." rows="1" required minlength="1"></textarea>

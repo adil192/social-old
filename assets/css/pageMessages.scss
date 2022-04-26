@@ -15,8 +15,13 @@
 		flex-flow: column nowrap;
 	}
 
-	ul#pageMessages-messages {
+	.pageMessages-messages-parent {
 		flex: 1;
+		overflow: hidden;
+		position: relative;
+	}
+	ul#pageMessages-messages {
+		height: 100%;
 		overflow-x: hidden;
 		overflow-y: auto;
 		scroll-behavior: smooth;
