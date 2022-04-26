@@ -8,7 +8,7 @@
 	<div class="portraitArea">
 		<ul id="pageMessages-messages">
 			<template id="pageMessages-message-template">
-				<li class="pageMessages-message">
+				<li class="pageMessages-clearable pageMessages-message">
 					<span class="pageMessages-message-text"></span>
 					<div class="pageMessages-message-footer">
 						<span class="pageMessages-message-sender"></span>
@@ -17,7 +17,7 @@
 				</li>
 			</template>
 			<template id="pageMessages-image-template">
-				<li class="pageMessages-message pageMessages-image">
+				<li class="pageMessages-clearable pageMessages-message pageMessages-image">
 					<img width="1000" height="1000" loading="lazy" onclick="window.pageMessages.expandImage(this);">
 					<div class="pageMessages-message-footer">
 						<span class="pageMessages-message-sender"></span>
@@ -26,7 +26,7 @@
 				</li>
 			</template>
 			<template id="pageMessages-daySeparator-template">
-				<li class="pageMessages-daySeparator"></li>
+				<li class="pageMessages-clearable pageMessages-daySeparator"></li>
 			</template>
 
 			<li class="lastRead-text">Read</li>

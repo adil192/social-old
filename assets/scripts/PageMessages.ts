@@ -199,7 +199,7 @@ export class PageMessages extends Page {
 	}
 
 	clearMessages() {
-		this.messagesElem.querySelectorAll('li:not(.lastRead-text)').forEach(e => e.remove());
+		this.messagesElem.querySelectorAll('li.pageMessages-clearable').forEach(e => e.remove());
 	}
 
 	async loadMessages() {
