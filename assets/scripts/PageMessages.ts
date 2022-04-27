@@ -165,8 +165,8 @@ export class PageMessages extends Page {
 		let dy = (messagesRect.top + messagesRect.height / 2) - (imageRect.top + imageRect.height / 2);
 
 		let scale = Math.min(
-			bodyRect.width / imageRect.width,
-			bodyRect.height / imageRect.height
+			messagesRect.width / imageRect.width,
+			messagesRect.height / imageRect.height
 		);
 
 		return `translate(${dx}px, ${dy}px) scale(${scale})`;
