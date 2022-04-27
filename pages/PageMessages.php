@@ -4,7 +4,6 @@
         <img class="pageMessages-pfp" src="/assets/images/unknown.webp" alt="Profile picture">
 		<h1><a href="#Profile" class="pageMessages-chatDisplayName">Chat</a></h1>
 	</div>
-	<div class="page-backdrop"></div>
 	<div class="portraitArea">
         <div class="pageMessages-messages-parent">
             <ul id="pageMessages-messages">
@@ -45,4 +44,5 @@
 			</div>
 		</form>
 	</div>
+    <div class="page-backdrop"></div>
 </div>
