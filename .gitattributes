@@ -1,0 +1,2 @@
+ext/* linguist-vendored
+pages/*.php linguist-language=HTML+PHP
