@@ -30,6 +30,9 @@
 			transition-property: transform, opacity;
 			pointer-events: none;
 
+			@media (prefers-reduced-motion) {
+				transform: translate(-50%, 0) rotate(180deg);
+			}
 			&.show {
 				opacity: initial;
 				transform: translate(-50%, 0) rotate(180deg);
