@@ -1,4 +1,6 @@
 interface Window {
+	prefersReducedMotion: boolean;
+
 	openPage(id: string);
 
 	currentChat?: {

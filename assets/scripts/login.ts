@@ -22,6 +22,12 @@ class PageLogin extends Page {
 			PageLogin.goToIndex();
 			return;
 		}
+		
+		const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		window.prefersReducedMotion = prefersReducedMotionQuery.matches;
+		prefersReducedMotionQuery.addEventListener('change', () => {
+			window.prefersReducedMotion = prefersReducedMotionQuery.matches;
+		});
 
 		this.loginForm = document.querySelector("#loginForm");
 		this.loginEmailInput = document.querySelector("#loginEmailInput");
@@ -50,7 +56,7 @@ class PageLogin extends Page {
 		this.loginArrow.addEventListener("click", (e) => {
 			e.preventDefault();
 			this.signupPage.scrollIntoView({
-				behavior: "smooth"
+				behavior: window.prefersReducedMotion ? "auto" : "smooth"
 			});
 		})
 	}

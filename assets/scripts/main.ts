@@ -31,6 +31,12 @@ window.addEventListener("load", function() {
 		return;
 	}
 
+	const prefersReducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	window.prefersReducedMotion = prefersReducedMotionQuery.matches;
+	prefersReducedMotionQuery.addEventListener('change', () => {
+		window.prefersReducedMotion = prefersReducedMotionQuery.matches;
+	});
+
 	body = document.querySelector("body");
 
 	document.querySelectorAll(".page-header-backBtn").forEach(backBtn => {
@@ -130,7 +136,7 @@ window.onhashchange = function () {
 		if (!isPreviousAnOverlay) { // swiping page to swiping page transition
 			stopObserver(); // observer is re-enabled after openCompleteTimeout
 			page.scrollIntoView({
-				behavior: "smooth"
+				behavior: window.prefersReducedMotion ? "auto" : "smooth"
 			});
 		}
 	}
