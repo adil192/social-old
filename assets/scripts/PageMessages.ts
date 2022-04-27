@@ -103,6 +103,9 @@ export class PageMessages extends Page {
 	}
 	expandImage(image: HTMLImageElement) {
 		clearTimeout(this.expandImageTimeout);
+
+		if (window.prefersReducedMotion) return this.expandImageReducedMotion(image);
+
 		if (image.classList.contains("expand")) {
 			this.expandedImage = null;
 
@@ -154,6 +157,22 @@ export class PageMessages extends Page {
 				image.style.transform = null;
 				image.classList.add("post-expand");
 			}, 300);
+		}
+	}
+	private expandImageReducedMotion(image: HTMLImageElement) {
+		if (image.classList.contains("expand")) {
+			this.expandedImage = null;
+			this.backdrop.classList.remove("page-backdrop-show");
+			image.classList.remove("pre-expand", "expand", "post-expand");
+			image.style.transform = null;
+		} else {
+			if (!!this.expandedImage) {
+				this.expandedImage.classList.remove("pre-expand", "expand", "post-expand");
+				this.expandedImage.style.transform = null;
+				this.expandedImage = image;
+			}
+			image.classList.add("expand", "post-expand");
+			this.backdrop.classList.add("page-backdrop-show");
 		}
 	}
 	private _getExpandTransform(image: HTMLImageElement): string {
