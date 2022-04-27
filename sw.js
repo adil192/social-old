@@ -4,7 +4,7 @@ importScripts(
 );
 
 // Cache name has a timestamp because the browser re-caches the assets when the service worker file is modified
-const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-22-1835";
+const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-27-1757";
 const userMediaCacheName = "SocialMediaDemo-user-media-cache";
 
 const localUrlPrefix = "https://social.adil.hanney.org";
@@ -29,7 +29,11 @@ self.addEventListener('install', (evt) => {
 			// non-essential cache items (don't await)
 			cache.addAll([
 				'/assets/images/icons/larr.svg',
+				'/assets/images/icons/logout.svg',
+				'/assets/images/icons/picture.svg',
+				'/assets/images/icons/refresh.svg',
 				'/assets/images/icons/uparr.svg',
+				'/assets/images/icons/upload.svg',
 				'/assets/images/transparent.webp',
 				'/assets/images/unknown.webp',
 
@@ -63,6 +67,8 @@ self.addEventListener('install', (evt) => {
 				'/assets/scripts/PageChat',
 				'/assets/scripts/PageFeed',
 				'/assets/scripts/PageMessages',
+				'/assets/scripts/PageProfile',
+				'/assets/scripts/PageProfileEdit',
 				'/assets/scripts/PageSearch',
 				'/assets/scripts/Session',
 			]);
