@@ -7,7 +7,7 @@ importScripts(
 const staticCacheName = "SocialMediaDemo-static-cache-" + "22-04-27-1757";
 const userMediaCacheName = "SocialMediaDemo-user-media-cache";
 
-const localUrlPrefix = "https://social.adil.hanney.org";
+const localUrlPrefix = "https://old.social.adil.hanney.org";
 const apiUrlPrefix = localUrlPrefix + "/api";
 const userMediaUrlPrefix = localUrlPrefix + "/assets/images/user-media";
 

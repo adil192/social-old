@@ -5,7 +5,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "https://social.adil.hanney.org/",
+  "scope": "https://old.social.adil.hanney.org/",
   "start_url": "/",
   "icons": [
     {

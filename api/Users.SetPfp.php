@@ -18,13 +18,13 @@ if (!empty($_FILES)) {
 		respond("Invalid file format: " . $extension, false);
 
 	// save uploaded file to random filename
-	$tempnam = tempnam("/home/guidedre/social.adil.hanney.org/assets/images/user-media", "");
+	$tempnam = tempnam("/home/guidedre/old.social.adil.hanney.org/assets/images/user-media", "");
 	move_uploaded_file($_FILES['file']['tmp_name'], "$tempnam.$extension");
 
 	// resize image to max 1000px (and resave as webp)
 	[$width, $height] = resizeImage($tempnam, $extension, 1000);
 
-	$public_url = "https://social.adil.hanney.org/assets/images/user-media/" . pathinfo($tempnam, PATHINFO_BASENAME) . ".webp";
+	$public_url = "https://old.social.adil.hanney.org/assets/images/user-media/" . pathinfo($tempnam, PATHINFO_BASENAME) . ".webp";
 }
 
 // update pfp
